@@ -1,4 +1,4 @@
-define('partials/Box', [
+define('widgets/Box', [
         'famous/core/Modifier',
         'famous/core/Surface',
         'famous/core/OptionsManager',
@@ -168,8 +168,8 @@ define('partials/Box', [
 
 //     define(function(){
 
-//         var ReactiveSurface = require('partials/ReactiveSurface');
-//         var Box             = require('partials/Box');
+//         var ReactiveSurface = require('widgets/ReactiveSurface');
+//         var Box             = require('widgets/Box');
 //         var Engine          = require("famous/core/Engine");
 //         var Easing          = require('famous/transitions/Easing');
 //         var mainContext     = Engine.createContext();
@@ -217,8 +217,8 @@ define('partials/Box', [
 
 //     define(function(){
 
-//         var ReactiveSurface = require('partials/ReactiveSurface');
-//         var Box             = require('partials/Box');
+//         var ReactiveSurface = require('widgets/ReactiveSurface');
+//         var Box             = require('widgets/Box');
 //         var Engine          = require("famous/core/Engine");
 //         var Easing          = require('famous/transitions/Easing');
 //         var mainContext     = Engine.createContext();

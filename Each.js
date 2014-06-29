@@ -3,7 +3,7 @@ isCursor = function (c) {
     return c && c.observe;
 };
 
-define('partials/Each', [
+define('widgets/Each', [
         'famous/core/ViewSequence',
         'famous/core/Modifier',
         'famous/core/Surface',
@@ -213,7 +213,7 @@ Meteor.startup(function(){
         var Engine     = require("famous/core/Engine");
         var Surface    = require("famous/core/Surface");
         var Scrollview = require("famous/views/Scrollview");
-        var Each       = require('partials/Each')
+        var Each       = require('widgets/Each')
         var mainContext = Engine.createContext();
 
         var scrollview = new Scrollview();
@@ -256,8 +256,8 @@ Meteor.startup(function(){
         var Engine     = require("famous/core/Engine");
         var Surface    = require("famous/core/Surface");
         var Scrollview = require("famous/views/Scrollview");
-        var Each       = require('partials/Each');
-        var Box        = require('partials/Box');
+        var Each       = require('widgets/Each');
+        var Box        = require('widgets/Box');
         
         var mainContext = Engine.createContext();
 

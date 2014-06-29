@@ -1,5 +1,5 @@
 /*** ReactiveSurface.js ***/
-define('partials/ReactiveSurface', [
+define('widgets/ReactiveSurface', [
         'famous/core/Surface',
     ], function(require, exports, module){
         var Surface             = require('famous/core/Surface');
@@ -51,11 +51,11 @@ define('partials/ReactiveSurface', [
 Meteor.startup(function(){
     Session.setDefault('session', 'value');
     define([
-        'partials/ReactiveSurface',
+        'widgets/ReactiveSurface',
         'famous/core/Engine',
         'famous/core/Modifier'
     ], function(){
-        var ReactiveSurface = require('partials/ReactiveSurface');
+        var ReactiveSurface = require('widgets/ReactiveSurface');
         var Engine          = require('famous/core/Engine');
         var Modifier        = require('famous/core/Modifier');
 
@@ -104,11 +104,11 @@ Meteor.startup(function(){
         text: 'cookie'
     });
     define([
-        'partials/ReactiveSurface',
+        'widgets/ReactiveSurface',
         'famous/core/Engine',
         'famous/core/Modifier'
     ], function(){
-        var ReactiveSurface = require('partials/ReactiveSurface');
+        var ReactiveSurface = require('widgets/ReactiveSurface');
         var Engine          = require('famous/core/Engine');
         var Modifier        = require('famous/core/Modifier');
 

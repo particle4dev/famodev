@@ -1,4 +1,4 @@
-define('partials/Scrollview2', [
+define('widgets/Scrollview2', [
     'famous/views/Scrollview',
     'famous/core/Surface',
     'famous/core/RenderNode'
@@ -96,7 +96,7 @@ define('partials/Scrollview2', [
 //     define(function(require, exports, module) {
 //         var Engine     = require("famous/core/Engine");
 //         var Surface    = require("famous/core/Surface");
-//         var Scrollview = require('partials/Scrollview2');
+//         var Scrollview = require('widgets/Scrollview2');
 
 //         var mainContext = Engine.createContext();
 
