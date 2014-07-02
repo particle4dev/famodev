@@ -1,15 +1,4 @@
-define('famodev/Box', [
-        'famous/core/Modifier',
-        'famous/core/Surface',
-        'famous/core/OptionsManager',
-        'famous/core/RenderNode',
-        'famous/core/Transform',
-        'famous/utilities/Utility',
-        'famous/transitions/Transitionable',
-        'famous/transitions/TransitionableTransform',
-        'famous/transitions/Easing'
-        
-    ], function (require, exports, module) {
+define(function (require, exports, module) {
 
         var Modifier        = require('famous/core/Modifier');
         var Surface         = require('famous/core/Surface');

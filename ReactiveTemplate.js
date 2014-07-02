@@ -1,7 +1,4 @@
-/*** ReactiveTemplate.js ***/
-define('famodev/ReactiveTemplate', [
-        'famous/core/Surface',
-    ], function(require, exports, module){
+define(function(require, exports, module){
         var Surface             = require('famous/core/Surface');
 
         function ReactiveTemplate (options){

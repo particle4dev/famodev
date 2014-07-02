@@ -1,14 +1,7 @@
 isCursor = function (c) {
     return c && c.observe;
 };
-define('famodev/Each', [
-        'famous/core/ViewSequence',
-        'famous/core/Modifier',
-        'famous/core/Surface',
-        'famous/core/RenderNode',
-        'famous/core/Transform',
-        'famous/transitions/Transitionable'
-    ], function (require, exports, module) {
+define(function (require, exports, module) {
 
         var ViewSequence    = require('famous/core/ViewSequence');
         var Modifier        = require('famous/core/Modifier');
