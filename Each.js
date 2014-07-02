@@ -1,9 +1,7 @@
-
 isCursor = function (c) {
     return c && c.observe;
 };
-
-define('widgets/Each', [
+define('famodev/Each', [
         'famous/core/ViewSequence',
         'famous/core/Modifier',
         'famous/core/Surface',
@@ -213,7 +211,7 @@ Meteor.startup(function(){
         var Engine     = require("famous/core/Engine");
         var Surface    = require("famous/core/Surface");
         var Scrollview = require("famous/views/Scrollview");
-        var Each       = require('widgets/Each')
+        var Each       = require('famodev/Each')
         var mainContext = Engine.createContext();
 
         var scrollview = new Scrollview();
@@ -241,66 +239,66 @@ Meteor.startup(function(){
 });
 */
 // with database
-Meteor.startup(function(){
+// Meteor.startup(function(){
 
-    Items = new Meteor.Collection('items',{
-        connection: null
-    });
-    for (var i = 0; i < 40; i++)
-        Items.insert({
-            _id: 'test' + i,
-            text: 'cookie' + i
-        });
+//     Items = new Meteor.Collection('items',{
+//         connection: null
+//     });
+//     for (var i = 0; i < 40; i++)
+//         Items.insert({
+//             _id: 'test' + i,
+//             text: 'cookie' + i
+//         });
 
-    define(function(require, exports, module) {
-        var Engine     = require("famous/core/Engine");
-        var Surface    = require("famous/core/Surface");
-        var Scrollview = require("famous/views/Scrollview");
-        var Each       = require('widgets/Each');
-        var Box        = require('widgets/Box');
+//     define(function(require, exports, module) {
+//         var Engine     = require("famous/core/Engine");
+//         var Surface    = require("famous/core/Surface");
+//         var Scrollview = require("famous/views/Scrollview");
+//         var Each       = require('famodev/Each');
+//         var Box        = require('famodev/Box');
         
-        var mainContext = Engine.createContext();
+//         var mainContext = Engine.createContext();
 
-        var scrollview = new Scrollview();
-        var each = new Each({
-            data: Items.find({}, {sort: {
-                text: 1
-            }}),
-            scrollview: scrollview
-        });
-        scrollview.sequenceFrom(each);
+//         var scrollview = new Scrollview();
+//         var each = new Each({
+//             data: Items.find({}, {sort: {
+//                 text: 1
+//             }}),
+//             scrollview: scrollview
+//         });
+//         scrollview.sequenceFrom(each);
 
-        mainContext.add(scrollview);
+//         mainContext.add(scrollview);
 
-        Meteor.setTimeout(function(){
-            Items.update('test1', {$set: {text: 'cookie'}});
-        }, 3000);
+//         Meteor.setTimeout(function(){
+//             Items.update('test1', {$set: {text: 'cookie'}});
+//         }, 3000);
 
-        Meteor.setTimeout(function(){
-            Items.remove('test3');
-        }, 4000);
+//         Meteor.setTimeout(function(){
+//             Items.remove('test3');
+//         }, 4000);
 
-        Meteor.setTimeout(function(){
-            each.increaseSpace(1, 200, {duration: 500, curve: "easeIn"}, function(){
-                var sur = new Surface({
-                        content: "newItem._id",
-                        size: [undefined, 200],
-                        properties: {
-                            backgroundColor: "hsl(" + (0 * 360 / 40) + ", 100%, 50%)",
-                            lineHeight: "200px",
-                            textAlign: "center"
-                        }
-                    });
-                sur.pipe(scrollview);
-                var box = new Box({
-                    inOrigin: [0, 0],
-                    outOrigin: [0, 0],
-                    showOrigin: [0, 0],
-                });
-                box.addRenderable(sur);
-                each.splice(2, 0, box);
-                box.show();
-            });
-        }, 5000);
-    });
-});
+//         Meteor.setTimeout(function(){
+//             each.increaseSpace(1, 200, {duration: 500, curve: "easeIn"}, function(){
+//                 var sur = new Surface({
+//                         content: "newItem._id",
+//                         size: [undefined, 200],
+//                         properties: {
+//                             backgroundColor: "hsl(" + (0 * 360 / 40) + ", 100%, 50%)",
+//                             lineHeight: "200px",
+//                             textAlign: "center"
+//                         }
+//                     });
+//                 sur.pipe(scrollview);
+//                 var box = new Box({
+//                     inOrigin: [0, 0],
+//                     outOrigin: [0, 0],
+//                     showOrigin: [0, 0],
+//                 });
+//                 box.addRenderable(sur);
+//                 each.splice(2, 0, box);
+//                 box.show();
+//             });
+//         }, 5000);
+//     });
+// });

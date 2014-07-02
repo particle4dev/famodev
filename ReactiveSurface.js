@@ -1,5 +1,5 @@
 /*** ReactiveSurface.js ***/
-define('widgets/ReactiveSurface', [
+define('famodev/ReactiveSurface', [
         'famous/core/Surface',
     ], function(require, exports, module){
         var Surface             = require('famous/core/Surface');
@@ -47,101 +47,99 @@ define('widgets/ReactiveSurface', [
         module.exports = ReactiveSurface;
 });
 // with session
-/**
-Meteor.startup(function(){
-    Session.setDefault('session', 'value');
-    define([
-        'widgets/ReactiveSurface',
-        'famous/core/Engine',
-        'famous/core/Modifier'
-    ], function(){
-        var ReactiveSurface = require('widgets/ReactiveSurface');
-        var Engine          = require('famous/core/Engine');
-        var Modifier        = require('famous/core/Modifier');
 
-        var mainContext = Engine.createContext();
-        var sur = new ReactiveSurface({
-            size: [200, 200],
-            properties: {
-                textAlign: 'center',
-                color: 'white',
-                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                fontWeight: '200',
-                fontSize: '16px',
-                lineHeight: "200px",
-                background: 'red'
-            },
-            content: function(){
-                return Session.get('session');
-            }
-        });
+// Meteor.startup(function(){
+//     Session.setDefault('session', 'value');
+//     define([
+//         'famodev/ReactiveSurface',
+//         'famous/core/Engine',
+//         'famous/core/Modifier'
+//     ], function(){
+//         var ReactiveSurface = require('famodev/ReactiveSurface');
+//         var Engine          = require('famous/core/Engine');
+//         var Modifier        = require('famous/core/Modifier');
 
-        var mod = new Modifier({
-            origin: [.5, .5]
-        });
+//         var mainContext = Engine.createContext();
+//         var sur = new ReactiveSurface({
+//             size: [200, 200],
+//             properties: {
+//                 textAlign: 'center',
+//                 color: 'white',
+//                 fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+//                 fontWeight: '200',
+//                 fontSize: '16px',
+//                 lineHeight: "200px",
+//                 background: 'red'
+//             },
+//             content: function(){
+//                 return Session.get('session');
+//             }
+//         });
 
-        sur.on('changed', function(data){
-            console.log(data);
-            mod.setTransform(Transform.translate(10, 0, 0), {duration: 500, curve: "easeIn"});
-        });
+//         var mod = new Modifier({
+//             origin: [.5, .5]
+//         });
 
-        mainContext.add(mod).add(sur);
-        Meteor.setTimeout(function(){
-            Session.set('session', 'value2');
-        }, 3000);
-    });
-});
-*/
+//         sur.on('changed', function(data){
+//             console.log(data);
+//             mod.setTransform(Transform.translate(10, 0, 0), {duration: 500, curve: "easeIn"});
+//         });
+
+//         mainContext.add(mod).add(sur);
+//         Meteor.setTimeout(function(){
+//             Session.set('session', 'value2');
+//         }, 3000);
+//     });
+// });
 
 //with database
-/**
-Meteor.startup(function(){
-    Items = new Meteor.Collection('items',{
-        connection: null
-    });
-    Items.insert({
-        _id: 'test',
-        text: 'cookie'
-    });
-    define([
-        'widgets/ReactiveSurface',
-        'famous/core/Engine',
-        'famous/core/Modifier'
-    ], function(){
-        var ReactiveSurface = require('widgets/ReactiveSurface');
-        var Engine          = require('famous/core/Engine');
-        var Modifier        = require('famous/core/Modifier');
 
-        var mainContext = Engine.createContext();
-        var sur = new ReactiveSurface({
-            size: [200, 200],
-            properties: {
-                textAlign: 'center',
-                color: 'white',
-                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                fontWeight: '200',
-                fontSize: '16px',
-                lineHeight: "200px",
-                background: 'red'
-            },
-            content: function(){
-                return Items.findOne('test').text;
-            }
-        });
+// Meteor.startup(function(){
+//     Items = new Meteor.Collection('items',{
+//         connection: null
+//     });
+//     Items.insert({
+//         _id: 'test',
+//         text: 'cookie'
+//     });
+//     define([
+//         'famodev/ReactiveSurface',
+//         'famous/core/Engine',
+//         'famous/core/Modifier'
+//     ], function(){
+//         var ReactiveSurface = require('famodev/ReactiveSurface');
+//         var Engine          = require('famous/core/Engine');
+//         var Modifier        = require('famous/core/Modifier');
 
-        var mod = new Modifier({
-            origin: [.5, .5]
-        });
+//         var mainContext = Engine.createContext();
+//         var sur = new ReactiveSurface({
+//             size: [200, 200],
+//             properties: {
+//                 textAlign: 'center',
+//                 color: 'white',
+//                 fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+//                 fontWeight: '200',
+//                 fontSize: '16px',
+//                 lineHeight: "200px",
+//                 background: 'red'
+//             },
+//             content: function(){
+//                 return Items.findOne('test').text;
+//             }
+//         });
 
-        sur.on('changed', function(data){
-            console.log(data);
-            mod.setTransform(Transform.translate(10, 0, 0), {duration: 500, curve: "easeIn"});
-        });
+//         var mod = new Modifier({
+//             origin: [.5, .5]
+//         });
 
-        mainContext.add(mod).add(sur);
-        Meteor.setTimeout(function(){
-            Items.update('test', {$set: {text: 'cookie 2'}});
-        }, 3000);
-    });
-});
-*/
+//         sur.on('changed', function(data){
+//             console.log(data);
+//             mod.setTransform(Transform.translate(10, 0, 0), {duration: 500, curve: "easeIn"});
+//         });
+
+//         mainContext.add(mod).add(sur);
+//         Meteor.setTimeout(function(){
+//             Items.update('test', {$set: {text: 'cookie 2'}});
+//         }, 3000);
+//     });
+// });

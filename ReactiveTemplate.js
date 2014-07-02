@@ -1,5 +1,5 @@
 /*** ReactiveTemplate.js ***/
-define('widgets/ReactiveTemplate', [
+define('famodev/ReactiveTemplate', [
         'famous/core/Surface',
     ], function(require, exports, module){
         var Surface             = require('famous/core/Surface');
@@ -68,11 +68,11 @@ define('widgets/ReactiveTemplate', [
 // Meteor.startup(function(){
 //     Session.setDefault('session', 'value');
 //     define([
-//         'widgets/ReactiveTemplate',
+//         'famodev/ReactiveTemplate',
 //         'famous/core/Engine',
 //         'famous/core/Modifier'
 //     ], function(){
-//         var ReactiveTemplate    = require('widgets/ReactiveTemplate');
+//         var ReactiveTemplate    = require('famodev/ReactiveTemplate');
 //         var Engine              = require('famous/core/Engine');
 //         var Modifier            = require('famous/core/Modifier');
 

@@ -1,4 +1,4 @@
-define('widgets/Box', [
+define('famodev/Box', [
         'famous/core/Modifier',
         'famous/core/Surface',
         'famous/core/OptionsManager',
@@ -137,6 +137,47 @@ define('widgets/Box', [
             self._origin.set(this.options.showOrigin, transition, _cb);
         };
 
+        Box.prototype.popIn = function (transition, callback) {
+            var modifier = this._transform;
+            if (transition instanceof Function) {
+                callback = transition;
+                transition = undefined;
+            }
+            transition = transition ? transition : {
+                transition:         Easing.inOutExpoNorm,
+                duration:           500
+            };
+
+            modifier.halt();
+            modifier.set(
+                Transform.thenMove(
+                    Transform.scale( 0.000001, 0.000001, 0.000001),
+                    [window.innerWidth * 0.5, window.innerHeight * 0.5]));
+
+            modifier.set( Transform.identity, transition, callback);
+            this._origin.set(this.options.showOrigin, transition);
+            this._opacity.set(this.options.showOpacity, transition);
+        };
+
+        Box.prototype.popOut = function (transition, callback) {
+            var modifier = this._transform;
+            if (transition instanceof Function) {
+                callback = transition;
+                transition = undefined;
+            }
+            transition = transition ? transition : {
+                transition:     Easing.inOutExpoNorm,
+                duration:       500
+            };
+
+            modifier.halt();
+            modifier.set(
+                Transform.thenMove(Transform.scale( 0.000001, 0.000001),
+                    [window.innerWidth * 0.5, window.innerHeight * 0.5]),
+                transition,
+                callback
+            );
+        };
         /**
          * Generate a render spec from the contents of this component.
          *
@@ -168,8 +209,8 @@ define('widgets/Box', [
 
 //     define(function(){
 
-//         var ReactiveSurface = require('widgets/ReactiveSurface');
-//         var Box             = require('widgets/Box');
+//         var ReactiveSurface = require('famodev/ReactiveSurface');
+//         var Box             = require('famodev/Box');
 //         var Engine          = require("famous/core/Engine");
 //         var Easing          = require('famous/transitions/Easing');
 //         var mainContext     = Engine.createContext();
@@ -217,8 +258,8 @@ define('widgets/Box', [
 
 //     define(function(){
 
-//         var ReactiveSurface = require('widgets/ReactiveSurface');
-//         var Box             = require('widgets/Box');
+//         var ReactiveSurface = require('famodev/ReactiveSurface');
+//         var Box             = require('famodev/Box');
 //         var Engine          = require("famous/core/Engine");
 //         var Easing          = require('famous/transitions/Easing');
 //         var mainContext     = Engine.createContext();
@@ -251,7 +292,7 @@ define('widgets/Box', [
 //         });
 //         mainContext.add(box);
 //         box.addRenderable(sur);
-//         box.show({ duration: 650, curve: 'easeOut' }, function(){
+//         box.show(function(){
 //             console.log('show1');
 //         });
 //         Meteor.setTimeout(function(){
@@ -270,4 +311,42 @@ define('widgets/Box', [
 //             }, 1000);
 //         });
 //     }
+// });
+
+// Meteor.startup(function(){
+
+//     define(function(){
+
+//         var ReactiveSurface = require('famodev/ReactiveSurface');
+//         var Box             = require('famodev/Box');
+//         var Engine          = require("famous/core/Engine");
+//         var Easing          = require('famous/transitions/Easing');
+//         var mainContext     = Engine.createContext();
+
+//         var sur = new ReactiveSurface({
+//             size: [200, 200],
+//             properties: {
+//                 textAlign: 'center',
+//                 color: 'white',
+//                 fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+//                 fontWeight: '200',
+//                 fontSize: '16px',
+//                 lineHeight: "200px",
+//                 background: 'red'
+//             },
+//             content: function(){
+//                 return 'hello';
+//             }
+//         });
+//         var box = new Box({
+//         });
+//         mainContext.add(box);
+//         box.addRenderable(sur);
+//         box.show(function(){
+//             Meteor.setTimeout(function(){
+//                 box.popOut();
+//             }, 3000)
+//         });
+
+//     })
 // });

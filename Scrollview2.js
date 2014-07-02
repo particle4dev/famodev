@@ -1,4 +1,4 @@
-define('widgets/Scrollview2', [
+define('famodev/Scrollview2', [
     'famous/views/Scrollview',
     'famous/core/Surface',
     'famous/core/RenderNode'
@@ -96,7 +96,7 @@ define('widgets/Scrollview2', [
 //     define(function(require, exports, module) {
 //         var Engine     = require("famous/core/Engine");
 //         var Surface    = require("famous/core/Surface");
-//         var Scrollview = require('widgets/Scrollview2');
+//         var Scrollview = require('famodev/Scrollview2');
 
 //         var mainContext = Engine.createContext();
 
