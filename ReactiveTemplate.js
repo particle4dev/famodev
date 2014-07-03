@@ -37,7 +37,9 @@ define('famodev/ReactiveTemplate', [
         * @param {Node} target document parent of this container
         */
         ReactiveTemplate.prototype.deploy = function deploy(target) {
-            UI.insert(UI.render(this._template.extend({data: this._data})), target);
+            this._renderTmp = UI.render(this._template.extend({data: this._data}));
+            UI.insert(this._renderTmp, target);
+            console.log(this._renderTmp, 'this._renderTmp');
         };
 
         /**

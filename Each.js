@@ -7,6 +7,7 @@ define('famodev/Each', [
         'famous/core/Surface',
         'famous/core/RenderNode',
         'famous/core/Transform',
+        'famous/core/EventHandler',
         'famous/transitions/Transitionable'
     ], function (require, exports, module) {
 
@@ -15,10 +16,14 @@ define('famodev/Each', [
         var Surface         = require('famous/core/Surface');
         var RenderNode      = require('famous/core/RenderNode');
         var Transform       = require('famous/core/Transform');
+        var EventHandler    = require('famous/core/EventHandler');
         var Transitionable  = require('famous/transitions/Transitionable');
 
         function Each(optons) {
             this._beforeAddedFunction = Each.DEFAULT_BEFORE_ADDED;
+            this.eventHandler = new EventHandler();
+            this.eventHandler.bindThis(this);
+
             if(_.isObject(optons)){
                 if(optons.scrollview)
                     this._scrollview = optons.scrollview;
@@ -78,7 +83,73 @@ define('famodev/Each', [
             this._beforeAddedFunction = func;
             return this;
         };
-
+        /**
+         * Bind a callback function to an event type handled by this object.
+         *
+         * @method "on"
+         *
+         * @param {string} type event type key (for example, 'click')
+         * @param {function(string, Object)} fn handler callback
+         * @return {EventHandler} this
+         */
+        Each.prototype.on = function on(type, fn) {
+            if(!this._lastAddedObject)
+                this._lastAddedObject = {
+                    id: null,
+                    item: null,
+                    i: null,
+                    beforeId: null
+                };
+            if(!this._lastChangedObject)
+                this._lastChangedObject = {
+                    id: null,
+                    newItem: null,
+                    oldItem: null,
+                    atIndex: null
+                };
+            if(!this._lastRemovedObject)
+                this._lastRemovedObject = {
+                    id: null,
+                    item: null,
+                    i: null
+                };
+            if(!this._lastMovedObject)
+                this._lastMovedObject = {
+                    id: null,
+                    item: null,
+                    i: null,
+                    j: null,
+                    beforeId: null
+                };
+            if('addedAt' === type) {
+                var func = function(){
+                    var item = this._lastAddedObject;
+                    fn.call(null, item.id, item.item, item.i, item.beforeId);
+                }
+                this.eventHandler.on(type, func);
+            }
+            if('changedAt' === type) {
+                var func = function(){
+                    var item = this._lastChangedObject;
+                    fn.call(null, item.id, item.newItem, item.oldItem, item.atIndex);
+                };
+                this.eventHandler.on(type, func);
+            }
+            if('removedAt' === type) {
+                var func = function(){
+                    var item = this._lastRemovedObject;
+                    fn.call(null, item.id, item.item, item.i);
+                };
+                this.eventHandler.on(type, func);
+            }
+            if('movedTo' === type) {
+                var func = function(){
+                    var item = this._lastMovedObject;
+                    fn.call(null, item.id, item.item, item.i, item.j, item.beforeId);
+                };
+                this.eventHandler.on(type, func);
+            }
+        };
         /**
          *
          *
@@ -152,7 +223,6 @@ define('famodev/Each', [
                 return self._cursor
             },{
                 addedAt: function (id, item, i, beforeId){
-                    console.log(id, item, i, beforeId, 'added');
                     var temp = new Surface({
                         content: item._id,
                         size: [undefined, 200],
@@ -167,10 +237,16 @@ define('famodev/Each', [
                     if(_.isFunction(self._beforeAddedFunction))
                         temp = self._beforeAddedFunction(temp);
                     //if(i == 0 && i == self._dataList.length)
+                    self._lastAddedObject = {
+                        id: id,
+                        item: item,
+                        i: i,
+                        beforeId: beforeId
+                    };
+                    self.eventHandler.emit('addedAt');
                         return self._dataList.push(temp);
                 },
                 changedAt: function (id, newItem, oldItem, atIndex) {
-                    console.log(id, newItem, oldItem, atIndex, 'changed');
                     var temp = new Surface({
                         content: newItem._id,
                         size: [undefined, 200],
@@ -184,14 +260,34 @@ define('famodev/Each', [
                     temp._record = newItem;
                     if(_.isFunction(self._beforeAddedFunction))
                         temp = self._beforeAddedFunction(temp);
+                    
+                    self._lastChangedObject = {
+                        id: id,
+                        newItem: newItem,
+                        oldItem: oldItem,
+                        atIndex: atIndex
+                    };
+                    self.eventHandler.emit('changedAt');
                     self._dataList[atIndex] = temp;
                 },
                 removedAt: function (id, item, i) {
-                    console.log(id, item, i, 'removed');
+                    self._lastRemovedObject = {
+                        id: id,
+                        item: item,
+                        i: i
+                    }
+                    self.eventHandler.emit('removedAt');
                     self._dataList.splice (i, 1);
                 },
                 movedTo: function (id, item, i, j, beforeId) {
-                    console.log(id, item, i, j, beforeId, 'movedTo');
+                    self._lastMovedObject = {
+                        id: id,
+                        item: item,
+                        i: i,
+                        j: j,
+                        beforeId: beforeId
+                    };
+                    self.eventHandler.emit('movedTo');
                     // switch
                     var temp = self._dataList[i];
                     self._dataList[i] = self._dataList[j];
@@ -268,6 +364,22 @@ Meteor.startup(function(){
 //         });
 //         scrollview.sequenceFrom(each);
 
+//         each.on('addedAt', function (id, item, i, beforeId){
+//             console.log(id, item, i, beforeId, 'added');
+//         });
+
+//         each.on('changedAt', function (id, newItem, oldItem, atIndex) {
+//             console.log(id, newItem, oldItem, atIndex, 'changed');
+//         });
+
+//         each.on('removedAt', function (id, item, i) {
+//             console.log(id, item, i, 'removedAt');
+//         });
+
+//         each.on('movedTo', function (id, item, i, j, beforeId) {
+//             console.log(id, item, i, j, beforeId, 'movedTo');
+//         });
+
 //         mainContext.add(scrollview);
 
 //         Meteor.setTimeout(function(){
@@ -276,6 +388,10 @@ Meteor.startup(function(){
 
 //         Meteor.setTimeout(function(){
 //             Items.remove('test3');
+//             Items.insert({
+//                 _id: 'test',
+//                 text: 'cookie'
+//             });
 //         }, 4000);
 
 //         Meteor.setTimeout(function(){
