@@ -1,7 +1,4 @@
-/*** ReactiveSurface.js ***/
-define('famodev/ReactiveSurface', [
-        'famous/core/Surface',
-    ], function(require, exports, module){
+define(function(require, exports, module){
         var Surface             = require('famous/core/Surface');
 
         function ReactiveSurface (){

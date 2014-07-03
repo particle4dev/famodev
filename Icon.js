@@ -1,6 +1,4 @@
-define('famodev/Icon', [
-
-    ], function (require, exports, module) {
+define(function (require, exports, module) {
 
         var Modifier        = require('famous/core/Modifier');
         var OptionsManager  = require('famous/core/OptionsManager');

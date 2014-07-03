@@ -1,7 +1,5 @@
 /*** ReactiveTemplate.js ***/
-define('famodev/ReactiveTemplate', [
-        'famous/core/Surface',
-    ], function(require, exports, module){
+define(function(require, exports, module){
         var Surface             = require('famous/core/Surface');
 
         function ReactiveTemplate (options){
@@ -39,7 +37,6 @@ define('famodev/ReactiveTemplate', [
         ReactiveTemplate.prototype.deploy = function deploy(target) {
             this._renderTmp = UI.render(this._template.extend({data: this._data}));
             UI.insert(this._renderTmp, target);
-            console.log(this._renderTmp, 'this._renderTmp');
         };
 
         /**
