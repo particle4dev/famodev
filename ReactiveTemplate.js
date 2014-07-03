@@ -1,4 +1,3 @@
-/*** ReactiveTemplate.js ***/
 define(function(require, exports, module){
         var Surface             = require('famous/core/Surface');
 
