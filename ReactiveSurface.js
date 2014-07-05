@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 define(function(require, exports, module){
-=======
-define('famodev/ReactiveSurface', ["famous/core/Surface"], function(require, exports, module){
->>>>>>> 72e10e0b3c1cdbe75b357c9252a83284f3be8f2f
         var Surface             = require('famous/core/Surface');
 
         function ReactiveSurface (){
