@@ -1,7 +1,4 @@
-/*** ReactiveSurface.js ***/
-define('famodev/ReactiveSurface', [
-        'famous/core/Surface',
-    ], function(require, exports, module){
+define('famodev/ReactiveSurface', ["famous/core/Surface"], function(require, exports, module){
         var Surface             = require('famous/core/Surface');
 
         function ReactiveSurface (){
@@ -33,7 +30,7 @@ define('famodev/ReactiveSurface', [
          * @method setContent
          * @param {string|Document Fragment} content HTML content
          */
-        Surface.prototype.setContent = function setContent(content) {
+        ReactiveSurface.prototype.setContent = function setContent(content) {
             var self = this;
             if(self.rangeUpdater && self.rangeUpdater.stop){
                 self.rangeUpdater.stop()
@@ -44,6 +41,23 @@ define('famodev/ReactiveSurface', [
                 this._contentDirty = true;
             }
         };
+
+        //wrap up cleanup method
+        var cleanup = ReactiveSurface.prototype.cleanup;
+        ReactiveSurface.prototype.cleanup = function (allocator) {
+            var self = this;
+            if(self.rangeUpdater && self.rangeUpdater.stop){
+                self.rangeUpdater.stop()
+                self.rangeUpdater = null;
+            }
+            cleanup.call(this, allocator);
+        }
+
+        //this function will save content in document.createDocumentFragment();
+        //we will not change content if we want it reactive
+        ReactiveSurface.prototype.recall = function (target) {
+
+        }
         module.exports = ReactiveSurface;
 });
 // with session
