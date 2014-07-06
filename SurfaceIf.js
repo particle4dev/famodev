@@ -9,8 +9,6 @@ define(function(require, exports, module){
             this.condition = options.condition;
             this.contentBlock = options.contentBlock;
             this.elseContentBlock = options.elseContentBlock;
-
-            console.log(this.contentBlock);
         };
         SurfaceIf.prototype = Object.create(Surface.prototype);
         SurfaceIf.prototype.constructor = SurfaceIf;
