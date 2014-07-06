@@ -1,8 +1,4 @@
-define('partials/SurfaceIf', [
-
-    'famous/core/Surface'
-    
-    ], function(require, exports, module){
+define(function(require, exports, module){
 
         var Surface             = require('famous/core/Surface');
 
