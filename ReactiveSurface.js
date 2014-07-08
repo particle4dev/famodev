@@ -164,52 +164,52 @@ define('famodev/ReactiveSurface', [
 
 // with session
 
-Meteor.startup(function(){
-    Session.setDefault('session', 'value');
-    define([
-        'famodev/ReactiveSurface',
-        'famous/core/Engine',
-        'famous/core/Transform',
-        'famous/core/Modifier'
-    ], function(){
-        var ReactiveSurface = require('famodev/ReactiveSurface');
-        var Engine          = require('famous/core/Engine');
-        var Transform       = require('famous/core/Transform');
-        var Modifier        = require('famous/core/Modifier');
+// Meteor.startup(function(){
+//     Session.setDefault('session', 'value');
+//     define([
+//         'famodev/ReactiveSurface',
+//         'famous/core/Engine',
+//         'famous/core/Transform',
+//         'famous/core/Modifier'
+//     ], function(){
+//         var ReactiveSurface = require('famodev/ReactiveSurface');
+//         var Engine          = require('famous/core/Engine');
+//         var Transform       = require('famous/core/Transform');
+//         var Modifier        = require('famous/core/Modifier');
 
-        var mainContext = Engine.createContext();
-        var sur = new ReactiveSurface({
-            size: [200, 200],
-            properties: {
-                textAlign: 'center',
-                color: 'white',
-                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                fontWeight: '200',
-                fontSize: '16px',
-                lineHeight: "200px",
-                background: 'red'
-            },
-            content: function(){
-                return Session.get('session');
-            }
-        });
+//         var mainContext = Engine.createContext();
+//         var sur = new ReactiveSurface({
+//             size: [200, 200],
+//             properties: {
+//                 textAlign: 'center',
+//                 color: 'white',
+//                 fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+//                 fontWeight: '200',
+//                 fontSize: '16px',
+//                 lineHeight: "200px",
+//                 background: 'red'
+//             },
+//             content: function(){
+//                 return Session.get('session');
+//             }
+//         });
 
-        var mod = new Modifier({
-            origin: [.5, .5]
-        });
+//         var mod = new Modifier({
+//             origin: [.5, .5]
+//         });
 
-        sur.on('changed', function(data){
-            console.log(data);
-            mod.setTransform(Transform.translate(10, 0, 0), {duration: 500, curve: "easeIn"});
-        });
+//         sur.on('changed', function(data){
+//             console.log(data);
+//             mod.setTransform(Transform.translate(10, 0, 0), {duration: 500, curve: "easeIn"});
+//         });
 
-        sur.on('rendered', function(){
-            console.log('rendered');
-        });
+//         sur.on('rendered', function(){
+//             console.log('rendered');
+//         });
 
-        mainContext.add(mod).add(sur);
-        Meteor.setTimeout(function(){
-            Session.set('session', 'value2');
-        }, 3000);
-    });
-});
+//         mainContext.add(mod).add(sur);
+//         Meteor.setTimeout(function(){
+//             Session.set('session', 'value2');
+//         }, 3000);
+//     });
+// });
