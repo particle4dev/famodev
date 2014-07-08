@@ -1,9 +1,15 @@
-define(function(require, exports, module){
+define('famodev/ReactiveSurface', [
+    
+    'famous/core/Surface'
+
+    ], function(require, exports, module){
         var Surface             = require('famous/core/Surface');
 
         function ReactiveSurface (){
             Surface.apply(this, arguments);
 
+            // FIXME: thinking about this
+            //this.emit('created');
         };
         ReactiveSurface.prototype = Object.create(Surface.prototype);
         ReactiveSurface.prototype.constructor = ReactiveSurface;
@@ -22,6 +28,7 @@ define(function(require, exports, module){
                 if (! c.firstRun)
                     self.emit('changed', content);
             });
+            self.emit('rendered');
         };
         /**
          * Set or overwrite inner (HTML) content of this surface. Note that this
@@ -51,6 +58,8 @@ define(function(require, exports, module){
                 self.rangeUpdater = null;
             }
             cleanup.call(this, allocator);
+            // FIXME: thinking about this
+            //this.emit('destroyed');
         }
 
         //this function will save content in document.createDocumentFragment();
@@ -92,11 +101,6 @@ define(function(require, exports, module){
 
 //         var mod = new Modifier({
 //             origin: [.5, .5]
-//         });
-
-//         sur.on('changed', function(data){
-//             console.log(data);
-//             mod.setTransform(Transform.translate(10, 0, 0), {duration: 500, curve: "easeIn"});
 //         });
 
 //         mainContext.add(mod).add(sur);
@@ -157,3 +161,55 @@ define(function(require, exports, module){
 //         }, 3000);
 //     });
 // });
+
+// with session
+
+Meteor.startup(function(){
+    Session.setDefault('session', 'value');
+    define([
+        'famodev/ReactiveSurface',
+        'famous/core/Engine',
+        'famous/core/Transform',
+        'famous/core/Modifier'
+    ], function(){
+        var ReactiveSurface = require('famodev/ReactiveSurface');
+        var Engine          = require('famous/core/Engine');
+        var Transform       = require('famous/core/Transform');
+        var Modifier        = require('famous/core/Modifier');
+
+        var mainContext = Engine.createContext();
+        var sur = new ReactiveSurface({
+            size: [200, 200],
+            properties: {
+                textAlign: 'center',
+                color: 'white',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontWeight: '200',
+                fontSize: '16px',
+                lineHeight: "200px",
+                background: 'red'
+            },
+            content: function(){
+                return Session.get('session');
+            }
+        });
+
+        var mod = new Modifier({
+            origin: [.5, .5]
+        });
+
+        sur.on('changed', function(data){
+            console.log(data);
+            mod.setTransform(Transform.translate(10, 0, 0), {duration: 500, curve: "easeIn"});
+        });
+
+        sur.on('rendered', function(){
+            console.log('rendered');
+        });
+
+        mainContext.add(mod).add(sur);
+        Meteor.setTimeout(function(){
+            Session.set('session', 'value2');
+        }, 3000);
+    });
+});
