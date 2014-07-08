@@ -26,24 +26,24 @@ define(function(require, exports, module){
          */
         ReactiveTemplate.prototype.setContent = function setContent() {};
 
-       /**
-        * Render and insert the UI component into the DOM.
-        *
-        * @private
-        * @method deploy
-        * @param {Node} target document parent of this container
-        */
+        /**
+         * Render and insert the UI component into the DOM.
+         *
+         * @private
+         * @method deploy
+         * @param {Node} target document parent of this container
+         */
         ReactiveTemplate.prototype.deploy = function deploy(target) {
             this._renderTmp = UI.render(this._template.extend({data: this._data}));
             UI.insert(this._renderTmp, target);
         };
 
         /**
-          * Remove the UI component from the DOM via jQuery, Blaze will cleanup.
-          *
-          * @private
-          * @method recall
-          */
+         * Remove the UI component from the DOM via jQuery, Blaze will cleanup.
+         *
+         * @private
+         * @method recall
+         */
         ReactiveTemplate.prototype.recall = function recall(target) {
             $(target).empty();
         };
