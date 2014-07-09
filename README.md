@@ -6,9 +6,12 @@ Stable (releases) branch
 git push origin HEAD:releases
 
 #ReactiveSurface
-*1) Trong file main.js, tao 1 surface:<br/>
 
-define(function(require, exports, module){ <br/>
+##Basic
+
+*1) Trong file main.js, tao 1 surface:
+
+define(function(require, exports, module){
 
 	var Engine = require("famous/core/Engine");
 	var Surface = require("famous/core/Surface");
@@ -29,4 +32,6 @@ define(function(require, exports, module){ <br/>
 	mainContext.add(surface);
 	
 });
+
+*2)
 
