@@ -8,7 +8,8 @@ git push origin HEAD:releases
 #ReactiveSurface
 *1) Trong file main.js, tao 1 surface:<br/>
 
-define(function(require, exports, module){
+define(function(require, exports, module){ <br/>
+
 	var Engine = require("famous/core/Engine");
 	var Surface = require("famous/core/Surface");
 	
