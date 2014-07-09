@@ -75,5 +75,74 @@ Sau do, chuyen stateModifier.setTransform(...) vao trong reactiveSurface.on(even
 	
 value la value trong Session.
 
+#Scrollview2
+
+*1) Lay nguyen vi du Scrollview trong example cua famo.us:
+
+	define(function(require, exports, module) {
+		var Engine     = require("famous/core/Engine");
+		var Surface    = require("famous/core/Surface");
+		var Scrollview = require("famous/views/Scrollview");
+	
+		var mainContext = Engine.createContext();
+	
+		var scrollview = new Scrollview();
+		var surfaces = [];
+	
+		scrollview.sequenceFrom(surfaces);
+	
+		for (var i = 0, temp; i < 40; i++) {
+			temp = new Surface({
+				 content: "Surface: " + (i + 1),
+				 size: [undefined, 200],
+				 properties: {
+					 backgroundColor: "hsl(" + (i * 360 / 40) + ", 100%, 50%)",
+					 lineHeight: "200px",
+					 textAlign: "center"
+				 }
+			});
+	
+			temp.pipe(scrollview);
+			surfaces.push(temp);
+		}
+	
+		mainContext.add(scrollview);
+	});
+	
+Sau do thay
+
+	var Scrollview = require("famous/views/Scrollview");
+	
+thanh
+
+	var Scrollview = require("famodev/Scrollview2");
+	
+*2) Bat su kien con cuon chuot o Top
+
+Them code vao ngay tren mainContext.add(scrollview); :
+
+	scrollview.on("onTop", function(data){
+		console.log(data);
+		// noi dung function
+	});
+	
+*3)	Bat su kien con cuon chuot o Bottom
+
+Them code vao ngay tren mainContext.add(scrollview); :
+
+	scrollview.on("onBottom", function(data){
+		console.log(data);
+		//noi dung function
+	});
+	
+*4) Bat su kien con cuon chuot luc len va luc xuong
+
+	scrollview.on("moveScroll", function(event){
+		if(this.getDirection() == Scrollview.UP)
+			console.log("UP");
+		if(this.getDirection() == Scrollview.DOWN)
+			console.log("DOWN");
+	});
+
 
 
