@@ -1,8 +1,16 @@
+/**
+ * ReactiveSurface
+ * 
+ * {{ Missing param }}
+ *
+ * @constructor
+ * @extends {famous/core/Surface}
+ * @status stable
+ */
 define('famodev/ReactiveSurface', [
-    
     'famous/core/Surface'
-
     ], function(require, exports, module){
+        
         var Surface             = require('famous/core/Surface');
 
         function ReactiveSurface (){
