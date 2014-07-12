@@ -1,15 +1,4 @@
-/**
- * Surface If Component
- * 
- * {{ Missing param }}
- *
- * @constructor
- * @extends {famous/core/Surface}
- * @status stable
- */
-define('famodev/SurfaceIf', [
-        'famous/core/Surface'
-    ], function(require, exports, module){
+define(function(require, exports, module){
 
         var Surface             = require('famous/core/Surface');
 
@@ -124,42 +113,35 @@ define('famodev/SurfaceIf', [
 
     })
 
-// Meteor.startup(function () {
-//     define(function(require, exports, module){
+/**
 
-//         var Modifier    = require('famous/core/Modifier');
-//         var Engine      = require('famous/core/Engine');
-//         var SurfaceIf   = require('famodev/SurfaceIf');
+var surf = new SurfaceIf({
+    modifier: this._rowModifiers[(row * 3) + col],
+    condition: function(){
+        if(Session.get('surfaceIf'))
+            return true;
+        else
+            return false;
+    },
+    contentBlock: function(){
+        var modifier = this.getModifier();
+        modifier.afterSetContent(function(cb){
+            this.setOpacity(1, {duration: 300, curve: 'easeInOut'}, cb);
+        });
+        return '<div class="circle ' + data.availability + '" style="width: 75px; height: 75px; background: ' + data.background + '; padding: 18px;">'+
+            '<i class="button button-icon icon ' + data.icon + '" style="color: ' + data.iconColor + '; width: 35px; height: 35px;"></i>'+
+            '</div>'+
+            '<div class="' + data.availability + '" style="text-align: center; color: #fff; text-transform:uppercase; font-size: 11px;"> ' + data.text + ' </div>';
+        },
+    elseContentBlock: function(){
+        var modifier = this.getModifier();
+        modifier.beforeSetContent(function(cb){
+            this.setOpacity(0, {duration: 300, curve: 'easeInOut'}, cb);
+        });
+        return '';
+    },
+    size: [undefined,undefined],
+    classes: ['filterIcon']
+});
 
-//         var mainContext = Engine.createContext();
-//         var mod = new Modifier({
-//             align: [0.5, 0.5],
-//             origin: [0.5, 0.5]
-//         });
-
-//         var surf = new SurfaceIf({
-//             modifier: mod,
-//             condition: function(){
-//                 if(Session.get('surfaceIf'))
-//                     return true;
-//                 else
-//                     return false;
-//             },
-//             contentBlock: function(){
-//                 return 'true';
-//             },
-//             elseContentBlock: function(){
-//                 return 'false';
-//             },
-//             size: [120, 120],
-//             classes: ['filterIcon'],
-//             properties: {
-//                 color: 'white',
-//                 backgroundColor: '#FA5C4F',
-//                 lineHeight: '120px',
-//                 textAlign: 'center'
-//             }
-//         });
-//         mainContext.add(mod).add(surf);
-//     });
-// });
+*/

@@ -1,17 +1,4 @@
-/**
- * Scrollview2
- * 
- * {{ Missing param }}
- *
- * @constructor
- * @extends {famous/views/Scrollview}
- * @status stable
- */
-define('famodev/Scrollview2', [
-    'famous/views/Scrollview',
-    'famous/core/Surface',
-    'famous/core/RenderNode'
-    ], function (require, exports, module) {
+define(function (require, exports, module) {
         
         var Scrollview              = require("famous/views/Scrollview");
         var Surface                 = require("famous/core/Surface");
