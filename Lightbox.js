@@ -1,5 +1,13 @@
+/**
+ * Lightbox
+ * 
+ * {{ Missing param }}
+ *
+ * @constructor
+ * @extends {famous/views/Lightbox}
+ * @status stable
+ */
 define('famodev/Lightbox', [
-
     'famous/views/Lightbox',
     'famous/core/Transform',
     'famous/core/Modifier',
@@ -7,7 +15,6 @@ define('famodev/Lightbox', [
     'famous/utilities/Utility',
     'famous/transitions/Transitionable',
     'famous/transitions/TransitionableTransform'
-
     ], function(require, exports, module){
 
         var LightboxView    = require('famous/views/Lightbox');
