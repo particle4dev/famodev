@@ -67,8 +67,6 @@ define(function(require, exports, module){
             this._containerView.setSize(size);
         };
 
-
-
         var _nodes = [];
         var _status = {
             // in
@@ -105,7 +103,7 @@ define(function(require, exports, module){
             var node = new RenderNode();
             // add modifier
             _backdropModifier = {
-                transform: new TransitionableTransform(Transform.scale(1, 1, 1)),
+                transform: new TransitionableTransform(_status.inTransform),
                 opacity: new Transitionable(_status.inOpacity),
                 origin: new Transitionable(_status.inOrigin)
             };
@@ -132,7 +130,7 @@ define(function(require, exports, module){
             _boxSurface = new Modal();
 
             _boxModifier = {
-                transform: new TransitionableTransform(Transform.multiply(Transform.scale(2, 2, 1), Transform.translate(0, 0, 0))),
+                transform: new TransitionableTransform(_status.inTransform),
                 opacity: new Transitionable(_status.inOpacity),
                 origin: new Transitionable(_status.inOrigin)
             };
@@ -152,13 +150,19 @@ define(function(require, exports, module){
         // animation
         function show (callback) {
             var _cb = callback ? Utility.after(3, callback) : undefined;
+            _backdropModifier.transform.set(Transform.scale(1, 1, 1));
+            _boxModifier.transform.set(Transform.multiply(Transform.scale(2, 2, 1), Transform.translate(0, 0, 0)));
 
             _backdropModifier.opacity.set(0.5, { duration: 200, curve: 'easeInOut'}, _cb);
             _boxModifier.opacity.set(1, { duration: 300, curve: 'easeInOut'}, _cb);
             _boxModifier.transform.set(Transform.scale(1, 1, 1), { duration: 300, curve: 'easeInOut'}, _cb);
         };
         function hide (callback) {
-            var _cb = callback ? Utility.after(3, callback) : undefined;
+            var _cb = callback ? Utility.after(3, function(){
+                callback();
+                _backdropModifier.transform.set(_status.outTransform);
+                _boxModifier.transform.set(_status.outTransform);
+            }) : undefined;
 
             _backdropModifier.opacity.set(0, { duration: 200, curve: 'easeInOut'}, _cb);
             _boxModifier.opacity.set(0, { duration: 300, curve: 'easeInOut'}, _cb);
