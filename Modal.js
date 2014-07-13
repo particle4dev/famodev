@@ -162,7 +162,10 @@ define(function(require, exports, module){
                 callback();
                 _backdropModifier.transform.set(_status.outTransform);
                 _boxModifier.transform.set(_status.outTransform);
-            }) : undefined;
+            }) : function(){
+                _backdropModifier.transform.set(_status.outTransform);
+                _boxModifier.transform.set(_status.outTransform);
+            });
 
             _backdropModifier.opacity.set(0, { duration: 200, curve: 'easeInOut'}, _cb);
             _boxModifier.opacity.set(0, { duration: 300, curve: 'easeInOut'}, _cb);
