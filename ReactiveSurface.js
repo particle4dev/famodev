@@ -1,4 +1,14 @@
+/**
+ * ReactiveSurface
+ * 
+ * {{ Missing param }}
+ *
+ * @constructor
+ * @extends {famous/core/Surface}
+ * @status stable
+ */
 define(function(require, exports, module){
+
         var Surface             = require('famous/core/Surface');
 
         function ReactiveSurface (){

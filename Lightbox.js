@@ -1,3 +1,12 @@
+/**
+ * Lightbox
+ * 
+ * {{ Missing param }}
+ *
+ * @constructor
+ * @extends {famous/views/Lightbox}
+ * @status stable
+ */
 define(function(require, exports, module){
 
         var LightboxView    = require('famous/views/Lightbox');

@@ -1,4 +1,16 @@
-define(function(require, exports, module){
+/**
+ * ReactiveTemplate
+ * 
+ * {{ Missing param }}
+ *
+ * @constructor
+ * @extends {famous/core/Surface}
+ * @status stable
+ */
+define('famodev/ReactiveTemplate', [
+    'famous/core/Surface'
+    ], function(require, exports, module){
+        
         var Surface             = require('famous/core/Surface');
 
         function ReactiveTemplate (options){
