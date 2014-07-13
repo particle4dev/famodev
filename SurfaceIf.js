@@ -7,9 +7,7 @@
  * @extends {famous/core/Surface}
  * @status stable
  */
-define('famodev/SurfaceIf', [
-        'famous/core/Surface'
-    ], function(require, exports, module){
+define(function(require, exports, module){
 
         var Surface             = require('famous/core/Surface');
 
