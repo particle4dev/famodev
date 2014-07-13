@@ -1,7 +1,7 @@
 /**
  * not implement yet
  */
-define(function(require, exports, module){
+define('famodev/Modal', ["famous/core/View","famous/modifiers/StateModifier","famous/core/RenderNode","famous/core/Surface","famous/core/Transform","famous/surfaces/ContainerSurface","famous/transitions/Transitionable","famous/transitions/TransitionableTransform","famous/core/Modifier","famous/utilities/Utility","famous/views/RenderController"], function(require, exports, module){
 
         var View               = require('famous/core/View');
         var StateModifier      = require('famous/modifiers/StateModifier');
@@ -22,7 +22,8 @@ define(function(require, exports, module){
             this._containerView = new ContainerSurface({
                 size: [window.innerWidth - 40, true],
                 properties: {
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    zIndex: "1050" // from bootstrap
                 }
             });
             this._containerModifier = new StateModifier({
@@ -43,8 +44,7 @@ define(function(require, exports, module){
                     borderRadius: "0px",
                     backgroundColor: "rgba(255, 255, 255, 0.9)",
                     boxShadow: '0 10px 20px -5px rgba(0, 0, 0, 0.5)',
-                    minHeight: "50px",
-                    zIndex: 0
+                    minHeight: "50px"
                 }
             });
             this._containerView.add(this._bg);
@@ -97,7 +97,8 @@ define(function(require, exports, module){
             var backdropSurface = new Surface({
                 size: [undefined, window.innerHeight],
                 properties: {
-                    backgroundColor: "rgba(0, 0, 0, 0.4)"                    
+                    backgroundColor: "rgba(0, 0, 0, 0.4)",
+                    zIndex: "1040" // from bootstrap
                 }
             });
 
