@@ -232,33 +232,33 @@ define('famodev/Modal', [
 })
 
 // test
-Meteor.startup(function () {
-    define(function(require, exports, module){
+// Meteor.startup(function () {
+//     define(function(require, exports, module){
 
-        var Engine      = require('famous/core/Engine');
-        var Surface     = require('famous/core/Surface');
-        var Modal       = require('famodev/Modal');
+//         var Engine      = require('famous/core/Engine');
+//         var Surface     = require('famous/core/Surface');
+//         var Modal       = require('famodev/Modal');
 
-        var mainContext = Engine.createContext();
+//         var mainContext = Engine.createContext();
 
-        Modal.register('login', new Surface({
-            size: [true, 200],
-            content: 'login'
-        }));
-        Modal.register('logout', new Surface({
-            size: [true, 200],
-            content: 'logout'
-        }));
-        mainContext.add(Modal);
+//         Modal.register('login', new Surface({
+//             size: [true, 200],
+//             content: 'login'
+//         }));
+//         Modal.register('logout', new Surface({
+//             size: [true, 200],
+//             content: 'logout'
+//         }));
+//         mainContext.add(Modal);
 
-        Meteor.setTimeout(function () {
-            Modal.show('logout');
+//         Meteor.setTimeout(function () {
+//             Modal.show('logout');
 
-            Meteor.setTimeout(function(){
-                Modal.show('login');
-            }, 2000);
+//             Meteor.setTimeout(function(){
+//                 Modal.show('login');
+//             }, 2000);
 
-        }, 3000);
+//         }, 3000);
 
-    });
-});
+//     });
+// });
