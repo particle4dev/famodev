@@ -162,7 +162,7 @@ define(function(require, exports, module){
                 callback();
                 _backdropModifier.transform.set(_status.outTransform);
                 _boxModifier.transform.set(_status.outTransform);
-            }) : function(){
+            }) : Utility.after(3, function(){
                 _backdropModifier.transform.set(_status.outTransform);
                 _boxModifier.transform.set(_status.outTransform);
             });
