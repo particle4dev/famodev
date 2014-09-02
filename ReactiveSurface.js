@@ -1,3 +1,4 @@
+Famono.scope('famodev/ReactiveSurface', ["famous/core/Surface"], function(require, define) {
 /**
  * ReactiveSurface
  * 
@@ -64,8 +65,9 @@ define(function(require, exports, module){
                 self.rangeUpdater = null;
             }
             cleanup.call(this, allocator);
+
             // FIXME: thinking about this
-            //this.emit('destroyed');
+            this.emit('destroyed');
         }
 
         //this function will save content in document.createDocumentFragment();
@@ -219,3 +221,5 @@ define(function(require, exports, module){
 //         }, 3000);
 //     });
 // });
+
+});

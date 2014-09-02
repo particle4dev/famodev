@@ -1,7 +1,8 @@
-isCursor = function (c) {
-    return c && c.observe;
-};
+Famono.scope('famodev/Each', ["famous/core/ViewSequence","famous/core/Modifier","famous/core/Surface","famous/core/RenderNode","famous/core/Transform","famous/core/EventHandler","famous/transitions/Transitionable"], function(require, define) {
 define(function (require, exports, module) {
+        isCursor = function (c) {
+            return c && c.observe;
+        };
 
         var ViewSequence    = require('famous/core/ViewSequence');
         var Modifier        = require('famous/core/Modifier');
@@ -56,6 +57,7 @@ define(function (require, exports, module) {
         Each.DEFAULT_BEFORE_ADDED = function(view){
             var node = new RenderNode();
             node.add(new Modifier()).add(view);
+            node.pipe = view.pipe.bind(view);
             return node;
         };
 
@@ -202,6 +204,10 @@ define(function (require, exports, module) {
                 //have to pass a transition object parameter for trans.set to work
                 trans.set(0, {duration: 0.0001});
             }.bind(this));
+        };
+
+        Each.prototype.getListViews = function () {
+            return this._dataList;
         };
 
         /**
@@ -410,3 +416,5 @@ Meteor.startup(function(){
 //         }, 5000);
 //     });
 // });
+
+});

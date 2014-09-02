@@ -1,3 +1,4 @@
+Famono.scope('famodev/ReactiveTemplate', ["famous/core/Surface"], function(require, define) {
 /**
  * ReactiveTemplate
  * 
@@ -112,3 +113,4 @@ define(function(require, exports, module){
 //         }, 3000);
 //     });
 // });
+});

@@ -1,3 +1,4 @@
+Famono.scope('famodev/Scrollview2', ["famous/views/Scrollview","famous/core/Surface","famous/core/RenderNode"], function(require, define) {
 /**
  * Scrollview2
  * 
@@ -143,3 +144,4 @@ define(function (require, exports, module) {
 //     });
 
 // });
+});

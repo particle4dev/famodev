@@ -1,3 +1,4 @@
+Famono.scope('famodev/SurfaceIf', ["famous/core/Surface"], function(require, define) {
 /**
  * Surface If Component
  * 
@@ -161,3 +162,4 @@ define(function(require, exports, module){
 //         mainContext.add(mod).add(surf);
 //     });
 // });
+});

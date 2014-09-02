@@ -1,3 +1,4 @@
+Famono.scope('famodev/Box', ["famous/core/Modifier","famous/core/Surface","famous/core/OptionsManager","famous/core/RenderNode","famous/core/Transform","famous/utilities/Utility","famous/transitions/Transitionable","famous/transitions/TransitionableTransform","famous/transitions/Easing"], function(require, define) {
 define(function (require, exports, module) {
 
         var Modifier        = require('famous/core/Modifier');
@@ -339,3 +340,5 @@ define(function (require, exports, module) {
 
 //     })
 // });
+
+});
