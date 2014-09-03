@@ -14,10 +14,11 @@ define(function(require, exports, module){
 
         function ReactiveTemplate (options){
             Surface.apply(this, arguments);
-            if (! UI.isComponent(options.template))
+            if (! Blaze.isTemplate(options.template))
                 throw new Error("Component required here");
-            if (options.template.isInited)
-                throw new Error("Can't render component instance");
+            // https://github.com/meteor/meteor/blob/a81fbf483efa4f40ea2d382f0c7275d408536e96/packages/blaze/view.js#L196
+            if (options.template.isCreated)
+                throw new Error("Can't render the same View twice");
 
             this._template = options.template;
 
@@ -45,9 +46,57 @@ define(function(require, exports, module){
          * @param {Node} target document parent of this container
          */
         ReactiveTemplate.prototype.deploy = function deploy(target) {
-            this._renderTmp = UI.render(this._template.extend({data: this._data}));
-            UI.insert(this._renderTmp, target);
+            var self = this,
+            data = {};
+            if(_.isFunction(self._data))
+                data = self._data();
+            // inplement hooks
+            var originRendered = self._template.rendered;
+            self._template.rendered = function () {
+                originRendered.call(this);
+                // https://github.com/meteor/meteor/commit/24e3c3e0e1d363b28e87cfd2d2e499048d4f8091
+                // FIXME: fire event
+                _.each(this.findAll('.watch'), function (container) {
+                    container._uihooks = {
+                        insertElement: function (n, next) {
+                            console.log("insert");
+                            container.insertBefore(n, next);
+                        },
+                        removeElement: function (n) {
+                            console.log("remove");
+                            container.removeChild(n);
+                        },
+                        moveElement: function (n, next) {
+                            console.log("move");
+                            container.insertBefore(n, next);
+                        }
+                    };
+                });
+            };
+
+            self.rangeUpdater = Deps.autorun(function (c) {
+                self._renderTmp = UI.renderWithData(self._template, data);
+                UI.insert(self._renderTmp, target);
+                if (! c.firstRun)
+                    self.emit('changed', data);
+            });
+            self.emit('rendered');
+
         };
+
+        //wrap up cleanup method
+        var cleanup = ReactiveTemplate.prototype.cleanup;
+        ReactiveTemplate.prototype.cleanup = function (allocator) {
+            var self = this;
+            if(self.rangeUpdater && self.rangeUpdater.stop){
+                self.rangeUpdater.stop()
+                self.rangeUpdater = null;
+            }
+            cleanup.call(this, allocator);
+
+            // FIXME: thinking about this
+            this.emit('destroyed');
+        }
 
         /**
          * Remove the UI component from the DOM via jQuery, Blaze will cleanup.

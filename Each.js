@@ -12,39 +12,32 @@ define(function (require, exports, module) {
         var EventHandler    = require('famous/core/EventHandler');
         var Transitionable  = require('famous/transitions/Transitionable');
 
-        function Each(optons) {
+        function Each(options) {
             this._beforeAddedFunction = Each.DEFAULT_BEFORE_ADDED;
             this.eventHandler = new EventHandler();
             this.eventHandler.bindThis(this);
 
-            if(_.isObject(optons)){
-                if(optons.scrollview)
-                    this._scrollview = optons.scrollview;
+            if(_.isObject(options)){
+                if(options.scrollview)
+                    this._scrollview = options.scrollview;
                 var args = Array.prototype.slice.call(arguments, 1);
-                if(isCursor(optons.data)){
-                   
-                    this._cursor = optons.data;
-                    this._dataList = [];
-                    _observeCursor.call(this);
-                    args.unshift(this._dataList);
-                    ViewSequence.apply(this, args);
+                if(isCursor(options.data)){
+                    this._cursor = options.data;
+                    this._renderTemplate = options.template;
+                    this.handWithCursor.apply(this, arguments);
                     return ;
                 }
-                if(_.isArray(optons.data)){
+                if(_.isArray(options.data)){
 
-                    this._dataList = optons.data;
+                    this._dataList = options.data;
                     args.unshift(this._dataList);
                     ViewSequence.apply(this, args);
                     return ;
                 }
             }
-            if(isCursor(optons)){
-                var args = Array.prototype.slice.call(arguments, 1);
-                this._cursor = optons;
-                this._dataList = [];
-                _observeCursor.call(this);
-                args.unshift(this._dataList);
-                ViewSequence.apply(this, args);
+            if(isCursor(options)){
+                this._cursor = options;
+                this.handWithCursor.apply(this, arguments);
                 return ;
             }
             ViewSequence.apply(this, arguments);
@@ -149,6 +142,16 @@ define(function (require, exports, module) {
          *
          * @return null
          */
+
+        Each.prototype.handWithCursor = function (options) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            this._dataList = [];
+            _observeCursor.call(this);
+            args.unshift(this._dataList);
+            ViewSequence.apply(this, args);
+            return ;
+        };
+
         Each.prototype.push = function (view, isRunbeforeAddedFunction) {
             if(_.isFunction(this._beforeAddedFunction) && isRunbeforeAddedFunction)
                 view = this._beforeAddedFunction(view);
@@ -221,15 +224,7 @@ define(function (require, exports, module) {
                 return self._cursor
             },{
                 addedAt: function (id, item, i, beforeId){
-                    var temp = new Surface({
-                        content: item._id,
-                        size: [undefined, 200],
-                        properties: {
-                            backgroundColor: "hsl(" + (i * 360 / 40) + ", 100%, 50%)",
-                            lineHeight: "200px",
-                            textAlign: "center"
-                        }                        
-                    });
+                    var temp = self._renderTemplate(item);
                     temp._record = item;
                     temp.pipe(self._scrollview);
                     if(_.isFunction(self._beforeAddedFunction))
@@ -245,15 +240,7 @@ define(function (require, exports, module) {
                         return self._dataList.push(temp);
                 },
                 changedAt: function (id, newItem, oldItem, atIndex) {
-                    var temp = new Surface({
-                        content: newItem._id,
-                        size: [undefined, 200],
-                        properties: {
-                            backgroundColor: "hsl(" + (atIndex * 360 / 40) + ", 100%, 50%)",
-                            lineHeight: "200px",
-                            textAlign: "center"
-                        }
-                    });
+                    var temp = self._renderTemplate(newItem);
                     temp.pipe(self._scrollview);
                     temp._record = newItem;
                     if(_.isFunction(self._beforeAddedFunction))

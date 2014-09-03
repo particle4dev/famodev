@@ -33,13 +33,19 @@ define(function(require, exports, module){
             });
             this._add(this._containerModifier).add(this._containerView);
 
-            this.createBackground();
-            this.createContainerModal();
+            createBackground.call(this);
+            createContainerModal.call(this);
         }
         Modal.prototype = Object.create(View.prototype);
         Modal.prototype.constructor = Modal;
         Modal.DEFAULT_OPTIONS = {};
-        Modal.prototype.createBackground = function () {
+
+        var _containerModal = null;
+
+        /**
+         * Add Views
+         */
+        function createBackground () {
             this._bg = new Surface({
                 properties: {
                     borderRadius: "0px",
@@ -50,7 +56,8 @@ define(function(require, exports, module){
             });
             this._containerView.add(this._bg);
         };
-        Modal.prototype.createContainerModal = function () {
+
+        function createContainerModal () {
             _containerModal = new RenderController();
             _containerModalModifier = new StateModifier({
                 origin: [.5, .5],
@@ -60,16 +67,28 @@ define(function(require, exports, module){
             this._containerView.add(_containerModalModifier).add(_containerModal);
         };
 
+        /**
+         * Methods
+         */
         Modal.prototype.show = function (renderable) {
             _containerModal.show(renderable);
-            var size = renderable.getSize();
-            size = [window.innerWidth - 40, size[1]];
-            this._bg.setSize(size);
-            this._containerView.setSize(size);
+            var size = renderable.size;
+            if(size) {
+                size = [window.innerWidth - 40, size[1]];
+                this._bg.setSize(size);
+                this._containerView.setSize(size);
+            }
         };
 
-        var _nodes = [];
-        var _status = {
+        /**
+         * Events
+         */
+        
+
+        
+
+        var _nodes = [],
+        _status = {
             // in
             inTransform: Transform.scale(0.001, 0.001, 0.001),
             inOpacity: 0,
@@ -82,15 +101,14 @@ define(function(require, exports, module){
             showTransform: Transform.identity,
             showOpacity: 1,
             showOrigin: [0.5, 0.5]
-        };
-        var isShow    = false;
-        var modifiers = {};
-        var modals    = {};
-        var _backdropModifier = null;
-        var _boxModifier = null;
-        var _containerModal = null;
-        var _containerModalModifier = null;
-        var _boxSurface = null;
+        },
+        isShow    = false,
+        modifiers = {},
+        modals    = {},
+        _backdropModifier = null,
+        _boxModifier = null,
+        _containerModalModifier = null,
+        _boxSurface = null;
         // add views
         function _createBackdrop () {
             var backdropSurface = new Surface({
