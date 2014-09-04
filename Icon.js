@@ -1,4 +1,3 @@
-Famono.scope('famodev/Icon', ["famous/core/Modifier","famous/core/OptionsManager","famous/core/RenderNode","famous/core/Transform","famous/transitions/Transitionable","famous/transitions/TransitionableTransform"], function(require, define) {
 /**
  * inspired by http://www.google.com/design/spec/animation/responsive-interaction.html
  */
@@ -87,13 +86,13 @@ define(function (require, exports, module) {
 
             //self._transform.set(Transform.identity, true, _cb);
             self._transform.set(this.options.showTransform, transition, _cb);
-            
+
             self._opacity.set(this.options.showOpacity, transition, _cb);
             self._origin.set(this.options.showOrigin, transition, _cb);
 
             var initialTime = Date.now();
             Meteor.setTimeout(function(){
-                self._transform.setRotate(Transform.rotateZ(.002 * (Date.now() - initialTime)), transition);
+                self._transform.setRotate(Transform.rotateZ(0.002 * (Date.now() - initialTime)), transition);
             }, 3000);
         };
         /**
@@ -166,5 +165,4 @@ Meteor.startup(function(){
 // rotate_spinner();
 // })
 
-});
 });

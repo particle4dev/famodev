@@ -1,7 +1,6 @@
-Famono.scope('famodev/ReactiveTemplate', ["famous/core/Surface"], function(require, define) {
 /**
  * ReactiveTemplate
- * 
+ *
  * {{ Missing param }}
  *
  * @constructor
@@ -9,7 +8,7 @@ Famono.scope('famodev/ReactiveTemplate', ["famous/core/Surface"], function(requi
  * @status stable
  */
 define(function(require, exports, module){
-        
+
         var Surface             = require('famous/core/Surface');
 
         function ReactiveTemplate (options){
@@ -27,7 +26,7 @@ define(function(require, exports, module){
             } else {
                 this._data = options.data;
             }
-        };
+        }
         ReactiveTemplate.prototype = Object.create(Surface.prototype);
         ReactiveTemplate.prototype.constructor = ReactiveTemplate;
         /**
@@ -89,14 +88,14 @@ define(function(require, exports, module){
         ReactiveTemplate.prototype.cleanup = function (allocator) {
             var self = this;
             if(self.rangeUpdater && self.rangeUpdater.stop){
-                self.rangeUpdater.stop()
+                self.rangeUpdater.stop();
                 self.rangeUpdater = null;
             }
             cleanup.call(this, allocator);
 
             // FIXME: thinking about this
             this.emit('destroyed');
-        }
+        };
 
         /**
          * Remove the UI component from the DOM via jQuery, Blaze will cleanup.
@@ -162,4 +161,3 @@ define(function(require, exports, module){
 //         }, 3000);
 //     });
 // });
-});

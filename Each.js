@@ -1,4 +1,3 @@
-Famono.scope('famodev/Each', ["famous/core/ViewSequence","famous/core/Modifier","famous/core/Surface","famous/core/RenderNode","famous/core/Transform","famous/core/EventHandler","famous/transitions/Transitionable"], function(require, define) {
 define(function (require, exports, module) {
         isCursor = function (c) {
             return c && c.observe;
@@ -11,6 +10,8 @@ define(function (require, exports, module) {
         var Transform       = require('famous/core/Transform');
         var EventHandler    = require('famous/core/EventHandler');
         var Transitionable  = require('famous/transitions/Transitionable');
+
+        var Node            = require('./Node');
 
         function Each(options) {
             this._beforeAddedFunction = Each.DEFAULT_BEFORE_ADDED;
@@ -41,11 +42,11 @@ define(function (require, exports, module) {
                 return ;
             }
             ViewSequence.apply(this, arguments);
-        };
+        }
         Each.prototype = Object.create(ViewSequence.prototype);
         Each.prototype.constructor = Each;
         Each.DEFAULT_OPTIONS = _.extend(ViewSequence.DEFAULT_OPTIONS, {
-            
+
         });
         Each.DEFAULT_BEFORE_ADDED = function(view){
             var node = new RenderNode();
@@ -108,29 +109,31 @@ define(function (require, exports, module) {
                     j: null,
                     beforeId: null
                 };
+            var func;
             if('addedAt' === type) {
-                var func = function(){
+                func = function(){
                     var item = this._lastAddedObject;
                     fn.call(null, item.id, item.item, item.i, item.beforeId);
-                }
+                };
                 this.eventHandler.on(type, func);
             }
+
             if('changedAt' === type) {
-                var func = function(){
+                func = function(){
                     var item = this._lastChangedObject;
                     fn.call(null, item.id, item.newItem, item.oldItem, item.atIndex);
                 };
                 this.eventHandler.on(type, func);
             }
             if('removedAt' === type) {
-                var func = function(){
+                func = function(){
                     var item = this._lastRemovedObject;
                     fn.call(null, item.id, item.item, item.i);
                 };
                 this.eventHandler.on(type, func);
             }
             if('movedTo' === type) {
-                var func = function(){
+                func = function(){
                     var item = this._lastMovedObject;
                     fn.call(null, item.id, item.item, item.i, item.j, item.beforeId);
                 };
@@ -192,7 +195,7 @@ define(function (require, exports, module) {
         Each.prototype.increaseSpace = function (index, size, transition, callback) {
             var trans = new Transitionable(0);
 
-            //link elements to transitionable 
+            //link elements to transitionable
             this.forEachMod(index + 1, undefined, function(mod){
                 mod.transformFrom(function(){
                     return Transform.translate(0, trans.get(), 0);
@@ -200,7 +203,7 @@ define(function (require, exports, module) {
             });
 
             //animate elements up into empty space, then remove transitionable
-            trans.set(0).set(size, transition, function(){            
+            trans.set(0).set(size, transition, function(){
                 if(callback){
                     callback();
                 }
@@ -221,7 +224,7 @@ define(function (require, exports, module) {
             var self = this;
             var i = 0;
             self._observeHandle = ObserveSequence.observe(function(){
-                return self._cursor
+                return self._cursor;
             },{
                 addedAt: function (id, item, i, beforeId){
                     var temp = self._renderTemplate(item);
@@ -245,7 +248,7 @@ define(function (require, exports, module) {
                     temp._record = newItem;
                     if(_.isFunction(self._beforeAddedFunction))
                         temp = self._beforeAddedFunction(temp);
-                    
+
                     self._lastChangedObject = {
                         id: id,
                         newItem: newItem,
@@ -260,7 +263,7 @@ define(function (require, exports, module) {
                         id: id,
                         item: item,
                         i: i
-                    }
+                    };
                     self.eventHandler.emit('removedAt');
                     self._dataList.splice (i, 1);
                 },
@@ -337,7 +340,7 @@ Meteor.startup(function(){
 //         var Scrollview = require("famous/views/Scrollview");
 //         var Each       = require('famodev/Each');
 //         var Box        = require('famodev/Box');
-        
+
 //         var mainContext = Engine.createContext();
 
 //         var scrollview = new Scrollview();
@@ -403,5 +406,3 @@ Meteor.startup(function(){
 //         }, 5000);
 //     });
 // });
-
-});

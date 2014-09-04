@@ -1,7 +1,6 @@
-Famono.scope('famodev/ReactiveSurface', ["famous/core/Surface"], function(require, define) {
 /**
  * ReactiveSurface
- * 
+ *
  * {{ Missing param }}
  *
  * @constructor
@@ -17,7 +16,7 @@ define(function(require, exports, module){
 
             // FIXME: thinking about this
             //this.emit('created');
-        };
+        }
         ReactiveSurface.prototype = Object.create(Surface.prototype);
         ReactiveSurface.prototype.constructor = ReactiveSurface;
         ReactiveSurface.prototype.deploy = function deploy(target) {
@@ -47,7 +46,7 @@ define(function(require, exports, module){
         ReactiveSurface.prototype.setContent = function setContent(content) {
             var self = this;
             if(self.rangeUpdater && self.rangeUpdater.stop){
-                self.rangeUpdater.stop()
+                self.rangeUpdater.stop();
                 self.rangeUpdater = null;
             }
             if (this.content !== content) {
@@ -61,20 +60,20 @@ define(function(require, exports, module){
         ReactiveSurface.prototype.cleanup = function (allocator) {
             var self = this;
             if(self.rangeUpdater && self.rangeUpdater.stop){
-                self.rangeUpdater.stop()
+                self.rangeUpdater.stop();
                 self.rangeUpdater = null;
             }
             cleanup.call(this, allocator);
 
             // FIXME: thinking about this
             this.emit('destroyed');
-        }
+        };
 
         //this function will save content in document.createDocumentFragment();
         //we will not change content if we want it reactive
         ReactiveSurface.prototype.recall = function (target) {
 
-        }
+        };
         module.exports = ReactiveSurface;
 });
 // with session
@@ -221,5 +220,3 @@ define(function(require, exports, module){
 //         }, 3000);
 //     });
 // });
-
-});

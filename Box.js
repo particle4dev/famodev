@@ -1,4 +1,3 @@
-Famono.scope('famodev/Box', ["famous/core/Modifier","famous/core/Surface","famous/core/OptionsManager","famous/core/RenderNode","famous/core/Transform","famous/utilities/Utility","famous/transitions/Transitionable","famous/transitions/TransitionableTransform","famous/transitions/Easing"], function(require, define) {
 define(function (require, exports, module) {
 
         var Modifier        = require('famous/core/Modifier');
@@ -10,7 +9,7 @@ define(function (require, exports, module) {
         var Transitionable  = require('famous/transitions/Transitionable');
         var TransitionableTransform = require('famous/transitions/TransitionableTransform');
         var Easing          = require('famous/transitions/Easing');
-        
+
         function Box(options) {
             this.options = Object.create(Box.DEFAULT_OPTIONS);
             this._optionsManager = new OptionsManager(this.options);
@@ -63,17 +62,17 @@ define(function (require, exports, module) {
         };
         Box.prototype.removeRenderable = function() {
             var self = this;
-            if(self.nodes.length == 0)
+            if(self.nodes.length === 0)
                 return;
             var node = self.nodes[self.nodes.length - 1];
             if(self._showing){
                 self.hide(function(){
                     self.nodes.splice(self.nodes.indexOf(node), 1);
-                })
+                });
             }
             else
                 self.nodes.splice(self.nodes.indexOf(node), 1);
-            
+
         };
 
         Box.prototype.hide = function(transition, callback) {
@@ -122,7 +121,7 @@ define(function (require, exports, module) {
 
             //self._transform.set(Transform.identity, true, _cb);
             self._transform.set(this.options.showTransform, transition, _cb);
-            
+
             self._opacity.set(this.options.showOpacity, transition, _cb);
             self._origin.set(this.options.showOrigin, transition, _cb);
         };
@@ -185,7 +184,7 @@ define(function (require, exports, module) {
 
         Box.prototype.getSize = function(){
             var self = this;
-            if(self.nodes.length == 0)
+            if(self.nodes.length === 0)
                 return;
             var node = self.nodes[self.nodes.length - 1];
             return node.getSize();
@@ -340,5 +339,3 @@ define(function (require, exports, module) {
 
 //     })
 // });
-
-});

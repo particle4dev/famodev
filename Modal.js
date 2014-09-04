@@ -1,4 +1,3 @@
-Famono.scope('famodev/Modal', ["famous/core/View","famous/modifiers/StateModifier","famous/core/RenderNode","famous/core/Surface","famous/core/Transform","famous/surfaces/ContainerSurface","famous/transitions/Transitionable","famous/transitions/TransitionableTransform","famous/core/Modifier","famous/utilities/Utility","famous/views/RenderController"], function(require, define) {
 /**
  * version 0.1
  */
@@ -28,8 +27,8 @@ define(function(require, exports, module){
                 }
             });
             this._containerModifier = new StateModifier({
-                origin: [.5, .5],
-                align: [.5, .5]
+                origin: [0.5, 0.5],
+                align: [0.5, 0.5]
             });
             this._add(this._containerModifier).add(this._containerView);
 
@@ -55,17 +54,17 @@ define(function(require, exports, module){
                 }
             });
             this._containerView.add(this._bg);
-        };
+        }
 
         function createContainerModal () {
             _containerModal = new RenderController();
             _containerModalModifier = new StateModifier({
-                origin: [.5, .5],
-                align: [.5, .5],
+                origin: [0.5, 0.5],
+                align: [0.5, 0.5],
                 opacity: 1
             });
             this._containerView.add(_containerModalModifier).add(_containerModal);
-        };
+        }
 
         /**
          * Methods
@@ -83,9 +82,6 @@ define(function(require, exports, module){
         /**
          * Events
          */
-        
-
-        
 
         var _nodes = [],
         _status = {
@@ -119,7 +115,6 @@ define(function(require, exports, module){
                 }
             });
 
-            var node = new RenderNode();
             // add modifier
             _backdropModifier = {
                 transform: new TransitionableTransform(_status.inTransform),
@@ -144,7 +139,7 @@ define(function(require, exports, module){
                 hide();
                 isShow = false;
             });
-        };
+        }
         function _createBox(){
             _boxSurface = new Modal();
 
@@ -164,7 +159,7 @@ define(function(require, exports, module){
             var node = new RenderNode();
             node.add(boxModifier).add(_boxSurface);
             _nodes.push(node);
-        };
+        }
 
         // animation
         function show (callback) {
@@ -175,7 +170,7 @@ define(function(require, exports, module){
             _backdropModifier.opacity.set(0.5, { duration: 200, curve: 'easeInOut'}, _cb);
             _boxModifier.opacity.set(1, { duration: 300, curve: 'easeInOut'}, _cb);
             _boxModifier.transform.set(Transform.scale(1, 1, 1), { duration: 300, curve: 'easeInOut'}, _cb);
-        };
+        }
         function hide (callback) {
             var _cb = callback ? Utility.after(3, function(){
                 callback();
@@ -189,7 +184,7 @@ define(function(require, exports, module){
             _backdropModifier.opacity.set(0, { duration: 200, curve: 'easeInOut'}, _cb);
             _boxModifier.opacity.set(0, { duration: 300, curve: 'easeInOut'}, _cb);
             _boxModifier.transform.set(Transform.scale(2, 2, 1), { duration: 300, curve: 'easeInOut'}, _cb);
-        };
+        }
 
         //start
         _createBackdrop();
@@ -203,7 +198,7 @@ define(function(require, exports, module){
             register: function(key, renderable) {
                 modals[key] = renderable;
             },
-            
+
             show: function(key, cb) {
                 if(isShow)
                     return this.hide.call(this, function () {
@@ -244,7 +239,7 @@ define(function(require, exports, module){
             }
         };
 
-})
+});
 
 // test
 // Meteor.startup(function () {
@@ -277,4 +272,3 @@ define(function(require, exports, module){
 
 //     });
 // });
-});

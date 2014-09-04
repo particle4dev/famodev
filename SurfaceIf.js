@@ -1,7 +1,6 @@
-Famono.scope('famodev/SurfaceIf', ["famous/core/Surface"], function(require, define) {
 /**
  * Surface If Component
- * 
+ *
  * {{ Missing param }}
  *
  * @constructor
@@ -19,7 +18,7 @@ define(function(require, exports, module){
             this.condition = options.condition;
             this.contentBlock = options.contentBlock;
             this.elseContentBlock = options.elseContentBlock;
-        };
+        }
         SurfaceIf.prototype = Object.create(Surface.prototype);
         SurfaceIf.prototype.constructor = SurfaceIf;
 
@@ -27,7 +26,7 @@ define(function(require, exports, module){
         //we will not change content if we want it reactive
         SurfaceIf.prototype.recall = function (target) {
 
-        }
+        };
         /**
          * Place the document element that this component manages into the document.
          *
@@ -86,7 +85,7 @@ define(function(require, exports, module){
                 afterSetContent: function(func){
                     self._animateAfterSetContent = func.bind(self._modifier);
                 }
-            }
+            };
         };
 
         /**
@@ -99,7 +98,7 @@ define(function(require, exports, module){
         SurfaceIf.prototype.setContent = function setContent(content) {
             var self = this;
             if(self.rangeUpdater && self.rangeUpdater.stop){
-                self.rangeUpdater.stop()
+                self.rangeUpdater.stop();
                 self.rangeUpdater = null;
             }
             if (this.content !== content) {
@@ -113,7 +112,7 @@ define(function(require, exports, module){
         SurfaceIf.prototype.cleanup = function (allocator) {
             var self = this;
             if(self.rangeUpdater && self.rangeUpdater.stop){
-                self.rangeUpdater.stop()
+                self.rangeUpdater.stop();
                 self.rangeUpdater = null;
             }
             cleanup.call(this, allocator);
@@ -121,7 +120,7 @@ define(function(require, exports, module){
 
         module.exports = SurfaceIf;
 
-    })
+    });
 
 // Meteor.startup(function () {
 //     define(function(require, exports, module){
@@ -162,4 +161,3 @@ define(function(require, exports, module){
 //         mainContext.add(mod).add(surf);
 //     });
 // });
-});
