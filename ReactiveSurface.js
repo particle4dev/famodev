@@ -170,7 +170,6 @@ define(function(require, exports, module){
 // });
 
 // with session
-
 // Meteor.startup(function(){
 //     Session.setDefault('session', 'value');
 //     define([

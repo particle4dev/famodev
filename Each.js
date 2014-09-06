@@ -1,17 +1,19 @@
+isCursor = function (c) {
+    return c && c.observe;
+};
 define(function (require, exports, module) {
-        isCursor = function (c) {
-            return c && c.observe;
-        };
 
         var ViewSequence    = require('famous/core/ViewSequence');
-        var Modifier        = require('famous/core/Modifier');
         var Surface         = require('famous/core/Surface');
-        var RenderNode      = require('famous/core/RenderNode');
         var Transform       = require('famous/core/Transform');
         var EventHandler    = require('famous/core/EventHandler');
         var Transitionable  = require('famous/transitions/Transitionable');
+        var Modifier2       = require('famous/core/Modifier');
+        var RenderNode      = require('famous/core/RenderNode');
 
-        var Node            = require('./Node');
+        var Node            = require('famodev/Node');
+        var Modifier        = require('famodev/Modifier');
+        var Utils           = require('famodev/Utils');
 
         function Each(options) {
             this._beforeAddedFunction = Each.DEFAULT_BEFORE_ADDED;
@@ -49,9 +51,11 @@ define(function (require, exports, module) {
 
         });
         Each.DEFAULT_BEFORE_ADDED = function(view){
-            var node = new RenderNode();
-            node.add(new Modifier()).add(view);
-            node.pipe = view.pipe.bind(view);
+            var node = new Node({
+                modifier: new Modifier(),
+                surface: view
+            });
+
             return node;
         };
 
@@ -227,8 +231,14 @@ define(function (require, exports, module) {
                 return self._cursor;
             },{
                 addedAt: function (id, item, i, beforeId){
-                    var temp = self._renderTemplate(item);
+                    var temp = self._renderTemplate(item, i);
+                    
+                    // attach events
                     temp._record = item;
+                    temp.getId = function () {
+                        return id;
+                    };
+                    
                     temp.pipe(self._scrollview);
                     if(_.isFunction(self._beforeAddedFunction))
                         temp = self._beforeAddedFunction(temp);
@@ -240,10 +250,10 @@ define(function (require, exports, module) {
                         beforeId: beforeId
                     };
                     self.eventHandler.emit('addedAt');
-                        return self._dataList.push(temp);
+                        return self._dataList.splice(i, 0, temp);
                 },
                 changedAt: function (id, newItem, oldItem, atIndex) {
-                    var temp = self._renderTemplate(newItem);
+                    var temp = self._renderTemplate(newItem, atIndex);
                     temp.pipe(self._scrollview);
                     temp._record = newItem;
                     if(_.isFunction(self._beforeAddedFunction))
@@ -323,86 +333,127 @@ Meteor.startup(function(){
 });
 */
 // with database
-// Meteor.startup(function(){
+Meteor.startup(function(){
 
-//     Items = new Meteor.Collection('items',{
-//         connection: null
-//     });
-//     for (var i = 0; i < 40; i++)
-//         Items.insert({
-//             _id: 'test' + i,
-//             text: 'cookie' + i
-//         });
+    Items = new Meteor.Collection('items',{
+        connection: null
+    });
+    for (var i = 0; i < 40; i++)
+        Items.insert({
+            _id: 'test' + i,
+            text: 'cookie' + i
+        });
 
-//     define(function(require, exports, module) {
-//         var Engine     = require("famous/core/Engine");
-//         var Surface    = require("famous/core/Surface");
-//         var Scrollview = require("famous/views/Scrollview");
-//         var Each       = require('famodev/Each');
-//         var Box        = require('famodev/Box');
+    define([
+            'famous/core/Engine',
+            'famous/core/Surface',
+            'famous/views/Scrollview',
+            'famodev/Each',
+            'famodev/Box',
+            'famous/core/Transform'
+      ],
+      function(Engine, Surface, Scrollview, Each, Box, Transform) {
 
-//         var mainContext = Engine.createContext();
+        var mainContext = Engine.createContext();
 
-//         var scrollview = new Scrollview();
-//         var each = new Each({
-//             data: Items.find({}, {sort: {
-//                 text: 1
-//             }}),
-//             scrollview: scrollview
-//         });
-//         scrollview.sequenceFrom(each);
+        var scrollview = new Scrollview();
+        var each = new Each({
+            data: Items.find({}, {sort: {
+                text: 1
+            }}),
+            scrollview: scrollview,
+            template: function(data, i){
+                return new Surface({
+                      content: data.text,
+                      size: [undefined, 200],
+                      properties: {
+                          backgroundColor: "hsl(" + (i * 360 / 40) + ", 100%, 50%)",
+                          lineHeight: "200px",
+                          textAlign: "center"
+                      }
+                });
+            }
+        });
+        // add events
+        _.each(each.getListViews(), function (node) {
+            node.on('hold', function(data){
+                this.addX(data.delta);
+                if(!this.zoom) {
+                    this.setZ(10);
+                    this._modifier._scale.set(Transform.scale(1.2, 1.2, 2), { duration: 200, curve: 'easeInOut'});
+                    this.zoom = true;
+                }
+            }.bind(node));
 
-//         each.on('addedAt', function (id, item, i, beforeId){
-//             console.log(id, item, i, beforeId, 'added');
-//         });
+            node.on('moveEnd', function(data){
+                if(this.zoom) {
+                    this.setZ(1);
+                    this._modifier._scale.set(Transform.scale(1, 1, 1), { duration: 200, curve: 'easeInOut'});
+                    this.zoom = false;
+                }
+                if(this.getX() > 176) {
+                    this.addX(Utils.getWindowWidth(), { duration: 200, curve: 'easeInOut'}, function () {
+                        Items.remove(this._surface.getId());
+                    }.bind(this));
+                    return ;
+                }
+                this.resetX({ duration: 200, curve: 'easeInOut'});
+            }.bind(node));
+        });
 
-//         each.on('changedAt', function (id, newItem, oldItem, atIndex) {
-//             console.log(id, newItem, oldItem, atIndex, 'changed');
-//         });
+        scrollview.sequenceFrom(each);
 
-//         each.on('removedAt', function (id, item, i) {
-//             console.log(id, item, i, 'removedAt');
-//         });
+        each.on('addedAt', function (id, item, i, beforeId){
+            console.log(id, item, i, beforeId, 'added');
+        });
 
-//         each.on('movedTo', function (id, item, i, j, beforeId) {
-//             console.log(id, item, i, j, beforeId, 'movedTo');
-//         });
+        each.on('changedAt', function (id, newItem, oldItem, atIndex) {
+            console.log(id, newItem, oldItem, atIndex, 'changed');
+        });
 
-//         mainContext.add(scrollview);
+        each.on('removedAt', function (id, item, i) {
+            console.log(id, item, i, 'removedAt');
+        });
 
-//         Meteor.setTimeout(function(){
-//             Items.update('test1', {$set: {text: 'cookie'}});
-//         }, 3000);
+        each.on('movedTo', function (id, item, i, j, beforeId) {
+            console.log(id, item, i, j, beforeId, 'movedTo');
+        });
 
-//         Meteor.setTimeout(function(){
-//             Items.remove('test3');
-//             Items.insert({
-//                 _id: 'test',
-//                 text: 'cookie'
-//             });
-//         }, 4000);
+        mainContext.add(scrollview);
 
-//         Meteor.setTimeout(function(){
-//             each.increaseSpace(1, 200, {duration: 500, curve: "easeIn"}, function(){
-//                 var sur = new Surface({
-//                         content: "newItem._id",
-//                         size: [undefined, 200],
-//                         properties: {
-//                             backgroundColor: "hsl(" + (0 * 360 / 40) + ", 100%, 50%)",
-//                             lineHeight: "200px",
-//                             textAlign: "center"
-//                         }
-//                     });
-//                 sur.pipe(scrollview);
-//                 var box = new Box({
-//                     inOrigin: [0, 0],
-//                     outOrigin: [0, 0],
-//                     showOrigin: [0, 0],
-//                 });
-//                 box.addRenderable(sur);
-//                 each.splice(2, 0, box);
-//                 box.show();
-//             });
-//         }, 5000);
-//     });
-// });
+        Meteor.setTimeout(function(){
+            Items.update('test1', {$set: {text: 'cookie'}});
+        }, 3000);
+        //
+        Meteor.setTimeout(function(){
+            Items.remove('test3');
+            Items.insert({
+                _id: 'test',
+                text: 'cookie'
+            });
+        }, 4000);
+
+        // Meteor.setTimeout(function(){
+        //     each.increaseSpace(1, 200, {duration: 500, curve: "easeIn"}, function(){
+        //         var sur = new Surface({
+        //                 content: "newItem._id",
+        //                 size: [undefined, 200],
+        //                 properties: {
+        //                     backgroundColor: "hsl(" + (0 * 360 / 40) + ", 100%, 50%)",
+        //                     lineHeight: "200px",
+        //                     textAlign: "center"
+        //                 }
+        //             });
+        //         sur.pipe(scrollview);
+        //         var box = new Box({
+        //             inOrigin: [0, 0],
+        //             outOrigin: [0, 0],
+        //             showOrigin: [0, 0],
+        //         });
+        //         box.addRenderable(sur);
+        //         each.splice(2, 0, box);
+        //         box.show();
+        //     });
+        // }, 5000);
+    });
+});

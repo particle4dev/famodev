@@ -1,17 +1,21 @@
 define(function (require, exports, module) {
 
-        var ViewSequence    = require('famous/core/ViewSequence');
-        var Modifier        = require('famous/core/Modifier');
-        var Surface         = require('famous/core/Surface');
-        var RenderNode      = require('famous/core/RenderNode');
-        var Transform       = require('famous/core/Transform');
-        var EventHandler    = require('famous/core/EventHandler');
-        var Transitionable  = require('famous/transitions/Transitionable');
+        var RenderNode          = require('famous/core/RenderNode');
+        var GenericSync         = require('famous/inputs/GenericSync');
+        var MouseSync           = require('famous/inputs/MouseSync');
+        var TouchSync           = require('famous/inputs/TouchSync');
+
+        var Modifier            = require('famodev/Modifier');
+
+        GenericSync.register({
+            'mouse': MouseSync,
+            'touch': TouchSync
+        });
 
         function Node(options) {
+            RenderNode.apply(this);
             this._surface = null;
             this._modifier = null;
-            this._node = new RenderNode();
 
             if(options.surface) {
                 this._surface = options.surface;
@@ -19,11 +23,20 @@ define(function (require, exports, module) {
             if(options.modifier) {
                 this._modifier = options.modifier;
             }
-        }
-        Node.prototype = Object.create(ViewSequence.prototype);
-        Node.prototype.constructor = Node;
-        Node.DEFAULT_OPTIONS = ViewSequence.DEFAULT_OPTIONS;
+            var t = this.add(this._modifier);
+            if(this._modifier instanceof Modifier)
+                t = t.add(this._modifier._modScale);
+            t.add(this._surface);
 
+            this._addMethods();
+            this._addEvents();
+            this.options = _.extend(options, Node.DEFAULT_OPTIONS); 
+        }
+        Node.prototype = Object.create(RenderNode.prototype);
+        Node.prototype.constructor = Node;
+        Node.DEFAULT_OPTIONS = {
+            holdTime: 500
+        };
         /**
          * Methods
          */
@@ -46,54 +59,147 @@ define(function (require, exports, module) {
             return this;
         };
 
-        Node.prototype.render = function () {
-            if(!this._surface)
-                throw new Error('Surface not found');
-            if(!this._modifier)
-                throw new Error('Modifier not found');
-            this._node.add(this._modifier).add(this._surface);
-            this._addMethods();
-            return this._node.render();
-        };
-
         Node.prototype._addMethods = function () {
             // surface
             // https://github.com/Famous/famous/blob/master/core/Surface.js
             // https://github.com/Famous/famous/blob/master/core/ElementOutput.js
+            if(!this._surface)
+                return;
+            if(!this._modifier)
+                return;
 
-            this.on             = this._surface.on;
-            this.removeListener = this._surface.removeListener;
-            this.emit           = this._surface.emit;
-            this.pipe           = this._surface.pipe;
-            this.unpipe         = this._surface.unpipe;
+            this.on             = this._surface.on.bind(this._surface);
+            this.removeListener = this._surface.removeListener.bind(this._surface);
+            this.emit           = this._surface.emit.bind(this._surface);
+            this.pipe           = this._surface.pipe.bind(this._surface);
+            this.unpipe         = this._surface.unpipe.bind(this._surface);
 
             // modifier
             // https://github.com/Famous/famous/blob/master/core/Modifier.js
-            this.setTransform       = this._modifier.setTransform;
-            this.setOpacity         = this._modifier.setOpacity;
-            this.setOrigin          = this._modifier.setOrigin;
-            this.setAlign           = this._modifier.setAlign;
-            this.setSize            = this._modifier.setSize;
-            this.getTransform       = this._modifier.getTransform;
-            this.getFinalTransform  = this._modifier.getFinalTransform;
-            this.getOpacity         = this._modifier.getOpacity;
-            this.getOrigin          = this._modifier.getOrigin;
-            this.getSize            = this._modifier.getSize;
+            this.setTransform       = this._modifier.setTransform.bind(this._modifier);
+            this.setOpacity         = this._modifier.setOpacity.bind(this._modifier);
+            this.setOrigin          = this._modifier.setOrigin.bind(this._modifier);
+            this.setAlign           = this._modifier.setAlign.bind(this._modifier);
+            this.setSize            = this._modifier.setSize.bind(this._modifier);
+            this.getTransform       = this._modifier.getTransform.bind(this._modifier);
+            this.getFinalTransform  = this._modifier.getFinalTransform.bind(this._modifier);
+            this.getOpacity         = this._modifier.getOpacity.bind(this._modifier);
+            this.getOrigin          = this._modifier.getOrigin.bind(this._modifier);
+            // famodev's modifier
+            if(this._modifier instanceof Modifier) {
+                this.getX          = this._modifier.getX.bind(this._modifier);
+                this.getY          = this._modifier.getY.bind(this._modifier);
+                this.getZ          = this._modifier.getZ.bind(this._modifier);
 
+                this.setX          = this._modifier.setX.bind(this._modifier);
+                this.setY          = this._modifier.setY.bind(this._modifier);
+                this.setZ          = this._modifier.setZ.bind(this._modifier);
+
+                this.addX          = this._modifier.addX.bind(this._modifier);
+                this.addY          = this._modifier.addY.bind(this._modifier);
+                this.addZ          = this._modifier.addZ.bind(this._modifier);
+
+                this.resetX          = this._modifier.resetPositionX.bind(this._modifier);
+                this.resetY          = this._modifier.resetPositionY.bind(this._modifier);
+                this.resetZ          = this._modifier.resetPositionZ.bind(this._modifier);
+            }
+
+        };
+
+        Node.prototype._addEvents = function(){
+            var sync = new GenericSync(
+            ['mouse', 'touch'], {
+                direction: GenericSync.DIRECTION_X
+            });
+            this.pipe(sync);
+            /**
+             * Hold events
+             *      http://stackoverflow.com/questions/4710111/determining-long-tap-long-press-tap-hold-on-android-with-jquery
+             *      http://stackoverflow.com/questions/6139225/how-to-detect-a-long-touch-pressure-with-javascript-for-android-and-iphone
+             */
+
+            sync.on('start', function(data) {
+                // start hold event
+                this._idHoldEvent = setTimeout(function () {
+                    this._holdEvent = true;
+                    this.emit('hold', data);
+                }.bind(this), this.options.holdTime);
+            }.bind(this));
+
+            sync.on('update', function(data) {
+                this.emit('moveX', data);
+                if(this._holdEvent)
+                    this.emit('hold', data);
+            }.bind(this));
+
+            sync.on('end', function(data) {
+                this.emit('moveEnd', data);
+                // clear hold event
+                if(this._idHoldEvent) {
+                    clearTimeout(this._idHoldEvent);
+                    this._idHoldEvent = null;
+                    this._holdEvent = false;
+                }
+            }.bind(this));
         };
 
         module.exports = Node;
 
     });
 
-/**
- * CODE STYLES
-
-    var Node = require('famodev/Node');
-
-    var n = new Node({});
-
-    n.getModifier();
-    n.getSurface();
-
- */
+// Meteor.startup(function(){
+//     define([
+//         'famodev/ReactiveSurface',
+//         'famous/core/Engine',
+//         'famous/core/Transform',
+//         'famous/core/Modifier',
+//         'famodev/Node'
+//     ], function(){
+//         var ReactiveSurface = require('famodev/ReactiveSurface');
+//         var Engine          = require('famous/core/Engine');
+//         var Transform       = require('famous/core/Transform');
+//         var Modifier        = require('famous/core/Modifier');
+//         var Node            = require('famodev/Node');
+//
+//         var mainContext = Engine.createContext();
+//         var sur = new ReactiveSurface({
+//             size: [200, 200],
+//             properties: {
+//                 textAlign: 'center',
+//                 color: 'white',
+//                 fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+//                 fontWeight: '200',
+//                 fontSize: '16px',
+//                 lineHeight: "200px",
+//                 background: 'red'
+//             },
+//             content: function(){
+//                 return Session.get('session');
+//             }
+//         });
+//
+//         var mod = new Modifier({
+//             origin: [0.5, 1]
+//         });
+//
+//         var node = new Node({
+//             surface: sur,
+//             modifier: mod
+//         });
+//
+//         node.on('changed', function(data){
+//             console.log(data);
+//             node.setTransform(Transform.translate(0, 100, 0), {duration: 500, curve: "easeIn"});
+//         });
+//
+//         node.on('rendered', function(){
+//             console.log('rendered');
+//         });
+//
+//         mainContext.add(node);
+//
+//         Meteor.setTimeout(function(){
+//             Session.set('session', 'value2');
+//         }, 3000);
+//     });
+// });
