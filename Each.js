@@ -16,6 +16,7 @@ define(function (require, exports, module) {
         var Utils           = require('famodev/Utils');
 
         function Each(options) {
+            this._cursor = new ReactiveVar();
             this._beforeAddedFunction = Each.DEFAULT_BEFORE_ADDED;
             this.eventHandler = new EventHandler();
             this.eventHandler.bindThis(this);
@@ -24,8 +25,9 @@ define(function (require, exports, module) {
                 if(options.scrollview)
                     this._scrollview = options.scrollview;
                 var args = Array.prototype.slice.call(arguments, 1);
-                if(isCursor(options.data)){
-                    this._cursor = options.data;
+                if(_.isFunction(options.data)){
+                    this._datacursor = options.data;
+                    // this._cursor = options.data;
                     this._renderTemplate = options.template;
                     this.handWithCursor.apply(this, arguments);
                     return ;
@@ -39,7 +41,7 @@ define(function (require, exports, module) {
                 }
             }
             if(isCursor(options)){
-                this._cursor = options;
+                this._datacursor = options;
                 this.handWithCursor.apply(this, arguments);
                 return ;
             }
@@ -151,6 +153,15 @@ define(function (require, exports, module) {
          */
 
         Each.prototype.handWithCursor = function (options) {
+            // create cursor
+            // https://github.com/meteor/meteor/blob/0b1d744731dc7fb4477331ebad5f5d62276000f1/packages/blaze/builtins.js#L69
+            Tracker.autorun(function () {
+                this._cursor.set(this._datacursor());
+            }.bind(this));
+            // isCursor
+            // FIXME: what about function is array ?
+            // FIXME: do we need stop track ?
+
             var args = Array.prototype.slice.call(arguments, 1);
             this._dataList = [];
             _observeCursor.call(this);
@@ -228,7 +239,7 @@ define(function (require, exports, module) {
             var self = this;
             var i = 0;
             self._observeHandle = ObserveSequence.observe(function(){
-                return self._cursor;
+                return self._cursor.get();
             },{
                 addedAt: function (id, item, i, beforeId){
                     var temp = self._renderTemplate(item, i);
