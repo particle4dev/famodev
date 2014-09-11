@@ -1,15 +1,24 @@
-
 define(function(require, exports, module) {
 
-        var Transform = require('famous/core/Transform');
-        var Utilities = require('famous/math/Utilities');
+        var Transform               = require('famous/core/Transform');
+        var Utilities               = require('famous/math/Utilities');
+        var Engine                  = require('famous/core/Engine');
+        var Transitionable          = require('famous/transitions/Transitionable');
+
+        var innerHeight = new Transitionable(0), innerWidth = new Transitionable(0);
+        var resize = function () {
+            innerHeight.set(window.innerHeight);
+            innerWidth.set(window.innerWidth);
+        };
+        Engine.on('resize', resize);
+        resize();
 
         module.exports = {
-            getWindowHeight: function () {
-                return window.innerHeight;
+            windowHeight: function () {
+                return innerHeight.get();
             },
-            getWindowWidth: function () {
-                return window.innerWidth;
+            windowWidth: function () {
+                return innerWidth.get();
             },
             frontOfZ: function(m, value) {
                 if (value === undefined) value = 1;
