@@ -52,7 +52,8 @@ define(function(require, exports, module){
             // inplement hooks
             var originRendered = self._template.rendered;
             self._template.rendered = function () {
-                originRendered.call(this);
+                if(_.isFunction(originRendered))
+                    originRendered.call(this);
                 // https://github.com/meteor/meteor/commit/24e3c3e0e1d363b28e87cfd2d2e499048d4f8091
                 // FIXME: fire event
                 _.each(this.findAll('.watch'), function (container) {
