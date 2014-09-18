@@ -54,7 +54,9 @@ define(function (require, exports, module) {
         });
         Each.DEFAULT_BEFORE_ADDED = function(view){
             var node = new Node({
-                modifier: new Modifier(),
+                modifier: new Modifier({
+                    transform: Transform.translate(0, 0, 0)
+                }),
                 surface: view
             });
 
@@ -190,7 +192,7 @@ define(function (require, exports, module) {
             return this._.array[index]._child._child._object;
         };
 
-        //Modifier
+        // Modifier
         Each.prototype.getModifierAt = function (index) {
             if(index < this._.array.length) {
                 return this._.array[index]._child._object;
