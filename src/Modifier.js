@@ -6,7 +6,7 @@ define(function (require, exports, module) {
         var TransitionableTransform = require('famous/transitions/TransitionableTransform');
         var Transform               = require('famous/core/Transform');
 
-        var Utils                   = require('famodev/Utils');
+        var Utils                   = require('famodev/src/Utils');
 
         function Modifier2 (options) {
             this._xTran = new Transitionable(0);

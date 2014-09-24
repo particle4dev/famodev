@@ -12,9 +12,9 @@ define(function (require, exports, module) {
         var Modifier2       = require('famous/core/Modifier');
         var RenderNode      = require('famous/core/RenderNode');
 
-        var Node            = require('famodev/Node');
-        var Modifier        = require('famodev/Modifier');
-        var Utils           = require('famodev/Utils');
+        var Node            = require('famodev/src/Node');
+        var Modifier        = require('famodev/src/Modifier');
+        var Utils           = require('famodev/src/Utils');
 
         function Each(options) {
             this._cursor = new ReactiveVar();

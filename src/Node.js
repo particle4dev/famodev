@@ -6,7 +6,7 @@ define(function (require, exports, module) {
         var MouseSync           = require('famous/inputs/MouseSync');
         var TouchSync           = require('famous/inputs/TouchSync');
 
-        var Modifier            = require('famodev/Modifier');
+        var Modifier            = require('famodev/src/Modifier');
 
         GenericSync.register({
             'mouse': MouseSync,
