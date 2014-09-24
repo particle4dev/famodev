@@ -1,0 +1,51 @@
+// https://sfdc-designer.herokuapp.com/salesforce/s1-elements/styles.shim.css
+// https://github.com/driftyco/ionic-app-base/blob/master/www/lib/ionic/scss/ionic.scss
+@charset "UTF-8";
+
+@import 'mixins';
+@import 'variables';
+
+@import 'animate';
+@import 'background';
+@import 'buttons';
+@import 'icons';
+@import 'cards';
+@import 'colors';
+@import 'rotations';
+@import 'border';
+@import 'squares';
+@import 'floats';
+@import 'heights';
+@import 'opacity';
+@import 'toast';
+@import 'tabs';
+@import 'checkbox';
+@import 'inputs';
+@import 'range';
+@import 'popup';
+@import 'backdrop';
+@import 'toggle';
+
+.button.button-icon {
+border-color: transparent;
+background: none;
+}
+.button.button-clear {
+border-color: transparent;
+background: none;
+box-shadow: none;
+color: #fff;
+font-size: 17px;
+}
+.button.button-clear {
+padding-right: 2px;
+padding-left: 2px;
+font-weight: 300;
+font-size: 17px;
+}
+
+* {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}

@@ -1,0 +1,220 @@
+// Transition Mixins
+// --------------------------------------------------
+
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+     -moz-transition: $transition;
+          transition: $transition;
+}
+@mixin transition-delay($transition-delay) {
+  -webkit-transition-delay: $transition-delay;
+     -moz-transition-delay: $transition-delay;
+          transition-delay: $transition-delay;
+}
+@mixin transition-duration($transition-duration) {
+  -webkit-transition-duration: $transition-duration;
+     -moz-transition-duration: $transition-duration;
+          transition-duration: $transition-duration;
+}
+@mixin transition-timing-function($transition-timing) {
+   -webkit-transition-timing-function: $transition-timing;
+      -moz-transition-timing-function: $transition-timing;
+           transition-timing-function: $transition-timing;
+ }
+ @mixin transition-property($property) {
+  -webkit-transition-property: $property;
+     -moz-transition-property: $property;
+          transition-property: $property;
+}
+@mixin transition-transform($properties...) {
+  // special case cuz of transform vendor prefixes
+  -webkit-transition: -webkit-transform $properties;
+     -moz-transition: -moz-transform $properties;
+          transition: transform $properties;
+}
+
+// Transformation Mixins
+// --------------------------------------------------
+
+@mixin rotate($degrees) {
+  @include transform( rotate($degrees) );
+}
+@mixin scale($ratio) {
+  @include transform( scale($ratio) );
+}
+@mixin translate($x, $y) {
+  @include transform( translate($x, $y) );
+}
+@mixin skew($x, $y) {
+  @include transform( skew($x, $y) );
+  -webkit-backface-visibility: hidden;
+}
+@mixin translate3d($x, $y, $z) {
+  @include transform( translate3d($x, $y, $z) );
+}
+@mixin translateZ($z) {
+  @include transform( translateZ($z) );
+}
+@mixin transform($val) {
+  -webkit-transform: $val;
+     -moz-transform: $val;
+          transform: $val;
+}
+
+@mixin transform-origin($left, $top) {
+  -webkit-transform-origin: $left $top;
+     -moz-transform-origin: $left $top;
+          transform-origin: $left $top;
+}
+
+// Checkbox Mixins
+// --------------------------------------------------
+
+@mixin checkbox-style($off-border-color, $on-bg-color) {
+  & input:before,
+  & .checkbox-icon:before {
+    border-color: $off-border-color;
+  }
+
+  // what the background looks like when its checked
+  & input:checked:before,
+  & input:checked + .checkbox-icon:before {
+    background: $on-bg-color;
+  }
+}
+
+// Opacity Mixins
+// --------------------------------------------------
+// https://coderwall.com/p/mca5xw
+@mixin opacity($value){
+  $IEValue: $value*100;
+  opacity: $value;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
+  filter: alpha(opacity=$IEValue);
+}
+
+
+// Range Mixins
+// --------------------------------------------------
+
+@mixin range-style($track-bg-color) {
+  &::-webkit-slider-thumb:before {
+    background: $track-bg-color;
+  }
+}
+
+// Flexbox Mixins
+// --------------------------------------------------
+// http://philipwalton.github.io/solved-by-flexbox/
+// https://github.com/philipwalton/solved-by-flexbox
+
+@mixin display-flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin flex($fg: 1, $fs: null, $fb: null) {
+  -webkit-box-flex: $fg;
+  -webkit-flex: $fg $fs $fb;
+  -moz-box-flex: $fg;
+  -moz-flex: $fg $fs $fb;
+  -ms-flex: $fg $fs $fb;
+  flex: $fg $fs $fb;
+}
+
+@mixin flex-direction($value: row) {
+  @if $value == row-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+  } @else if $value == column {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+  } @else if $value == column-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: vertical;
+  } @else {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+  }
+  -webkit-flex-direction: $value;
+  -moz-flex-direction: $value;
+  -ms-flex-direction: $value;
+  flex-direction: $value;
+}
+
+@mixin align-items($value: stretch) {
+  @if $value == flex-start {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+  } @else if $value == flex-end {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+  } @else {
+    -webkit-box-align: $value;
+    -ms-flex-align: $value;
+  }
+  -webkit-align-items: $value;
+  -moz-align-items: $value;
+  align-items: $value;
+}
+
+@mixin justify-content($value: stretch) {
+  @if $value == flex-start {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+  } @else if $value == flex-end {
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+  } @else if $value == space-between {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+  } @else {
+    -webkit-box-pack: $value;
+    -ms-flex-pack: $value;
+  }
+  -webkit-justify-content: $value;
+  -moz-justify-content: $value;
+  justify-content: $value;
+}
+
+// Animation Mixins
+// --------------------------------------------------
+
+@mixin animation-name($name) {
+ -webkit-animation-name: $name;
+    -moz-animation-name: $name;
+         animation-name: $name;
+}
+
+@mixin animation-duration($duration) {
+ -webkit-animation-duration: $duration;
+    -moz-animation-duration: $duration;
+         animation-duration: $duration;
+}
+
+@mixin animation-timing-function($animation-timing) {
+ -webkit-animation-timing-function: $animation-timing;
+    -moz-animation-timing-function: $animation-timing;
+         animation-timing-function: $animation-timing;
+}
+
+@mixin animation-fill-mode($fill-mode) {
+ -webkit-animation-fill-mode: $fill-mode;
+    -moz-animation-fill-mode: $fill-mode;
+         animation-fill-mode: $fill-mode;
+}
+
+// Toggle Mixins
+// --------------------------------------------------
+
+@mixin toggle-style($on-border-color, $on-bg-color) {
+  // the track when the toggle is "on"
+  & input:checked + .track {
+    border-color: $on-border-color;
+    background-color: $on-bg-color;
+  }
+}

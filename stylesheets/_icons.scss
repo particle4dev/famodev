@@ -1,0 +1,1183 @@
+/* ==========================================================================
+   ICONS
+
+   - Base Icon class
+   - Icon Extensions
+      - Standard Icons
+      - Standard Misc
+      - Standard 3rd Party
+      - Standard Case
+      - Standard Custom
+   ========================================================================== */
+
+/* Icons
+   ========================================================================== */
+
+
+
+ .icon {
+  display: inline-block;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+/* Standard Icons
+   ========================================================================== */
+
+
+
+ .icon--account {
+  background-color: #717ecd;
+  background-image: url("assets/icons/standard/account_120.png");
+}
+
+
+
+ .icon--campaign {
+  background-color: #ee8f4d;
+  background-image: url("assets/icons/standard/campaign_120.png");
+}
+
+
+
+ .icon--case {
+  background-color: #f0c45e;
+  background-image: url("assets/icons/standard/case_120.png");
+}
+
+
+
+ .icon--contact {
+  background-color: #8b7fd5;
+  background-image: url("assets/icons/standard/contact_120.png");
+}
+
+
+
+ .icon--contract {
+  background-color: #66b966;
+  background-image: url("assets/icons/standard/contract_120.png");
+}
+
+
+
+ .icon--dashboard {
+  background-color: #c96358;
+  background-image: url("assets/icons/standard/dashboard_120.png");
+}
+
+
+
+ .icon--document {
+  background-color: #09a0a0;
+}
+
+
+
+ .icon--forecast {
+  background-color: #7774d5;
+}
+
+
+
+ .icon--home {
+  background-color: #44a12c;
+}
+
+
+
+ .icon--invoice {
+  background-color: #17a380;
+}
+
+
+
+ .icon--lead {
+  background-color: #ed7e58;
+  background-image: url("assets/icons/standard/lead_120.png");
+}
+
+
+
+ .icon--opportunity {
+  background-color: #f3ae4e;
+  background-image: url("assets/icons/standard/opportunity_120.png");
+}
+
+
+
+ .icon--portal {
+  background-color: #aec770;
+  background-image: url("assets/icons/standard/portal_120.png");
+}
+
+
+
+ .icon--product {
+  background-color: #aa7bc3;
+}
+
+
+
+ .icon--report {
+  background-color: #ee6868;
+}
+
+
+
+ .icon--setup {
+  background-color: #d75143;
+}
+
+
+
+ .icon--solution {
+  background-color: #8ac26e;
+}
+
+/* Standard Misc
+   ========================================================================== */
+
+
+
+ .icon--avatar {
+  background-color: #55a2d2;
+  background-image: url("assets/icons/standard/avatar_120.png");
+}
+
+
+
+ .icon--approval {
+  background-color: #41b568;
+  background-image: url("assets/icons/standard/approval_120.png");
+}
+
+
+
+ .icon--apps {
+  background-color: #5597bc;
+  background-image: url("assets/icons/standard/apps_120.png");
+}
+
+
+
+ .icon--collaborationgroup {
+  background-color: #5e87de;
+  background-image: url("assets/icons/standard/groups_120.png");
+}
+
+
+
+ .icon--email {
+  background-color: #879eb3;
+  background-image: url("assets/icons/standard/email_120.png");
+}
+
+
+
+ .icon--event {
+  background-color: #d96383;
+  background-image: url("assets/icons/standard/event_120.png");
+}
+
+
+
+ .icon--feed {
+  background-color: #489dd0;
+  background-image: url("assets/icons/standard/feed_120.png");
+}
+
+
+
+ .icon--file {
+  background-color: #b19f7e;
+  background-image: url("assets/icons/standard/file_120.png");
+}
+
+
+
+ .icon--groups {
+  background-color: #5e87de;
+  background-image: url("assets/icons/standard/groups_120.png");
+}
+
+
+
+ .icon--link {
+  background-color: #6078c2;
+  background-image: url("assets/icons/standard/link_120.png");
+}
+
+
+
+ .icon--note {
+  background-color: #dcd861;
+  background-image: url("assets/icons/standard/note_120.png");
+}
+
+
+
+ .icon--people {
+  background-color: #20aeb8;
+  background-image: url("assets/icons/standard/people_120.png");
+}
+
+
+
+ .icon--photo {
+  background-color: #dedede;
+  background-image: url("assets/icons/standard/photo_120.png");
+}
+
+
+
+ .icon--poll {
+  background-color: #5181c4;
+  background-image: url("assets/icons/standard/poll_120.png");
+}
+
+
+
+ .icon--post {
+  background-color: #4eb1cb;
+  background-image: url("assets/icons/standard/post_120.png");
+}
+
+
+
+ .icon--record {
+  background-color: #6cb76c;
+  background-image: url("assets/icons/standard/record_120.png");
+}
+
+
+
+ .icon--related-list {
+  background-color: #4fac9c;
+  background-image: url("assets/icons/standard/related_list_120.png");
+}
+
+
+
+ .icon--social {
+  background-color: #e0709c;
+  background-image: url("assets/icons/standard/social_post_120.png");
+}
+
+
+
+ .icon--task {
+  background-color: #4ab471;
+  background-image: url("assets/icons/standard/task_120.png");
+}
+
+
+
+ .icon--thanks {
+  background-color: #cf5c60;
+  background-image: url("assets/icons/standard/thanks_120.png");
+}
+
+
+
+ .icon--today {
+  background-color: #dd6195;
+  background-image: url("assets/icons/standard/today_120.png");
+}
+
+
+
+ .icon--canvas {
+  background-color: #849cb1;
+  background-image: url("assets/icons/standard/canvas_120.png");
+}
+
+
+
+ .icon--custom {
+  background-color: #849cb1;
+  background-image: url("assets/icons/standard/custom_120.png");
+}
+
+
+
+ .icon--default {
+  background-color: #849cb1;
+  background-image: url("assets/icons/standard/default_120.png");
+}
+
+
+
+ .icon--empty {
+  background-color: #849cb1;
+  background-image: url("assets/icons/standard/empty_120.png");
+}
+
+
+
+ .icon--avatar-loading {
+  background-color: #bac3cc;
+  background-image: url("assets/icons/standard/avatar_loading_120.png");
+}
+
+
+
+ .icon--blank-loading {
+  background-color: #bac3cc;
+  background-image: url("assets/icons/standard/blank_loading_120.png");
+}
+
+
+
+ .icon--groups-loading {
+  background-color: #bac3cc;
+  background-image: url("assets/icons/standard/groups_loading_120.png");
+}
+
+
+
+ .icon--thanks-loading {
+  background-color: #bac3cc;
+  background-image: url("assets/icons/standard/thanks_loading_120.png");
+}
+
+/* Standard 3rd Party
+   ========================================================================== */
+
+
+
+ .icon--files {
+  background-color: #489dd0;
+  background-image: url("assets/icons/standard/chatterbox_120.png");
+}
+
+
+
+ .icon--concur {
+  background-color: #48b4b8;
+  background-image: url("assets/icons/standard/concur_120.png");
+}
+
+
+
+ .icon--dropbox {
+  background-color: #67a9f0;
+  background-image: url("assets/icons/standard/dropbox_120.png");
+}
+
+
+
+ .icon--evernote {
+  background-color: #88b861;
+  background-image: url("assets/icons/standard/evernote_120.png");
+}
+
+/* Standard Case
+   ========================================================================== */
+
+
+
+ .icon--answer-best {
+  background-color: #eac95a;
+  background-image: url("assets/icons/standard/answer_best_120.png");
+}
+
+
+
+ .icon--answer-private {
+  background-color: #eac95a;
+  background-image: url("assets/icons/standard/answer_private_120.png");
+}
+
+
+
+ .icon--answer-public {
+  background-color: #eac95a;
+  background-image: url("assets/icons/standard/answer_public_120.png");
+}
+
+
+
+ .icon--article {
+  background-color: #eac95a;
+  background-image: url("assets/icons/standard/article_120.png");
+}
+
+
+
+ .icon--case-change-status {
+  background-color: #eac95a;
+  background-image: url("assets/icons/standard/case_change_status_120.png");
+}
+
+
+
+ .icon--case-comment {
+  background-color: #eac95a;
+  background-image: url("assets/icons/standard/case_comment_120.png");
+}
+
+
+
+ .icon--case-email {
+  background-color: #eac95a;
+  background-image: url("assets/icons/standard/case_email_120.png");
+}
+
+
+
+ .icon--case-log-a-call {
+  background-color: #eac95a;
+  background-image: url("assets/icons/standard/case_log_a_call_120.png");
+}
+
+
+
+ .icon--case-transcript {
+  background-color: #eac95a;
+  background-image: url("assets/icons/standard/case_transcript_120.png");
+}
+
+/* Standard Custom Icons
+   ========================================================================== */
+
+
+
+ .icon--custom-1 {
+  background-color: #ff7b84;
+  background-image: url("assets/icons/custom/custom1_120.png");
+}
+
+
+
+ .icon--custom-2 {
+  background-color: #cfd05c;
+  background-image: url("assets/icons/custom/custom2_120.png");
+}
+
+
+
+ .icon--custom-3 {
+  background-color: #ecb46c;
+  background-image: url("assets/icons/custom/custom3_120.png");
+}
+
+
+
+ .icon--custom-4 {
+  background-color: #e1d951;
+  background-image: url("assets/icons/custom/custom4_120.png");
+}
+
+
+
+ .icon--custom-5 {
+  background-color: #9fdb66;
+  background-image: url("assets/icons/custom/custom5_120.png");
+}
+
+
+
+ .icon--custom-6 {
+  background-color: #54c473;
+  background-image: url("assets/icons/custom/custom6_120.png");
+}
+
+
+
+ .icon--custom-7 {
+  background-color: #6a89e5;
+  background-image: url("assets/icons/custom/custom7_120.png");
+}
+
+
+
+ .icon--custom-8 {
+  background-color: #50ceb9;
+  background-image: url("assets/icons/custom/custom8_120.png");
+}
+
+
+
+ .icon--custom-9 {
+  background-color: #6b9ee2;
+  background-image: url("assets/icons/custom/custom9_120.png");
+}
+
+
+
+ .icon--custom-10 {
+  background-color: #6488e3;
+  background-image: url("assets/icons/custom/custom10_120.png");
+}
+
+
+
+ .icon--custom-11 {
+  background-color: #8784ea;
+  background-image: url("assets/icons/custom/custom11_120.png");
+}
+
+
+
+ .icon--custom-12 {
+  background-color: #dc71d1;
+  background-image: url("assets/icons/custom/custom12_120.png");
+}
+
+
+
+ .icon--custom-13 {
+  background-color: #df6184;
+  background-image: url("assets/icons/custom/custom13_120.png");
+}
+
+
+
+ .icon--custom-14 {
+  background-color: #3cc2b3;
+  background-image: url("assets/icons/custom/custom14_120.png");
+}
+
+
+
+ .icon--custom-15 {
+  background-color: #f77e75;
+  background-image: url("assets/icons/custom/custom15_120.png");
+}
+
+
+
+ .icon--custom-16 {
+  background-color: #e9af67;
+  background-image: url("assets/icons/custom/custom16_120.png");
+}
+
+
+
+ .icon--custom-17 {
+  background-color: #acd360;
+  background-image: url("assets/icons/custom/custom17_120.png");
+}
+
+
+
+ .icon--custom-18 {
+  background-color: #4dca76;
+  background-image: url("assets/icons/custom/custom18_120.png");
+}
+
+
+
+ .icon--custom-19 {
+  background-color: #3abeb1;
+  background-image: url("assets/icons/custom/custom19_120.png");
+}
+
+
+
+ .icon--custom-20 {
+  background-color: #48c7c8;
+  background-image: url("assets/icons/custom/custom20_120.png");
+}
+
+
+
+ .icon--custom-21 {
+  background-color: #8a7aed;
+  background-image: url("assets/icons/custom/custom21_120.png");
+}
+
+
+
+ .icon--custom-22 {
+  background-color: #8b85f9;
+  background-image: url("assets/icons/custom/custom22_120.png");
+}
+
+
+
+ .icon--custom-23 {
+  background-color: #b070e6;
+  background-image: url("assets/icons/custom/custom23_120.png");
+}
+
+
+
+ .icon--custom-24 {
+  background-color: #e56798;
+  background-image: url("assets/icons/custom/custom24_120.png");
+}
+
+
+
+ .icon--custom-25 {
+  background-color: #e46fbe;
+  background-image: url("assets/icons/custom/custom25_120.png");
+}
+
+
+
+ .icon--custom-26 {
+  background-color: #7698f0;
+  background-image: url("assets/icons/custom/custom26_120.png");
+}
+
+
+
+ .icon--custom-27 {
+  background-color: #5ab0d2;
+  background-image: url("assets/icons/custom/custom27_120.png");
+}
+
+
+
+ .icon--custom-28 {
+  background-color: #89c059;
+  background-image: url("assets/icons/custom/custom28_120.png");
+}
+
+
+
+ .icon--custom-29 {
+  background-color: #bdd25f;
+  background-image: url("assets/icons/custom/custom29_120.png");
+}
+
+
+
+ .icon--custom-30 {
+  background-color: #f59f71;
+  background-image: url("assets/icons/custom/custom30_120.png");
+}
+
+
+
+ .icon--custom-31 {
+  background-color: #eb687f;
+  background-image: url("assets/icons/custom/custom31_120.png");
+}
+
+
+
+ .icon--custom-32 {
+  background-color: #38c393;
+  background-image: url("assets/icons/custom/custom32_120.png");
+}
+
+
+
+ .icon--custom-33 {
+  background-color: #97cf5d;
+  background-image: url("assets/icons/custom/custom33_120.png");
+}
+
+
+
+ .icon--custom-34 {
+  background-color: #d58a6a;
+  background-image: url("assets/icons/custom/custom34_120.png");
+}
+
+
+
+ .icon--custom-35 {
+  background-color: #e9637e;
+  background-image: url("assets/icons/custom/custom35_120.png");
+}
+
+
+
+ .icon--custom-36 {
+  background-color: #d472d4;
+  background-image: url("assets/icons/custom/custom36_120.png");
+}
+
+
+
+ .icon--custom-37 {
+  background-color: #8c89f2;
+  background-image: url("assets/icons/custom/custom37_120.png");
+}
+
+
+
+ .icon--custom-38 {
+  background-color: #53b6d7;
+  background-image: url("assets/icons/custom/custom38_120.png");
+}
+
+
+
+ .icon--custom-39 {
+  background-color: #4fbe75;
+  background-image: url("assets/icons/custom/custom39_120.png");
+}
+
+
+
+ .icon--custom-40 {
+  background-color: #83c75e;
+  background-image: url("assets/icons/custom/custom40_120.png");
+}
+
+
+
+ .icon--custom-41 {
+  background-color: #43b5b5;
+  background-image: url("assets/icons/custom/custom41_120.png");
+}
+
+
+
+ .icon--custom-42 {
+  background-color: #cfd05b;
+  background-image: url("assets/icons/custom/custom42_120.png");
+}
+
+
+
+ .icon--custom-43 {
+  background-color: #7f93f9;
+  background-image: url("assets/icons/custom/custom43_120.png");
+}
+
+
+
+ .icon--custom-44 {
+  background-color: #c8ca58;
+  background-image: url("assets/icons/custom/custom44_120.png");
+}
+
+
+
+ .icon--custom-45 {
+  background-color: #d95879;
+  background-image: url("assets/icons/custom/custom45_120.png");
+}
+
+
+
+ .icon--custom-46 {
+  background-color: #67a5e7;
+  background-image: url("assets/icons/custom/custom46_120.png");
+}
+
+
+
+ .icon--custom-47 {
+  background-color: #5fcc64;
+  background-image: url("assets/icons/custom/custom47_120.png");
+}
+
+
+
+ .icon--custom-48 {
+  background-color: #ef697f;
+  background-image: url("assets/icons/custom/custom48_120.png");
+}
+
+
+
+ .icon--custom-49 {
+  background-color: #e25c80;
+  background-image: url("assets/icons/custom/custom49_120.png");
+}
+
+
+
+ .icon--custom-50 {
+  background-color: #49bcd3;
+  background-image: url("assets/icons/custom/custom50_120.png");
+}
+
+
+
+ .icon--custom-51 {
+  background-color: #d8c760;
+  background-image: url("assets/icons/custom/custom51_120.png");
+}
+
+
+
+ .icon--custom-52 {
+  background-color: #ee8e6f;
+  background-image: url("assets/icons/custom/custom52_120.png");
+}
+
+
+
+ .icon--custom-53 {
+  background-color: #f36e83;
+  background-image: url("assets/icons/custom/custom53_120.png");
+}
+
+
+
+ .icon--custom-54 {
+  background-color: #ea70b1;
+  background-image: url("assets/icons/custom/custom54_120.png");
+}
+
+
+
+ .icon--custom-55 {
+  background-color: #d66ee0;
+  background-image: url("assets/icons/custom/custom55_120.png");
+}
+
+
+
+ .icon--custom-56 {
+  background-color: #718deb;
+  background-image: url("assets/icons/custom/custom56_120.png");
+}
+
+
+
+ .icon--custom-57 {
+  background-color: #5a9cdd;
+  background-image: url("assets/icons/custom/custom57_120.png");
+}
+
+
+
+ .icon--custom-58 {
+  background-color: #34b59d;
+  background-image: url("assets/icons/custom/custom58_120.png");
+}
+
+
+
+ .icon--custom-59 {
+  background-color: #e3d067;
+  background-image: url("assets/icons/custom/custom59_120.png");
+}
+
+
+
+ .icon--custom-60 {
+  background-color: #bf5a88;
+  background-image: url("assets/icons/custom/custom60_120.png");
+}
+
+
+
+ .icon--custom-61 {
+  background-color: #f57376;
+  background-image: url("assets/icons/custom/custom61_120.png");
+}
+
+
+
+ .icon--custom-62 {
+  background-color: #6b92dc;
+  background-image: url("assets/icons/custom/custom62_120.png");
+}
+
+
+
+ .icon--custom-63 {
+  background-color: #7ccf60;
+  background-image: url("assets/icons/custom/custom63_120.png");
+}
+
+
+
+ .icon--custom-64 {
+  background-color: #618fd8;
+  background-image: url("assets/icons/custom/custom64_120.png");
+}
+
+
+
+ .icon--custom-65 {
+  background-color: #f279ab;
+  background-image: url("assets/icons/custom/custom65_120.png");
+}
+
+
+
+ .icon--custom-66 {
+  background-color: #d8be5f;
+  background-image: url("assets/icons/custom/custom66_120.png");
+}
+
+
+
+ .icon--custom-67 {
+  background-color: #f87d76;
+  background-image: url("assets/icons/custom/custom67_120.png");
+}
+
+
+
+ .icon--custom-68 {
+  background-color: #f26979;
+  background-image: url("assets/icons/custom/custom68_120.png");
+}
+
+
+
+ .icon--custom-69 {
+  background-color: #ed6387;
+  background-image: url("assets/icons/custom/custom69_120.png");
+}
+
+
+
+ .icon--custom-70 {
+  background-color: #e769b4;
+  background-image: url("assets/icons/custom/custom70_120.png");
+}
+
+
+
+ .icon--custom-71 {
+  background-color: #e36ee3;
+  background-image: url("assets/icons/custom/custom71_120.png");
+}
+
+
+
+ .icon--custom-72 {
+  background-color: #8d9bfb;
+  background-image: url("assets/icons/custom/custom72_120.png");
+}
+
+
+
+ .icon--custom-73 {
+  background-color: #679ef0;
+  background-image: url("assets/icons/custom/custom73_120.png");
+}
+
+
+
+ .icon--custom-74 {
+  background-color: #41c8a0;
+  background-image: url("assets/icons/custom/custom74_120.png");
+}
+
+
+
+ .icon--custom-75 {
+  background-color: #cd9f65;
+  background-image: url("assets/icons/custom/custom75_120.png");
+}
+
+
+
+ .icon--custom-76 {
+  background-color: #db6d7a;
+  background-image: url("assets/icons/custom/custom76_120.png");
+}
+
+
+
+ .icon--custom-77 {
+  background-color: #b55d5b;
+  background-image: url("assets/icons/custom/custom77_120.png");
+}
+
+
+
+ .icon--custom-78 {
+  background-color: #5a95dd;
+  background-image: url("assets/icons/custom/custom78_120.png");
+}
+
+
+
+ .icon--custom-79 {
+  background-color: #8ed363;
+  background-image: url("assets/icons/custom/custom79_120.png");
+}
+
+
+
+ .icon--custom-80 {
+  background-color: #659ad5;
+  background-image: url("assets/icons/custom/custom80_120.png");
+}
+
+
+
+ .icon--custom-81 {
+  background-color: #da627f;
+  background-image: url("assets/icons/custom/custom81_120.png");
+}
+
+
+
+ .icon--custom-82 {
+  background-color: #d15b97;
+  background-image: url("assets/icons/custom/custom82_120.png");
+}
+
+
+
+ .icon--custom-83 {
+  background-color: #e7806f;
+  background-image: url("assets/icons/custom/custom83_120.png");
+}
+
+
+
+ .icon--custom-84 {
+  background-color: #f6707b;
+  background-image: url("assets/icons/custom/custom84_120.png");
+}
+
+
+
+ .icon--custom-85 {
+  background-color: #f26891;
+  background-image: url("assets/icons/custom/custom85_120.png");
+}
+
+
+
+ .icon--custom-86 {
+  background-color: #e260ab;
+  background-image: url("assets/icons/custom/custom86_120.png");
+}
+
+
+
+ .icon--custom-87 {
+  background-color: #d876e5;
+  background-image: url("assets/icons/custom/custom87_120.png");
+}
+
+
+
+ .icon--custom-88 {
+  background-color: #996fe6;
+  background-image: url("assets/icons/custom/custom88_120.png");
+}
+
+
+
+ .icon--custom-89 {
+  background-color: #3e99be;
+  background-image: url("assets/icons/custom/custom89_120.png");
+}
+
+
+
+ .icon--custom-90 {
+  background-color: #22a48a;
+  background-image: url("assets/icons/custom/custom90_120.png");
+}
+
+
+
+ .icon--custom-91 {
+  background-color: #bf7b66;
+  background-image: url("assets/icons/custom/custom91_120.png");
+}
+
+
+
+ .icon--custom-92 {
+  background-color: #517e82;
+  background-image: url("assets/icons/custom/custom92_120.png");
+}
+
+
+
+ .icon--custom-93 {
+  background-color: #904d4c;
+  background-image: url("assets/icons/custom/custom93_120.png");
+}
+
+
+
+ .icon--custom-94 {
+  background-color: #439cba;
+  background-image: url("assets/icons/custom/custom94_120.png");
+}
+
+
+
+ .icon--custom-95 {
+  background-color: #8bcf6a;
+  background-image: url("assets/icons/custom/custom95_120.png");
+}
+
+
+
+ .icon--custom-96 {
+  background-color: #6d9de3;
+  background-image: url("assets/icons/custom/custom96_120.png");
+}
+
+
+
+ .icon--custom-97 {
+  background-color: #dd6085;
+  background-image: url("assets/icons/custom/custom97_120.png");
+}
+
+
+
+ .icon--custom-98 {
+  background-color: #e1be5c;
+  background-image: url("assets/icons/custom/custom98_120.png");
+}
+
+
+
+ .icon--custom-99 {
+  background-color: #f0856e;
+  background-image: url("assets/icons/custom/custom99_120.png");
+}
+
+
+
+ .icon--custom-100 {
+  background-color: #e15d76;
+  background-image: url("assets/icons/custom/custom100_120.png");
+}
+
+/* Sizing
+   ========================================================================== */
+
+
+
+ .icon--s {
+  width: 56px;
+  height: 56px;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+}
+
+
+
+ .icon--m {
+  width: 60px;
+  height: 60px;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+}
+
+
+
+ .icon--l {
+  width: 120px;
+  height: 120px;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+  border-radius: 8px;
+}
+
+
+
+ .icon--d {
+  width: 100px;
+  height: 100px;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+  border-radius: 8px;
+}

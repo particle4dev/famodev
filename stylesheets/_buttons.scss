@@ -1,0 +1,48 @@
+.btn {
+padding-top: 7px;
+padding-bottom: 7px;
+font-size: 16px;
+border-radius: 5px;
+}
+.bg-primary-btn {
+background-color: #2a94d6;
+}
+.btn--primary {
+
+}
+.border {
+border-width: 1px;
+border-style: solid;
+}
+.border--1 {
+border-color: #1c78b1;
+}
+.border--2 {
+border-color: #bbc0c4;
+}
+.wht {
+color: white;
+}
+.text-color-4 {
+color: #44596c;
+}
+.size-full {
+display: block;
+width: 100%;
+}
+.fw-semibold {
+font-weight: 700;
+}
+.btn:disabled > span {
+opacity: 0.5;
+}
+.btn--primary:active {
+background: #278ac7 !important;
+-webkit-box-shadow: none !important;
+box-shadow: none !important;
+}
+.btn--secondary:active {
+background: #edeff0 !important;
+-webkit-box-shadow: none !important;
+box-shadow: none !important;
+}
