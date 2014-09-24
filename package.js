@@ -29,7 +29,9 @@ Package.on_use(function(api) {
 
         // base
         'src/Scrollview2.js',
-        'src/Utils.js'
+        'src/Utils.js',
+        'src/Node.js',
+        'src/Modifier.js'
 
     ], client);
     if (typeof api.export !== 'undefined') {}
