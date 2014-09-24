@@ -1,4 +1,4 @@
-Famono.scope('famodev/src/reactive/Each', ["famous/core/ViewSequence","famous/core/Surface","famous/core/Transform","famous/core/EventHandler","famous/transitions/Transitionable","famous/core/Modifier","famous/core/RenderNode","famodev/Node","famodev/Modifier","famodev/Utils"], function(require, define) {
+Famono.scope('famodev/src/reactive/Each', ["famous/core/ViewSequence","famous/core/Surface","famous/core/Transform","famous/core/EventHandler","famous/transitions/Transitionable","famous/core/Modifier","famous/core/RenderNode","famodev/src/Node","famodev/src/Modifier","famodev/src/Utils"], function(require, define) {
 isCursor = function (c) {
     return c && c.observe;
 };
