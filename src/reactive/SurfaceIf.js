@@ -1,3 +1,4 @@
+Famono.scope('famodev/src/reactive/SurfaceIf', ["famous/core/Surface"], function(require, define) {
 /**
  * Surface If Component
  *
@@ -121,3 +122,4 @@ define(function(require, exports, module){
         module.exports = SurfaceIf;
 
     });
+});

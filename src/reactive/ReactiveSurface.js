@@ -1,3 +1,4 @@
+Famono.scope('famodev/src/reactive/ReactiveSurface', ["famous/core/Surface"], function(require, define) {
 /**
  * ReactiveSurface
  *
@@ -76,3 +77,4 @@ define(function(require, exports, module){
         };
         module.exports = ReactiveSurface;
     });
+});
