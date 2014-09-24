@@ -1,6 +1,6 @@
 Package.describe({
     summary: "open source front-end framework for developing mobile apps with famous and meteor",
-    version: "0.2.5-rc7",
+    version: "0.2.5-rc10",
     name: "particle4dev:famodev",
     git: "https://particle4dev@bitbucket.org/particle4devs-team/famodev.git"
 });
@@ -17,22 +17,6 @@ Package.on_use(function(api) {
     api.use(['raix:famono@0.8.1'], both);
     api.use(['particle4dev:sass@0.2.9'], server);
     api.add_files([
-        // reactive
-        'src/reactive/ReactiveSurface.js',
-        'src/reactive/ReactiveTemplate.js',
-        'src/reactive/SurfaceIf.js',
-        'src/reactive/Each.js',
-
-        //ui
-        'src/ui/tabs/TabBar.js',
-        'src/ui/tabs/TabButton.js',
-
-        // base
-        'src/Scrollview2.js',
-        'src/Utils.js',
-        'src/Node.js',
-        'src/Modifier.js'
-
     ], client);
     if (typeof api.export !== 'undefined') {}
 });
