@@ -1,6 +1,6 @@
 Package.describe({
     summary: "open source front-end framework for developing mobile apps with famous and meteor",
-    version: "0.2.5-rc6",
+    version: "0.2.5-rc7",
     name: "particle4dev:famodev",
     git: "https://particle4dev@bitbucket.org/particle4devs-team/famodev.git"
 });

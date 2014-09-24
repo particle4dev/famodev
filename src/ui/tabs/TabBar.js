@@ -4,7 +4,7 @@ define(function(require, exports, module) {
         var Utility         = require('famous/utilities/Utility');
         var View            = require('famous/core/View');
         var GridLayout      = require('famous/views/GridLayout');
-        var ToggleButton    = require('famodev/ui/tabs/TabButton');
+        var ToggleButton    = require('famodev/src/ui/tabs/TabButton');
 
         /**
          * A view for displaying various tabs that dispatch events

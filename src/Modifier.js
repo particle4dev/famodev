@@ -1,4 +1,4 @@
-Famono.scope('famodev/src/Modifier', ["famous/core/Modifier","famous/transitions/Transitionable","famous/transitions/TransitionableTransform","famous/core/Transform","famodev/Utils"], function(require, define) {
+Famono.scope('famodev/src/Modifier', ["famous/core/Modifier","famous/transitions/Transitionable","famous/transitions/TransitionableTransform","famous/core/Transform","famodev/src/Utils"], function(require, define) {
 define(function (require, exports, module) {
         
         var Modifier                = require('famous/core/Modifier');
