@@ -1,7 +1,5 @@
-define('famodev/ui/tabs/TabButton', [
-        'famous/core/Surface',
-        'famous/core/EventHandler'
-    ], function(require, exports, module) {
+Famono.scope('famodev/src/ui/tabs/TabButton', ["famous/core/Surface","famous/core/EventHandler"], function(require, define) {
+define(function(require, exports, module) {
 
         var Surface         = require('famous/core/Surface');
         var EventHandler    = require('famous/core/EventHandler');
@@ -154,3 +152,5 @@ define('famodev/ui/tabs/TabButton', [
         module.exports = TabButton;
 
     });
+
+});

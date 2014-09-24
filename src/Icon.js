@@ -1,3 +1,4 @@
+Famono.scope('famodev/src/Icon', ["famous/core/Modifier","famous/core/OptionsManager","famous/core/RenderNode","famous/core/Transform","famous/transitions/Transitionable","famous/transitions/TransitionableTransform"], function(require, define) {
 /**
  * inspired by http://www.google.com/design/spec/animation/responsive-interaction.html
  */
@@ -113,3 +114,4 @@ define(function (require, exports, module) {
         module.exports = Icon;
 
     });
+});

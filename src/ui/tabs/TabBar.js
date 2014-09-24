@@ -1,9 +1,5 @@
-define('famodev/ui/tabs/TabBar', [
-    'famous/utilities/Utility',
-    'famous/core/View',
-    'famous/views/GridLayout',
-    'famodev/ui/tabs/TabButton'
-    ], function(require, exports, module) {
+Famono.scope('famodev/src/ui/tabs/TabBar', ["famous/utilities/Utility","famous/core/View","famous/views/GridLayout","famodev/ui/tabs/TabButton"], function(require, define) {
+define(function(require, exports, module) {
 
         var Utility         = require('famous/utilities/Utility');
         var View            = require('famous/core/View');
@@ -154,3 +150,5 @@ define('famodev/ui/tabs/TabBar', [
         module.exports = TabBar;
 
     });
+
+});

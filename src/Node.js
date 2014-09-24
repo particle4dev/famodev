@@ -1,3 +1,4 @@
+Famono.scope('famodev/src/Node', ["famous/core/RenderNode","famous/inputs/GenericSync","famous/inputs/MouseSync","famous/inputs/TouchSync","famodev/Modifier"], function(require, define) {
 define(function (require, exports, module) {
 
         var RenderNode          = require('famous/core/RenderNode');
@@ -146,3 +147,4 @@ define(function (require, exports, module) {
         module.exports = Node;
 
     });
+});

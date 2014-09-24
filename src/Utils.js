@@ -1,3 +1,4 @@
+Famono.scope('famodev/src/Utils', ["famous/core/Transform","famous/math/Utilities","famous/core/Engine","famous/transitions/Transitionable"], function(require, define) {
 define(function(require, exports, module) {
 
         var Transform               = require('famous/core/Transform');
@@ -46,4 +47,5 @@ define(function(require, exports, module) {
                 return Math.round(t.getTransform()[14]);
             }
         };
+});
 });

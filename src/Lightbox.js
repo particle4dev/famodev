@@ -1,3 +1,4 @@
+Famono.scope('famodev/src/Lightbox', ["famous/views/Lightbox","famous/core/Transform","famous/core/Modifier","famous/core/RenderNode","famous/utilities/Utility","famous/transitions/Transitionable","famous/transitions/TransitionableTransform"], function(require, define) {
 /**
  * Lightbox
  *
@@ -99,4 +100,5 @@ define(function(require, exports, module){
         };
 
         module.exports = Lightbox;
+});
 });
