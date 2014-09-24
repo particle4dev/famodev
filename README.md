@@ -1,1 +1,1 @@
-releases 0.2.4
+releases 0.2.5-rc2
