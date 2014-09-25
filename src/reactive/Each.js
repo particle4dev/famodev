@@ -16,7 +16,7 @@ define('famodev/reactive/Each',[
     'famodev/Node',
     'famodev/Modifier',
     'famodev/Utils'
-    ]
+    ],
     function (require, exports, module) {
 
         var ViewSequence    = require('famous/core/ViewSequence');
