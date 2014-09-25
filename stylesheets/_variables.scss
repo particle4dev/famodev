@@ -177,3 +177,36 @@ $toggle-handle-on-bg-color:       $toggle-handle-off-bg-color !default;
 $toggle-transition-duration:      .2s !default;
 
 $toggle-hit-area-expansion:   5px;
+
+// Lists
+// -------------------------------
+
+$list-header-bg:                  transparent !default;
+$list-header-color:               #222 !default;
+$list-header-padding:             5px 15px !default;
+$list-header-margin-top:          20px !default;
+
+
+// Cards
+// -------------------------------
+
+$card-header-bg:                  #F5F5F5 !default;
+$card-body-bg:                    #fff !default;
+$card-footer-bg:                  #F5F5F5 !default;
+
+$card-padding:                    10px !default;
+$card-border-width:               1px !default;
+
+$card-border-color:               #ccc !default;
+$card-border-radius:              2px !default;
+
+// Items
+// -------------------------------
+
+$item-font-size:                  16px !default;
+$item-border-width:               1px !default;
+$item-padding:                    16px !default;
+
+// Base
+// -------------------------------
+$content-padding:                 10px !default;
