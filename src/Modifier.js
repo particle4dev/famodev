@@ -1,4 +1,14 @@
-define(function (require, exports, module) {
+define('famodev/Modifier',[
+    'require', 
+    'exports',
+    'module',
+    'famous/core/Modifier',
+    'famous/transitions/Transitionable',
+    'famous/transitions/TransitionableTransform',
+    'famous/core/Transform',
+    'famodev/Utils'
+    ],
+    function (require, exports, module) {
         
         var Modifier                = require('famous/core/Modifier');
         var Transitionable          = require('famous/transitions/Transitionable');

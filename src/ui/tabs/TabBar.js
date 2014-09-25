@@ -1,4 +1,7 @@
 define('famodev/ui/tabs/TabBar', [
+    'require', 
+    'exports',
+    'module',
     'famous/utilities/Utility',
     'famous/core/View',
     'famous/views/GridLayout',

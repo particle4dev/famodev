@@ -21,7 +21,17 @@ Package.on_use(function(api) {
 
         //
         'src/reactive/ReactiveSurface.js',
-        'src/reactive/ReactiveTemplate.js'
+        'src/reactive/ReactiveTemplate.js',
+        'src/reactive/Each.js',
+        'src/reactive/SurfaceIf.js',
+
+        'src/Node.js',
+        'src/Modifier.js',
+        'src/Utils.js',
+        'src/Scrollview.js',
+
+        'src/ui/tabs/TabBar.js',
+        'src/ui/tabs/TabButton.js'
     ], client);
     if (typeof api.export !== 'undefined') {}
 });

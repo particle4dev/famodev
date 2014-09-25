@@ -1,4 +1,12 @@
-define(function(require, exports, module) {
+define('famodev/Utils',[
+    'require', 
+    'exports',
+    'module',
+    'famous/core/Transform',
+    'famous/math/Utilities',
+    'famous/core/Engine',
+    'famous/transitions/Transitionable'
+    ], function(require, exports, module) {
 
         var Transform               = require('famous/core/Transform');
         var Utilities               = require('famous/math/Utilities');

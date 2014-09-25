@@ -1,4 +1,15 @@
-define(function (require, exports, module) {
+define('famodev/Node',[
+    'require', 
+    'exports',
+    'module',
+    'famous/core/RenderNode',
+    'famous/inputs/GenericSync',
+    'famous/inputs/MouseSync',
+    'famous/inputs/TouchSync',
+
+    'famodev/Modifier'
+    ],
+    function (require, exports, module) {
 
         var RenderNode          = require('famous/core/RenderNode');
         var GenericSync         = require('famous/inputs/GenericSync');
