@@ -7,7 +7,13 @@
  * @extends {famous/core/Surface}
  * @status stable
  */
-define(function(require, exports, module){
+define('famodev/reactive/ReactiveSurface',[
+    'require', 
+    'exports',
+    'module',
+    'famous/core/Surface'
+    ],
+    function(require, exports, module){
 
         var Surface             = require('famous/core/Surface');
 
