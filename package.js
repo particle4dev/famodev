@@ -20,7 +20,8 @@ Package.on_use(function(api) {
         'stylesheets/main.scss',
 
         //
-        'src/reactive/ReactiveSurface.js'
+        'src/reactive/ReactiveSurface.js',
+        'src/reactive/ReactiveTemplate.js'
     ], client);
     if (typeof api.export !== 'undefined') {}
 });
