@@ -53,6 +53,10 @@
       "1.0.0"
     ],
     [
+      "particle4dev:famous",
+      "1.0.0"
+    ],
+    [
       "particle4dev:sass",
       "0.2.9"
     ],
