@@ -7,7 +7,18 @@
  * @extends {famous/views/Lightbox}
  * @status stable
  */
-define(function(require, exports, module){
+define('famodev/Lightbox', [
+    'require', 
+    'exports',
+    'module',
+    'famous/views/Lightbox',
+    'famous/core/Transform',
+    'famous/core/Modifier',
+    'famous/core/RenderNode',
+    'famous/utilities/Utility',
+    'famous/transitions/Transitionable',
+    'famous/transitions/TransitionableTransform'
+    ], function(require, exports, module){
 
         var LightboxView    = require('famous/views/Lightbox');
         var Transform       = require('famous/core/Transform');

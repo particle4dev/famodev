@@ -32,9 +32,16 @@ Package.on_use(function(api) {
         'src/Scrollview.js',
 
         'src/ui/tabs/TabBar.js',
-        'src/ui/tabs/TabButton.js'
+        'src/ui/tabs/TabButton.js',
+
+        'src/app/EventsCenter.js',
+        'src/app/PagesManager.js',
+
+        'src/app/AppView.js'
     ], client);
-    if (typeof api.export !== 'undefined') {}
+    if (typeof api.export !== 'undefined') {
+        api.export('Application', client);
+    }
 });
 
 Package.on_test(function(api) {

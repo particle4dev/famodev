@@ -9,7 +9,6 @@
 @import 'background';
 @import 'buttons';
 @import 'icons';
-@import 'cards';
 @import 'colors';
 @import 'rotations';
 @import 'border';
@@ -25,7 +24,9 @@
 @import 'popup';
 @import 'backdrop';
 @import 'toggle';
-@import 'cards';
+@import 'patterns/cards';
+@import 'patterns/panel';
+@import 'patterns/list';
 
 .button.button-icon {
 border-color: transparent;

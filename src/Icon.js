@@ -2,7 +2,17 @@
  * inspired by http://www.google.com/design/spec/animation/responsive-interaction.html
  */
 
-define(function (require, exports, module) {
+define('famodev/Icon', [
+    'require', 
+    'exports',
+    'module',
+    'famous/core/Modifier',
+    'famous/core/OptionsManager',
+    'famous/core/RenderNode',
+    'famous/core/Transform',
+    'famous/transitions/Transitionable',
+    'famous/transitions/TransitionableTransform'
+    ], function (require, exports, module) {
 
         var Modifier        = require('famous/core/Modifier');
         var OptionsManager  = require('famous/core/OptionsManager');

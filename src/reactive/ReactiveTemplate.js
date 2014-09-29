@@ -81,8 +81,8 @@ define('famodev/reactive/ReactiveTemplate',[
             };
 
             self.rangeUpdater = Deps.autorun(function (c) {
-                self._renderTmp = UI.renderWithData(self._template, data);
-                UI.insert(self._renderTmp, target);
+                self._renderTmp = UI.renderWithData(self._template, data, target);
+                // UI.insert(self._renderTmp, target);
                 if (! c.firstRun)
                     self.emit('changed', data);
             });

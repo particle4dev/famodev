@@ -1,7 +1,22 @@
 /**
  * version 0.1
  */
-define(function(require, exports, module){
+define('famodev/Modal', [
+    'require', 
+    'exports',
+    'module',
+    'famous/core/View',
+    'famous/modifiers/StateModifier',
+    'famous/core/RenderNode',
+    'famous/core/Surface',
+    'famous/core/Transform',
+    'famous/surfaces/ContainerSurface',
+    'famous/transitions/Transitionable',
+    'famous/transitions/TransitionableTransform',
+    'famous/core/Modifier',
+    'famous/utilities/Utility',
+    'famous/views/RenderController'
+    ], function(require, exports, module){
 
         var View               = require('famous/core/View');
         var StateModifier      = require('famous/modifiers/StateModifier');
