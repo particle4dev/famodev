@@ -8,11 +8,7 @@ define('famodev/app/PagesManager', [
     'famous/transitions/SpringTransition',
     'famous/transitions/Easing',
 
-    'famodev/app/EventsCenter',
-    'views/pages/NewPage',
-    'views/pages/ListsPage',
-    'views/pages/LoadingPage',
-    'views/pages/LoginPage'
+    'famodev/app/EventsCenter'
     ], function (require, exports, module) {
 
         var Lightbox            = require('famous/views/Lightbox');
