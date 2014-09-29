@@ -20,6 +20,7 @@ Package.on_use(function(api) {
     api.add_files([
         'stylesheets/main.scss',
 
+        'src/Pipeline.js',
         //
         'src/reactive/ReactiveSurface.js',
         'src/reactive/ReactiveTemplate.js',
