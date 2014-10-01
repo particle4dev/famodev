@@ -1,4 +1,4 @@
-releases 0.2.5-rc2
+releases 0.3.0-rc1
 
 Code styles
 http://developer.android.com/guide/topics/ui/overview.html

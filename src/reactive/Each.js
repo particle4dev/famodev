@@ -1,6 +1,3 @@
-isCursor = function (c) {
-    return c && c.observe;
-};
 define('famodev/reactive/Each',[
     'require', 
     'exports',

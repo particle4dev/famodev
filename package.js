@@ -13,15 +13,20 @@ var server = ['server'];
 Package.on_use(function(api) {
     if (api.versionsFrom)
         api.versionsFrom('METEOR@0.9.2');
-    api.use(['reactive-var', 'observe-sequence', 'ui'], client);
+    api.use(['tracker', 'reactive-var', 'observe-sequence', 'ui'], client);
     api.use(['particle4dev:famous@1.0.0'], both);
     api.use(['particle4dev:sass@0.2.9'], both);
     api.imply(['particle4dev:sass@0.2.9'], both);
     api.add_files([
         'stylesheets/main.scss',
 
-        'src/Pipeline.js',
-        //
+        // utils
+        'src/utils/helpers.js',
+        'src/utils/pipeline.js',
+        
+        // reactive
+        'src/reactive/ReactiveSession.js',
+        'src/reactive/ReactiveCursor.js',
         'src/reactive/ReactiveSurface.js',
         'src/reactive/ReactiveTemplate.js',
         'src/reactive/Each.js',
