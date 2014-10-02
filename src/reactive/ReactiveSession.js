@@ -37,9 +37,16 @@ define('famodev/reactive/ReactiveSession', [
                     this.setContent(value);
                 }.bind(this.options.surface));
             }
-            handReactiveFunction.call(this, this.options.data);
-            if(this.options.surface)
-                this.options.surface.setContent(this._value);
+
+            /** 
+             * NOTE: this is important !!!
+             * because we have to wait the hooks function are setted
+             */
+            setTimeout(function(){
+                handReactiveFunction.call(this, this.options.data);
+                if(this.options.surface)
+                    this.options.surface.setContent(this._value);
+            }.bind(this), 0);
         }
         ReactiveSession.DEFAULT_OPTIONS = {};
 

@@ -1,129 +1,203 @@
 /**
  * Surface If Component
- *
- * {{ Missing param }}
+ *      Like {{#if}} components in blaze (meteor)
  *
  * @constructor
  * @extends {famous/core/Surface}
- * @status stable
+ * @status v0.3.0
  */
 define('famodev/reactive/SurfaceIf', [
     'require', 
     'exports',
     'module',
-    'famous/core/Surface'
+    'famous/core/Surface',
+    'famodev/reactive/ReactiveSession'
     ],
     function(require, exports, module){
 
         var Surface             = require('famous/core/Surface');
+        var ReactiveSession     = require('famodev/reactive/ReactiveSession');
 
         function SurfaceIf (options) {
             Surface.apply(this, arguments);
+            this._reactiveSession = new ReactiveSession({
+                data: options.condition
+            });
+            _setListeners.call(this);
             // private modifier
             this._modifier = options.modifier;
             this.condition = options.condition;
             this.contentBlock = options.contentBlock;
             this.elseContentBlock = options.elseContentBlock;
+
+            // set content first time
+            var content, condition = this.getContent();
+            if(condition == '')
+                condition = this.condition();
+            if(condition) {
+                content = this.contentBlock();
+            }
+            else {
+                content = this.elseContentBlock();
+            }
+            this.setContent(content);
         }
         SurfaceIf.prototype = Object.create(Surface.prototype);
-        SurfaceIf.prototype.constructor = SurfaceIf;
 
-        //this function will save content in document.createDocumentFragment();
-        //we will not change content if we want it reactive
-        SurfaceIf.prototype.recall = function (target) {
-
-        };
         /**
-         * Place the document element that this component manages into the document.
-         *
-         * @private
-         * @method deploy
-         * @param {Node} target document parent of this container
+         * Functions
          */
-        SurfaceIf.prototype.deploy = function deploy(target) {
-            //https://github.com/Famous/core/blob/master/Surface.js#L552
-            //https://github.com/meteor/meteor/blob/devel/packages/ui/render.js#L343
-            var self = this, content;
-            self.rangeUpdater = Deps.autorun(function (c) {
-                if(!!self.condition()) {
-                    content = self.contentBlock();
-                }
-                else {
-                    content = self.elseContentBlock();
-                }
-                if(self._animateBeforeSetContent /** and equal function*/){
-                    self._animateBeforeSetContent(function(){
-                        self._animateBeforeSetContent = null;
+        function _setListeners () {
+            this._reactiveSession.on('changed', function(value){
+                this.emit('changed', value);
+            }.bind(this));
+        }
 
-                        self.setInnerContent(target, content, c.firstRun);
-                        if(self._animateAfterSetContent /** and equal function*/){
-                            self._animateAfterSetContent();
-                            self._animateAfterSetContent = null;
-                        }
-                    });
+        /**
+         * Methods
+         */
+        var cleanup = SurfaceIf.prototype.cleanup;
+        var deploy  = SurfaceIf.prototype.deploy;
+        _.extend(SurfaceIf.prototype, {
+            constructor: SurfaceIf,
+            //this function will save content in document.createDocumentFragment();
+            //we will not change content if we want it reactive
+            recall: function (target) {},
+            deploy: function (target) {
+                deploy.call(this, target);
+                this.emit('rendered');
+            },
+            getModifier: function(){
+                var self = this;
+                return {
+                    beforeSetContent: function(func){
+                        self._animateBeforeSetContent = func.bind(self._modifier);
+                    },
+                    afterSetContent: function(func){
+                        self._animateAfterSetContent = func.bind(self._modifier);
+                    }
+                };
+            },
+            cleanup: function (allocator) {
+                this.emit('destroyed');
+                cleanup.call(this, allocator);
+            },
+            runEffect: function(value){
+                var content;
+                if(value) {
+                    content = this.contentBlock();
                 }
                 else {
-                    self.setInnerContent(target, content, c.firstRun);
-                    if(self._animateAfterSetContent /** and equal function*/){
-                        self._animateAfterSetContent();
-                        self._animateAfterSetContent = null;
+                    content = this.elseContentBlock();
+                }
+                if (this._animateBeforeSetContent /** and equal function*/ ) {
+                    this._animateBeforeSetContent(function () {
+                        this._animateBeforeSetContent = null;
+                        this.setContent(content);
+                        if (this._animateAfterSetContent /** and equal function*/ ) {
+                            this._animateAfterSetContent();
+                            this._animateAfterSetContent = null;
+                        }
+                    }.bind(this));
+                }
+                else {
+                    this.setContent(content);
+                    if (this._animateAfterSetContent /** and equal function*/ ) {
+                        this._animateAfterSetContent();
+                        this._animateAfterSetContent = null;
                     }
                 }
-            });
-        };
-        SurfaceIf.prototype.setInnerContent = function(target, content, isfirstRun){
-            if (content instanceof Node) {
-                while (target.hasChildNodes()) target.removeChild(target.firstChild);
-                target.appendChild(content);
             }
-            else target.innerHTML = content;
-            if(!isfirstRun)
-                this.emit('changed', content);
-        };
-
-        // modifier
-        SurfaceIf.prototype.getModifier = function(){
-            var self = this;
-            return {
-                beforeSetContent: function(func){
-                    self._animateBeforeSetContent = func.bind(self._modifier);
-                },
-                afterSetContent: function(func){
-                    self._animateAfterSetContent = func.bind(self._modifier);
-                }
-            };
-        };
-
-        /**
-         * Set or overwrite inner (HTML) content of this surface. Note that this
-         *    causes a re-rendering if the content has changed.
-         *
-         * @method setContent
-         * @param {string|Document Fragment} content HTML content
-         */
-        SurfaceIf.prototype.setContent = function setContent(content) {
-            var self = this;
-            if(self.rangeUpdater && self.rangeUpdater.stop){
-                self.rangeUpdater.stop();
-                self.rangeUpdater = null;
-            }
-            if (this.content !== content) {
-                this.content = content;
-                this._contentDirty = true;
-            }
-        };
-
-        //wrap up cleanup method
-        var cleanup = SurfaceIf.prototype.cleanup;
-        SurfaceIf.prototype.cleanup = function (allocator) {
-            var self = this;
-            if(self.rangeUpdater && self.rangeUpdater.stop){
-                self.rangeUpdater.stop();
-                self.rangeUpdater = null;
-            }
-            cleanup.call(this, allocator);
-        };
+        });
 
         module.exports = SurfaceIf;
 
     });
+
+// example
+// Meteor.startup(function () {
+//     Session.set('surfaceIf', false);
+//     require([
+//             'famous/core/Modifier',
+//             'famous/core/Engine',
+//             'famodev/reactive/SurfaceIf',
+//             'famous/core/RenderNode'
+//         ],
+//         function(Modifier, Engine, SurfaceIf, RenderNode){
+
+//         var mainContext = Engine.createContext();
+//         var mod = new Modifier({
+//             align: [0.5, 0.5],
+//             origin: [0.5, 0.5]
+//         });
+//         var _surface = new SurfaceIf({
+//             modifier: mod,
+//             condition: function () {
+//                 if (Session.get('surfaceIf')) return true;
+//                 else return false;
+//             },
+//             contentBlock: function () {
+//                 return '1010101';
+//             },
+//             elseContentBlock: function () {
+//                 return '0000000';
+//             },
+//             size: [120, 120],
+//             classes: ['filterIcon'],
+//             properties: {
+//                 color: 'white',
+//                 backgroundColor: '#FA5C4F',
+//                 lineHeight: '120px',
+//                 textAlign: 'center'
+//             }
+//         });
+
+//         _surface.on('click', function () {
+//             if (!Session.get('surfaceIf')) Session.set('surfaceIf', true);
+//             else Session.set('surfaceIf', false);
+//         });
+
+//         _surface.on('changed', function (data) {
+//             console.log(data);
+//             var mod = this.getModifier();
+//             mod.beforeSetContent(function (cb) {
+//                 this.setOpacity(0.25, {
+//                     duration: 500,
+//                     curve: "easeIn"
+//                 }, cb);
+//             });
+//             mod.afterSetContent(function () {
+//                 this.setOpacity(1, {
+//                     duration: 500,
+//                     curve: "easeIn"
+//                 });
+//             });
+//             this.runEffect(data);
+//         }.bind(_surface));
+
+//         _surface.on('rendered', function(){
+//             console.log('rendered');
+//         });
+
+//         _surface.on('destroyed', function(){
+//             console.log('destroyed');
+//         });
+
+//         var node = new RenderNode(_surface);
+
+//         // test delete
+//         Meteor.setTimeout(function(){
+//             node.set(new RenderNode());
+//             // re add
+//             Meteor.setTimeout(function(){
+//                 Session.set('surfaceIf', true);
+//                 node.set(_surface);
+//             }, 1000);
+
+//         }, 1000);
+
+//         mainContext
+//         .add(mod)
+//         .add(node);
+//     });
+// });

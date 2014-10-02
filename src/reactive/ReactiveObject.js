@@ -1,3 +1,6 @@
+
+// ??? need this? maybe it factory pattern
+
 define('famodev/reactive/ReactiveObject',[
     'require', 
     'exports',

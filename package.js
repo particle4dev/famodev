@@ -13,7 +13,7 @@ var server = ['server'];
 Package.on_use(function(api) {
     if (api.versionsFrom)
         api.versionsFrom('METEOR@0.9.2');
-    api.use(['tracker', 'reactive-var', 'observe-sequence', 'ui'], client);
+    api.use(['underscore', 'tracker', 'reactive-var', 'observe-sequence', 'ui', 'blaze', 'templating'], client);
     api.use(['particle4dev:famous@1.0.0'], both);
     api.use(['particle4dev:sass@0.2.9'], both);
     api.imply(['particle4dev:sass@0.2.9'], both);
@@ -25,12 +25,13 @@ Package.on_use(function(api) {
         'src/utils/pipeline.js',
         
         // reactive
-        'src/reactive/ReactiveSession.js',
-        'src/reactive/ReactiveCursor.js',
-        'src/reactive/ReactiveSurface.js',
-        'src/reactive/ReactiveTemplate.js',
-        'src/reactive/Each.js',
-        'src/reactive/SurfaceIf.js',
+        'src/reactive/ReactiveSession.js', // stable v0.3.0
+        'src/reactive/ReactiveCursor.js', // stable v0.3.0
+        'src/reactive/ReactiveSurface.js', // stable v0.3.0
+        'src/reactive/ReactiveTemplate.js', // stable v0.3.0
+        'src/reactive/SurfaceIf.js', // stable v0.3.0
+        'src/reactive/Each.js', // stable v0.3.0
+        
 
         'src/Node.js',
         'src/Modifier.js',
