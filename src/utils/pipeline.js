@@ -1,6 +1,5 @@
-var root = this;
-(function(){
-    var Pipeline = function () {
+Pipeline = (function(){
+    return function () {
         var self = this;
         /**
          * Pipeline
@@ -95,5 +94,4 @@ var root = this;
             }, option.duration);
         };
     };
-    this.Pipeline = Pipeline;
-}).apply(root);
+})();

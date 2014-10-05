@@ -1,6 +1,7 @@
 Application = (function () {
-
-    return function (options) {
+    var ready = new ReactiveVar();
+    ready.set(false);
+    var app = function (options) {
         require([
             'famodev/app/EventsCenter'
         ],
@@ -9,11 +10,16 @@ Application = (function () {
                 options.loading();
             });
             EventsCenter.listen('launch', function () {
+                ready.set(true);
                 options.launch();
             });
         });
         return options;
     };
+    app.isready = function () {
+        return ready.get();
+    };
+    return app;
 })();
 
 /**

@@ -156,7 +156,10 @@ define('famodev/ui/Slidershow', [
                 size: [undefined, undefined],
                 classes: ['slide-background'],
                 properties: {
-                    backgroundImage: 'url(' + background + ')'
+                    backgroundImage: 'url(' + background + ')',
+                    backgroundPosition: 'top right, 0px 0px',
+                    backgroundSize: '100% auto',
+                    backgroundRepeat: 'no-repeat'
                 }
             });
             container.add(bg);
@@ -296,5 +299,69 @@ define('famodev/ui/Slidershow', [
       		}
     	];
     };
+    Slidershow.prototype.reset = function reset() {
+        this.total = this.options.sliders.length;
+        this.page = 1;
+        this._sliders = [];
+        this._rwdDelay = undefined;
+        this._navigationDot = 0;
+        this._navigationSurf = [];
+        _createSlider.call(this);
+    };
+    
     module.exports = Slidershow;
 });
+
+// Meteor.startup(function () {
+
+// require([
+//     'require', 
+//     'exports',
+//     'module',
+//     'famous/core/Engine',
+//     'famodev/ui/Slidershow',
+//     'famodev/Utils'
+//     ],
+//     function(require, exports, module) {
+//     var Engine          = require('famous/core/Engine');
+//     var Slidershow      = require('famodev/ui/Slidershow');
+//     var Utils           = require('famodev/Utils');
+    
+//     // var mainCtx = Engine.createContext(document.getElementById('slideshow'));
+//     var mainContext     = Engine.createContext();
+
+//     var slidershow = new Slidershow({
+//         width:  Utils.windowWidth(),
+//         height: Utils.windowHeight(),
+//         sliders: [
+//             {
+//                 background: 'http://placekitten.com/1000/500?image=1'
+//         },
+//             {
+//                 background: 'http://placekitten.com/1000/500?image=2'
+//         },
+//             {
+//                 background: 'http://placekitten.com/1000/500?image=3'
+//         },
+//             {
+//                 background: 'http://placekitten.com/1000/500?image=4'
+//         },
+//             {
+//                 background: 'http://placekitten.com/1000/500?image=5'
+//         },
+//             {
+//                 background: 'http://placekitten.com/1000/500?image=6'
+//         },
+//             {
+//                 background: 'http://placekitten.com/1000/500?image=7'
+//         }
+//     ]
+//     });
+//     slidershow.on('pageChange', function() {
+//         console.log(arguments);
+//     });
+//     mainContext.add(slidershow);
+//     mainContext.setPerspective(1);
+// });
+
+// });
