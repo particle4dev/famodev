@@ -5,15 +5,18 @@
 @import 'mixins';
 @import 'variables';
 
+// helpers classes
+@import 'helpers/text';
+@import 'helpers/background';
+@import 'helpers/colors';
+@import 'helpers/floats';
+
 @import 'animate';
-@import 'background';
 @import 'buttons';
 @import 'icons';
-@import 'colors';
 @import 'rotations';
 @import 'border';
 @import 'squares';
-@import 'floats';
 @import 'heights';
 @import 'opacity';
 @import 'toast';

@@ -1,15 +1,18 @@
 /* ==========================================================================
-   Floats
+   Text Styles
    ========================================================================== */
-
- .fl {
-  float: left;
+.text-left {
+text-align: left;
 }
 
- .fr {
-  float: right;
+.text-right {
+text-align: right;
 }
 
- .fn {
-  float: none;
+.text-center {
+text-align: center;
+}
+
+.text-justify {
+text-align: justify;
 }
