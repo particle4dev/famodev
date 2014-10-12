@@ -14,7 +14,7 @@ Package.on_use(function(api) {
     if (api.versionsFrom)
         api.versionsFrom('METEOR@0.9.2');
     api.use(['underscore', 'tracker', 'reactive-var', 'observe-sequence', 'ui', 'blaze', 'templating'], client);
-    api.use(['particle4dev:famous@1.0.0'], both);
+    api.use(['particle4dev:famous@1.1.0'], client);
     api.use(['particle4dev:sass@0.2.9'], both);
     api.imply(['particle4dev:sass@0.2.9'], both);
     api.add_files([
@@ -32,19 +32,24 @@ Package.on_use(function(api) {
         'src/reactive/SurfaceIf.js', // stable v0.3.0
         'src/reactive/Each.js', // stable v0.3.0
         
-
+        // famous
         'src/Node.js',
         'src/Modifier.js',
         'src/Utils.js',
         'src/Scrollview.js',
 
+        // ui
         'src/ui/tabs/TabBar.js',
         'src/ui/tabs/TabButton.js',
         'src/ui/Slidershow.js',
 
+        'src/ui/toast/common.js',
+        'src/ui/toast/source.js',
+
         // from famous
         'src/ui/famouscarousel/FamousCarousel.require.singular.js',
 
+        // app
         'src/app/EventsCenter.js',
         'src/app/PagesManager.js',
 

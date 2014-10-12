@@ -145,7 +145,7 @@ define('famodev/app/PagesManager', [
                     duration: 350,
                     curve: Easing.easeIn
                 },
-                overlap: true
+                // overlap: true
             }
         };
 
