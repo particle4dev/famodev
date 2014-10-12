@@ -43,11 +43,9 @@ Package.on_use(function(api) {
         'src/ui/tabs/TabButton.js',
         'src/ui/Slidershow.js',
 
-        'src/ui/toast/common.js',
-        'src/ui/toast/source.js',
+        'src/ui/toast/source.js', // stable v0.3.0
 
-        // from famous
-        'src/ui/famouscarousel/FamousCarousel.require.singular.js',
+        // from famous carousel
 
         // app
         'src/app/EventsCenter.js',
