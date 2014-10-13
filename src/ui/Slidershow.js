@@ -1,3 +1,4 @@
+// [DEPRECATED]
 define('famodev/ui/Slidershow', [
 	'require', 
     'exports',

@@ -1,7 +1,6 @@
 /**
  * Lightbox
- *
- * {{ Missing param }}
+ *      improved from famous
  *
  * @constructor
  * @extends {famous/views/Lightbox}
@@ -11,102 +10,48 @@ define('famodev/Lightbox', [
     'require', 
     'exports',
     'module',
-    'famous/views/Lightbox',
-    'famous/core/Transform',
-    'famous/core/Modifier',
-    'famous/core/RenderNode',
-    'famous/utilities/Utility',
-    'famous/transitions/Transitionable',
-    'famous/transitions/TransitionableTransform'
+    'famous/views/Lightbox'
     ], function(require, exports, module){
 
         var LightboxView    = require('famous/views/Lightbox');
-        var Transform       = require('famous/core/Transform');
-        var Modifier        = require('famous/core/Modifier');
-        var RenderNode      = require('famous/core/RenderNode');
-        var Utility         = require('famous/utilities/Utility');
-        var Transitionable  = require('famous/transitions/Transitionable');
-        var TransitionableTransform = require('famous/transitions/TransitionableTransform');
 
         function Lightbox () {
             LightboxView.apply(this, arguments);
+            this._currentRenderable = null;
         }
         Lightbox.prototype = Object.create(LightboxView.prototype);
         Lightbox.prototype.constructor = Lightbox;
         Lightbox.DEFAULT_OPTIONS   = LightboxView.DEFAULT_OPTIONS;
 
         /**
-         *
+         * https://github.com/Famous/famous/blob/master/src/views/Lightbox.js#L94
+         * not use
          */
-        Lightbox.prototype.next = LightboxView.prototype.show;
-        /**
-         *
-         */
-        Lightbox.prototype.prev = function (renderable, transition, callback) {
-            if (!renderable) {
-                return this._hidePrev(callback);
-            }
-
-            if (transition instanceof Function) {
-                callback = transition;
-                transition = undefined;
-            }
-
-            if (this._showing) {
-                if (this.options.overlap) this._hidePrev();
-                else {
-                    return this._hidePrev(this.prev.bind(this, renderable, transition, callback));
-                }
-            }
-            this._showing = true;
-
-            var stateItem = {
-                transform: new TransitionableTransform(this.options.outTransform),
-                origin: new Transitionable(this.options.inOrigin),
-                opacity: new Transitionable(this.options.inOpacity)
-            };
-
-            var transform = new Modifier({
-                transform: stateItem.transform,
-                opacity: stateItem.opacity,
-                origin: stateItem.origin
-            });
-            var node = new RenderNode();
-            node.add(transform).add(renderable);
-            this.nodes.push(node);
-            this.states.push(stateItem);
-            this.transforms.push(transform);
-
-            var _cb = callback ? Utility.after(3, callback) : undefined;
-
-            if (!transition) transition = this.options.inTransition;
-            stateItem.transform.set(this.options.showTransform, transition, _cb);
-            stateItem.opacity.set(this.options.showOpacity, transition, _cb);
-            stateItem.origin.set(this.options.showOrigin, transition, _cb);
+        var originShow =  Lightbox.prototype.show;
+        Lightbox.prototype.show = function (renderable) {
+            this._currentRenderable = renderable;
+            var args = Array.prototype.slice.call(arguments);
+            originShow.apply(this, args);
         };
 
-        Lightbox.prototype._hidePrev = function hide(transition, callback) {
-            if (!this._showing) return;
-            this._showing = false;
+        /**
+         * not use
+         */
+        var originHide =  Lightbox.prototype.hide;
+        Lightbox.prototype.hide = function () {
+            var args = Array.prototype.slice.call(arguments);
+            originHide.apply(this, args);
+            this._currentRenderable = null;
+        };
 
-            if (transition instanceof Function) {
-                callback = transition;
-                transition = undefined;
-            }
-            var node = this.nodes[this.nodes.length - 1];
-            var transform = this.transforms[this.transforms.length - 1];
-            var stateItem = this.states[this.states.length - 1];
-            var _cb = Utility.after(3, function() {
-                this.nodes.splice(this.nodes.indexOf(node), 1);
-                this.states.splice(this.states.indexOf(stateItem), 1);
-                this.transforms.splice(this.transforms.indexOf(transform), 1);
-                if (callback) callback.call(this);
-            }.bind(this));
-
-            if (!transition) transition = this.options.outTransition;
-            stateItem.transform.set(this.options.inTransform, transition, _cb);
-            stateItem.opacity.set(this.options.outOpacity, transition, _cb);
-            stateItem.origin.set(this.options.outOrigin, transition, _cb);
+        /**
+         * make it to reanderable
+         */
+        Lightbox.prototype.getSize = function () {
+            var length = this.nodes.length;
+            if(length == 0)
+                return [0, 0];
+            return this.nodes[length -1].getSize();
         };
 
         module.exports = Lightbox;

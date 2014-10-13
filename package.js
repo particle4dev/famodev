@@ -37,11 +37,12 @@ Package.on_use(function(api) {
         'src/Modifier.js',
         'src/Utils.js',
         'src/Scrollview.js',
+        'src/Lightbox.js', // stable v0.3.0
 
         // ui
         'src/ui/tabs/TabBar.js',
         'src/ui/tabs/TabButton.js',
-        'src/ui/Slidershow.js',
+        'src/ui/Slidershow.js', // [DEPRECATED]
 
         'src/ui/toast/source.js', // stable v0.3.0
 
