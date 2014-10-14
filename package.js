@@ -50,7 +50,7 @@ Package.on_use(function(api) {
 
         // app
         'src/app/EventsCenter.js',
-        'src/app/PagesManager.js',
+        'src/app/PagesManager.js', // stable v0.3.0
 
         'src/app/AppView.js'
     ], client);

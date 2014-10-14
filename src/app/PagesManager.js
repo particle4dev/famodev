@@ -1,3 +1,11 @@
+/**
+ * PagesManager
+ *      
+ *
+ * @constructor
+ * @extends {}
+ * @status v0.3.0
+ */
 define('famodev/app/PagesManager', [
     'require', 
     'exports',
@@ -6,23 +14,66 @@ define('famodev/app/PagesManager', [
     'famous/core/Transform',
     'famous/transitions/Transitionable',
     'famous/transitions/SpringTransition',
-    'famous/transitions/Easing',
-
-    'famodev/app/EventsCenter'
+    'famous/transitions/Easing'
     ], function (require, exports, module) {
 
         var Lightbox            = require('famous/views/Lightbox');
         var Transform           = require('famous/core/Transform');
-        var Easing              = require('famous/transitions/Easing');
         var Transitionable      = require('famous/transitions/Transitionable');
         var SpringTransition    = require('famous/transitions/SpringTransition');
-        var EventsCenter        = require('famodev/app/EventsCenter');
-        
+        var Easing              = require('famous/transitions/Easing');
+
         Transitionable.registerMethod('spring', SpringTransition);
         /**
          * Add Views
          */
-        var StoredTransitions = {
+        var PagesManager = function(){
+            var PagesLine       = new Pipeline();
+            var pages = {},
+            defaultPage = null,
+            currentpage = null,
+            lightbox = new Lightbox(PagesManager.SlideHideLeft);
+
+            // add method
+            this['getInstance'] = function(){
+                return lightbox;
+            };
+            this['register'] = function (path, options) {
+                var pageModule = require(path);
+                pages[path] = new pageModule(options);
+            };
+            this['defaultPage'] = function (page) {
+                if(page)
+                    return defaultPage = page;
+                return defaultPage;
+            };
+            this['show'] = function (path) {
+                PagesLine.push(function(path){
+                    if(!path)
+                        path = defaultPage;
+                    if(currentpage == path)
+                        return;
+                    // call destroyed
+                    var p = pages[currentpage];
+                    if(p && p.destroyed)
+                        p.destroyed();
+
+                    p = pages[path];
+                    // call rendered
+                    if(p && p.rendered)
+                        p.rendered();
+
+                    lightbox.show(p);
+                    currentpage = path;
+                }, path);
+                PagesLine.sequenceFlush({
+                    duration: 500 //ms
+                });
+            };
+        };
+
+        // static value
+        _.extend(PagesManager, {
             HideOutgoingSpringIn: {
                 inOpacity: 0,
                 outOpacity: 0,
@@ -147,65 +198,18 @@ define('famodev/app/PagesManager', [
                 },
                 // overlap: true
             }
-        };
-
-        var PagesLine       = new Pipeline();
-
-        var pages = {},
-        defaultPage = null,
-        currentpage = null,
-        lightbox = new Lightbox(StoredTransitions.SlideHideLeft);
+        });
 
         /**
          * Methods
          */
+        _.extend(PagesManager.prototype, {
 
-        function setDefaultPage (page) {
-            if(page)
-                return defaultPage = page;
-            return defaultPage;
-        }
+        });
 
-        function show (path) {
-            PagesLine.push(function(path){
-                if(!path)
-                    path = defaultPage;
-                if(currentpage == path)
-                    return;
-                // call destroyed
-                var p = pages[currentpage];
-                if(p && p.destroyed)
-                    p.destroyed();
-
-                p = pages[path];
-                // call rendered
-                if(p && p.rendered)
-                    p.rendered();
-
-                lightbox.show(p);
-                currentpage = path;
-            }, path);
-            PagesLine.sequenceFlush({
-                duration: 500 //ms
-            });
-        }
         /**
          * Events
          */
 
-        EventsCenter.listen('switchPage', function (path) {
-            show(path);
-        });
-
-        return module.exports = {
-            'getInstance': function(){
-                return lightbox;
-            },
-            'register': function (path, options) {
-                var pageModule = require(path);
-                pages[path] = new pageModule(options);
-            },
-            defaultPage: setDefaultPage,
-            show: show
-        };        
+        return module.exports = PagesManager;
 });
