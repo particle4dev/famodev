@@ -27,12 +27,14 @@ define('famodev/app/PagesManager', [
         /**
          * Add Views
          */
-        var PagesManager = function(){
+        var PagesManager = function(opt){
             var PagesLine       = new Pipeline();
             var pages = {},
             defaultPage = null,
-            currentpage = null,
-            lightbox = new Lightbox(PagesManager.SlideHideLeft);
+            currentpage = null;
+            if(!opt)
+                opt = PagesManager.SlideHideLeft;
+            var lightbox = new Lightbox(opt);
 
             // add method
             this['getInstance'] = function(){
