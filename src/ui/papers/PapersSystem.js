@@ -10,7 +10,7 @@ define('famodev/ui/papers/PapersSystem', [
     function (require, exports, module) {
 
     var SequentialLayout        = require('famous/views/SequentialLayout');
-    var Paper                   = require('Paper');
+    var Paper                   = require('famodev/ui/papers/Paper');
 
     function PapersSystem(renderable) {
         this.sequentialLayout = new SequentialLayout({
