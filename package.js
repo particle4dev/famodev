@@ -23,6 +23,7 @@ Package.on_use(function(api) {
         // utils
         'src/utils/helpers.js',
         'src/utils/pipeline.js',
+        'src/utils/register.js',
         
         // reactive
         'src/reactive/ReactiveSession.js', // stable v0.3.0
@@ -45,6 +46,8 @@ Package.on_use(function(api) {
         'src/ui/Slidershow.js', // [DEPRECATED]
 
         'src/ui/toast/source.js', // stable v0.3.0
+        'src/ui/papers/Paper.js', // stable v0.3.0
+        'src/ui/papers/PapersSystem.js', // stable v0.3.0
 
         // from famous carousel
 
