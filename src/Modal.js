@@ -1,7 +1,8 @@
 /**
  * version 0.1
  */
-define('famodev/Modal', [
+// https://github.com/driftyco/ionic/blob/v1.0.0-beta.6/scss/_popup.scss
+define('famodev/Modals', [
     'require', 
     'exports',
     'module',
@@ -31,7 +32,7 @@ define('famodev/Modal', [
         var Utility                 = require('famous/utilities/Utility');
         var RenderController        = require('famous/views/RenderController');
 
-        function Modal () {
+        function Modals () {
             View.apply(this, arguments);
 
             this._containerView = new ContainerSurface({
@@ -48,13 +49,13 @@ define('famodev/Modal', [
             this._add(this._containerModifier).add(this._containerView);
 
             createBackground.call(this);
-            createContainerModal.call(this);
+            createContainerModals.call(this);
         }
-        Modal.prototype = Object.create(View.prototype);
-        Modal.prototype.constructor = Modal;
-        Modal.DEFAULT_OPTIONS = {};
+        Modals.prototype = Object.create(View.prototype);
+        Modals.prototype.constructor = Modals;
+        Modals.DEFAULT_OPTIONS = {};
 
-        var _containerModal = null;
+        var _containerModals = null;
 
         /**
          * Add Views
@@ -71,21 +72,21 @@ define('famodev/Modal', [
             this._containerView.add(this._bg);
         }
 
-        function createContainerModal () {
-            _containerModal = new RenderController();
-            _containerModalModifier = new StateModifier({
+        function createContainerModals () {
+            _containerModals = new RenderController();
+            _containerModalsModifier = new StateModifier({
                 origin: [0.5, 0.5],
                 align: [0.5, 0.5],
                 opacity: 1
             });
-            this._containerView.add(_containerModalModifier).add(_containerModal);
+            this._containerView.add(_containerModalsModifier).add(_containerModals);
         }
 
         /**
          * Methods
          */
-        Modal.prototype.show = function (renderable) {
-            _containerModal.show(renderable);
+        Modals.prototype.show = function (renderable) {
+            _containerModals.show(renderable);
             var size = renderable.size;
             if(size) {
                 size = [window.innerWidth - 40, size[1]];
@@ -115,18 +116,17 @@ define('famodev/Modal', [
         },
         isShow    = false,
         modifiers = {},
-        modals    = {},
+        Modalss    = {},
         _backdropModifier = null,
         _boxModifier = null,
-        _containerModalModifier = null,
+        _containerModalsModifier = null,
         _boxSurface = null;
         // add views
         function _createBackdrop () {
             var backdropSurface = new Surface({
                 size: [undefined, window.innerHeight],
                 properties: {
-                    backgroundColor: "rgba(0, 0, 0, 0.4)",
-                    zIndex: "1040" // from bootstrap
+                    backgroundColor: "rgba(0, 0, 0, 0.4)"
                 }
             });
 
@@ -134,13 +134,15 @@ define('famodev/Modal', [
             _backdropModifier = {
                 transform: new TransitionableTransform(_status.inTransform),
                 opacity: new Transitionable(_status.inOpacity),
-                origin: new Transitionable(_status.inOrigin)
+                origin: new Transitionable(_status.inOrigin),
+                align: new Transitionable([0.5, 0.5])
             };
 
             backdropModifier = new Modifier({
                 transform: _backdropModifier.transform,
                 opacity: _backdropModifier.opacity,
-                origin: _backdropModifier.origin
+                origin: _backdropModifier.origin,
+                align: _backdropModifier.align
             });
 
             var node = new RenderNode();
@@ -156,18 +158,20 @@ define('famodev/Modal', [
             });
         }
         function _createBox(){
-            _boxSurface = new Modal();
+            _boxSurface = new Modals();
 
             _boxModifier = {
                 transform: new TransitionableTransform(_status.inTransform),
                 opacity: new Transitionable(_status.inOpacity),
-                origin: new Transitionable(_status.inOrigin)
+                origin: new Transitionable(_status.inOrigin),
+                align: new Transitionable([0.5, 0.5])
             };
 
             var boxModifier = new Modifier({
                 transform: _boxModifier.transform,
                 opacity: _boxModifier.opacity,
                 origin: _boxModifier.origin,
+                align: _boxModifier.align,
                 size: [undefined, undefined]
             });
 
@@ -204,14 +208,14 @@ define('famodev/Modal', [
         //start
         _createBackdrop();
         _createBox();
-        //_createContainerModal();
+        //_createContainerModals();
 
         /**
          * singleton pattern
          */
         module.exports = {
             register: function(key, renderable) {
-                modals[key] = renderable;
+                Modalss[key] = renderable;
             },
 
             show: function(key, cb) {
@@ -219,7 +223,7 @@ define('famodev/Modal', [
                     return this.hide.call(this, function () {
                         this.show(key, cb);
                     }.bind(this));
-                _boxSurface.show(modals[key]);
+                _boxSurface.show(Modalss[key]);
                 show(cb);
                 isShow = true;
             },

@@ -70,7 +70,7 @@
     ],
     [
       "templating",
-      "1.0.9-rc.0"
+      "1.0.9-rc.1"
     ],
     [
       "tracker",
@@ -86,6 +86,6 @@
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.35-rc.4",
+  "toolVersion": "meteor-tool@1.0.35-rc.9",
   "format": "1.0"
 }

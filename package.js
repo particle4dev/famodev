@@ -39,6 +39,7 @@ Package.on_use(function(api) {
         'src/Utils.js',
         'src/Scrollview.js',
         'src/Lightbox.js', // stable v0.3.0
+        'src/Modal.js',
 
         // ui
         'src/ui/tabs/TabBar.js',
