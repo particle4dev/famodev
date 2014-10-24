@@ -32,7 +32,7 @@ define('famodev/Modals', [
         var Utility                 = require('famous/utilities/Utility');
         var RenderController        = require('famous/views/RenderController');
 
-        function Modals () {
+        function Modal () {
             View.apply(this, arguments);
 
             this._containerView = new ContainerSurface({
@@ -49,13 +49,13 @@ define('famodev/Modals', [
             this._add(this._containerModifier).add(this._containerView);
 
             createBackground.call(this);
-            createContainerModals.call(this);
+            createContainerModal.call(this);
         }
-        Modals.prototype = Object.create(View.prototype);
-        Modals.prototype.constructor = Modals;
-        Modals.DEFAULT_OPTIONS = {};
+        Modal.prototype = Object.create(View.prototype);
+        Modal.prototype.constructor = Modal;
+        Modal.DEFAULT_OPTIONS = {};
 
-        var _containerModals = null;
+        var _containerModal = null;
 
         /**
          * Add Views
@@ -72,21 +72,21 @@ define('famodev/Modals', [
             this._containerView.add(this._bg);
         }
 
-        function createContainerModals () {
-            _containerModals = new RenderController();
-            _containerModalsModifier = new StateModifier({
+        function createContainerModal () {
+            _containerModal = new RenderController();
+            _containerModalModifier = new StateModifier({
                 origin: [0.5, 0.5],
                 align: [0.5, 0.5],
                 opacity: 1
             });
-            this._containerView.add(_containerModalsModifier).add(_containerModals);
+            this._containerView.add(_containerModalModifier).add(_containerModal);
         }
 
         /**
          * Methods
          */
-        Modals.prototype.show = function (renderable) {
-            _containerModals.show(renderable);
+        Modal.prototype.show = function (renderable) {
+            _containerModal.show(renderable);
             var size = renderable.size;
             if(size) {
                 size = [window.innerWidth - 40, size[1]];
@@ -116,10 +116,10 @@ define('famodev/Modals', [
         },
         isShow    = false,
         modifiers = {},
-        Modalss    = {},
+        modals    = {},
         _backdropModifier = null,
         _boxModifier = null,
-        _containerModalsModifier = null,
+        _containerModalModifier = null,
         _boxSurface = null;
         // add views
         function _createBackdrop () {
@@ -158,7 +158,7 @@ define('famodev/Modals', [
             });
         }
         function _createBox(){
-            _boxSurface = new Modals();
+            _boxSurface = new Modal();
 
             _boxModifier = {
                 transform: new TransitionableTransform(_status.inTransform),
@@ -208,14 +208,14 @@ define('famodev/Modals', [
         //start
         _createBackdrop();
         _createBox();
-        //_createContainerModals();
+        //_createContainerModal();
 
         /**
          * singleton pattern
          */
         module.exports = {
             register: function(key, renderable) {
-                Modalss[key] = renderable;
+                modals[key] = renderable;
             },
 
             show: function(key, cb) {
@@ -223,7 +223,7 @@ define('famodev/Modals', [
                     return this.hide.call(this, function () {
                         this.show(key, cb);
                     }.bind(this));
-                _boxSurface.show(Modalss[key]);
+                _boxSurface.show(modals[key]);
                 show(cb);
                 isShow = true;
             },
