@@ -45,7 +45,7 @@ define('famodev/ui/papers/PapersSystem', [
                 paper = this._renderablesStore.get(name);
             paper.hide(function(){
                 // remove
-                this._renderablesStore.remove(name);
+                // this._renderablesStore.remove(name);
                 this._renderables = _.without(this._renderables, paper);
             }.bind(this));
         },

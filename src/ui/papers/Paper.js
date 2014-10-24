@@ -36,17 +36,17 @@ define('famodev/ui/papers/Paper', [
         outAlign: [0.5, 0.5],
 
         // show
-        showTransform: Transform.identity,
+        showTransform: Transform.translate(0, 0, 0),
         showOpacity: 1,
         showOrigin: [0.5, 0.5],
         showAlign: [0.5, 0.5],
 
         inTransition: {
-            duration: 250,
+            duration: 350,
             curve: Easing.easeInOutBack
         },
         outTransition: {
-            duration: 250,
+            duration: 350,
             curve: Easing.easeInOutBack
         }
     };
@@ -82,7 +82,18 @@ define('famodev/ui/papers/Paper', [
      */
     _.extend(Paper.prototype, {
         show: function (callback) {
-            var _cb = callback ? Utility.after(3, callback) : undefined;
+            var self = this;
+            var _cb = callback ? Utility.after(3, function(){
+                callback();
+                // call rendered
+                if(self._renderable && self._renderable.rendered)
+                    self._renderable.rendered();
+            }) : Utility.after(3, function(){
+                // call rendered
+                if(self._renderable && self._renderable.rendered)
+                    self._renderable.rendered();
+            });
+
             var transition = _status.inTransition;
 
             this._boxModifier.transform.set(_status.showTransform, transition, _cb);
@@ -91,7 +102,17 @@ define('famodev/ui/papers/Paper', [
             this._boxModifier.align.set(_status.showAlign, transition, _cb);
         },
         hide: function (callback) {
-            var _cb = callback ? Utility.after(3, callback) : undefined;
+            var self = this;
+            var _cb = callback ? Utility.after(3, function(){
+                callback();
+                // call destroyed
+                if(self._renderable && self._renderable.destroyed)
+                    self._renderable.destroyed();
+            }) : Utility.after(3, function(){
+                // call destroyed
+                if(self._renderable && self._renderable.destroyed)
+                    self._renderable.destroyed();
+            });
             var transition = _status.outTransition;
 
             this._boxModifier.transform.set(_status.outTransform, transition, _cb);
