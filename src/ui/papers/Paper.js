@@ -42,11 +42,11 @@ define('famodev/ui/papers/Paper', [
         showAlign: [0.5, 0.5],
 
         inTransition: {
-            duration: 350,
+            duration: 500,
             curve: Easing.easeInOutBack
         },
         outTransition: {
-            duration: 350,
+            duration: 500,
             curve: Easing.easeInOutBack
         }
     };
