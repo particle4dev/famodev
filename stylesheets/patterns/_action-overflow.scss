@@ -1,0 +1,76 @@
+/**
+ * More menu
+ */
+.action-overflow {
+position: absolute;
+right: 6px;
+/**
+top: -9px;
+*/
+width: 60px;
+height: 44px;
+z-index: 99;
+overflow: hidden;
+-webkit-opacity: 0;
+-moz-opacity: 0;
+-o-opacity: 0;
+opacity: 0;
+-webkit-transform-origin: 100% 0%;
+-moz-transform-origin: 100% 0%;
+-o-transform-origin: 100% 0%;
+transform-origin: 100% 0%;
+-webkit-transition-property: -webkit-opacity;
+-webkit-transition-duration: .25s;
+-webkit-transition-timing-function: ease;
+-moz-transition-property: -moz-opacity;
+-moz-transition-duration: .25s;
+-moz-transition-timing-function: ease;
+-o-transition-property: -o-opacity;
+-o-transition-duration: .25s;
+-o-transition-timing-function: ease;
+transition-property: opacity;
+transition-duration: .25s;
+transition-timing-function: ease;
+
+    .top {
+    width: 268px;
+    height: 45px;
+    /**
+    background: url(/images/moremenu/more_top.png) no-repeat;
+    */
+    }
+    .mid {
+    padding: 10px 20px 0 20px;
+    background: url(/images/moremenu/more_mid.png) repeat-y;
+
+        .header {
+        border-bottom: 1px solid #ccc;
+        font-weight: bold;
+        }
+    }
+    .bottom {
+    width: 268px;
+    height: 6px;
+    background: url(/images/moremenu/more_bottom.png) no-repeat;
+    }
+}
+
+.action-overflow:hover, .action-overflow.hover {
+opacity: 1;
+height: auto;
+width: 268px;
+-webkit-transition-property: height, -webkit-opacity;
+}
+
+.moremenu {
+float: right;
+position: relative;
+width: 60px;
+height: 44px;
+display: block;
+overflow: hidden;
+-webkit-transition: width 0.25s ease;
+-moz-transition: width 0.25s ease;
+-o-transition: width 0.25s ease;
+transition: width 0.25s ease;
+}
