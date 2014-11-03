@@ -45,6 +45,7 @@ Package.on_use(function(api) {
         'src/ui/tabs/TabBar.js',
         'src/ui/tabs/TabButton.js',
         'src/ui/Slidershow.js', // [DEPRECATED]
+        'src/ui/Button.js', // stable v0.3.0
 
         'src/ui/toast/source.js', // stable v0.3.0
         'src/ui/papers/Paper.js', // stable v0.3.0
