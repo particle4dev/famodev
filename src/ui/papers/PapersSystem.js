@@ -39,10 +39,6 @@ define('famodev/ui/papers/PapersSystem', [
         },
         hide: function (name /** options */) {
             var paper;
-            console.log('==========================');
-            console.log(name);
-            console.log(this._renderables.length, '>>>>>>>>>>');
-            console.log('==========================');
             if(_.isUndefined(name)) 
                 paper = this._renderables[this._renderables.length - 1];
             else
