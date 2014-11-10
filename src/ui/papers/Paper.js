@@ -51,7 +51,8 @@ define('famodev/ui/papers/Paper', [
         }
     };
 
-    function Paper(renderable) {
+    function Paper(name, renderable) {
+        this._name          = name;
         this._node          = new RenderNode();
         this._renderable    = renderable;
 

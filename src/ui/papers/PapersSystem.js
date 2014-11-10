@@ -30,12 +30,14 @@ define('famodev/ui/papers/PapersSystem', [
      */
     _.extend(PapersSystem.prototype, {
         register: function (name, renderable) {
-            this._renderablesStore.set(name, new Paper(renderable));
+            this._renderablesStore.set(name, new Paper(name, renderable));
         },
         show: function (name) {
             var paper = this._renderablesStore.get(name);
             this._renderables.push(paper);
-            paper.show();
+            setTimeout(function(){
+                paper.show();
+            }, 0);
         },
         hide: function (name /** options */) {
             var paper;
@@ -46,7 +48,14 @@ define('famodev/ui/papers/PapersSystem', [
             paper.hide(function(){
                 // remove
                 // this._renderablesStore.remove(name); // no remove on register, paper can be show again
-                this._renderables = _.without(this._renderables, paper);
+                
+                // DOESNT WORK; the dom doesn't removed from document (body) why ???
+                // this._renderables = _.without(this._renderables, paper); 
+                
+                var index = this._renderables.indexOf(paper);
+                if (index > -1) {
+                    this._renderables.splice(index, 1);
+                }
             }.bind(this));
         },
         /**
@@ -58,6 +67,14 @@ define('famodev/ui/papers/PapersSystem', [
          */
         render: function () {
             return this.sequentialLayout.render();
+        },
+        
+
+
+        reset: function(){
+            while(this._renderables.length > 0) {
+                this._renderables.pop();
+            }
         }
     });
     /**
