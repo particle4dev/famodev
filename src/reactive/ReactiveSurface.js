@@ -96,7 +96,8 @@ define('famodev/reactive/ReactiveSurface',[
 //         });
 
 //         var mod = new Modifier({
-//             origin: [.5, .5]
+//             origin: [.5, .5],
+//             align: [.5, .5]
 //         });
 
 //         sur.on('destroyed', function(){
