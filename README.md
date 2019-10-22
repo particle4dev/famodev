@@ -1,1 +1,1 @@
-releases 0.3.0-rc2
+WARNING: This project is outdated and not maintained anymore.
